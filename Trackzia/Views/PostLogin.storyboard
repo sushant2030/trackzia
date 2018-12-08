@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="-1162" y="-186"/>
         </scene>
-        <!--View Controller-->
+        <!--Dashboard View Controller-->
         <scene sceneID="VkC-JB-bef">
             <objects>
-                <viewController id="2be-tk-fv1" sceneMemberID="viewController">
+                <viewController id="2be-tk-fv1" customClass="DashboardViewController" customModule="Trackzia" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FeS-0l-nIY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,13 +65,13 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxY-tR-Bim">
                                 <rect key="frame" x="0.0" y="64" width="375" height="201"/>
                                 <connections>
-                                    <segue destination="fUU-gF-GaY" kind="embed" id="s0G-Nw-Zao"/>
+                                    <segue destination="fUU-gF-GaY" kind="embed" identifier="ProfileDashboardSegue" id="s0G-Nw-Zao"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt8-u0-Pld">
                                 <rect key="frame" x="0.0" y="265" width="375" height="402"/>
                                 <connections>
-                                    <segue destination="NNi-5E-wpO" kind="embed" id="ps0-kH-p6z"/>
+                                    <segue destination="NNi-5E-wpO" kind="embed" identifier="OptionsDashboardSegue" id="ps0-kH-p6z"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -299,6 +299,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="DHp-lL-okc"/>
                                                         <constraint firstAttribute="height" constant="30" id="kr8-He-FHf"/>
                                                     </constraints>
+                                                    <state key="normal" backgroundImage="small_add"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -342,5 +343,6 @@
     <resources>
         <image name="down_arrow" width="900" height="780"/>
         <image name="profile_placeholder_placeholder" width="512" height="512"/>
+        <image name="small_add" width="512" height="512"/>
     </resources>
 </document>
