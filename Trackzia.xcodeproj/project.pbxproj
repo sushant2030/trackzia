@@ -15,6 +15,7 @@
 		54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54365A1921B98FB4008E650B /* PostLogin.storyboard */; };
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
 		54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1E21B9A870008E650B /* DashboardViewController.swift */; };
+		544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544FE26C21BD866F00479FBA /* PetProfileViewController.swift */; };
 		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
 		54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682221BD319C000C7379 /* PostLoginRouter.swift */; };
 		54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */; };
@@ -41,6 +42,7 @@
 		54365A1921B98FB4008E650B /* PostLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostLogin.storyboard; sourceTree = "<group>"; };
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
 		54365A1E21B9A870008E650B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		544FE26C21BD866F00479FBA /* PetProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
 		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
 		54A3682221BD319C000C7379 /* PostLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRouter.swift; sourceTree = "<group>"; };
 		54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				54F66B3C21BC1D4D00B47295 /* UserProfileViewController.swift */,
+				544FE26C21BD866F00479FBA /* PetProfileViewController.swift */,
 			);
 			path = UserProfileScene;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
+				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
