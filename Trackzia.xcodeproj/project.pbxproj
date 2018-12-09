@@ -16,6 +16,8 @@
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
 		54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1E21B9A870008E650B /* DashboardViewController.swift */; };
 		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
+		54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682221BD319C000C7379 /* PostLoginRouter.swift */; };
+		54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */; };
 		54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */; };
 		54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */; };
 		54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */; };
@@ -40,6 +42,8 @@
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
 		54365A1E21B9A870008E650B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
+		54A3682221BD319C000C7379 /* PostLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRouter.swift; sourceTree = "<group>"; };
+		54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewController.swift; sourceTree = "<group>"; };
 		54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOptionsListViewController.swift; sourceTree = "<group>"; };
 		54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableDataSource.swift; sourceTree = "<group>"; };
 		54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 		1C8E314621B6F78500169421 /* Trackzia */ = {
 			isa = PBXGroup;
 			children = (
+				54A3682121BD3181000C7379 /* Routers */,
 				54365A1B21B9A350008E650B /* Controllers */,
 				54365A1821B98F6D008E650B /* Views */,
 				1C8E314721B6F78500169421 /* AppDelegate.swift */,
@@ -108,6 +113,7 @@
 		54365A1B21B9A350008E650B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				54A3682421BD4D5A000C7379 /* AlertSettingsScene */,
 				7959E98021BCD5FA00EEB963 /* TabBarScene */,
 				54F66B3B21BC1CC800B47295 /* UserProfileScene */,
 				54F66B3821BBDA7900B47295 /* GeofenceScene */,
@@ -115,6 +121,22 @@
 				79C4A56921BBA1C400B72377 /* LoginScene */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		54A3682121BD3181000C7379 /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				54A3682221BD319C000C7379 /* PostLoginRouter.swift */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
+		54A3682421BD4D5A000C7379 /* AlertSettingsScene */ = {
+			isa = PBXGroup;
+			children = (
+				54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */,
+			);
+			path = AlertSettingsScene;
 			sourceTree = "<group>";
 		};
 		54F66B3721BBDA2400B47295 /* DashboardScene */ = {
@@ -237,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
@@ -248,6 +271,7 @@
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
 				54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */,
+				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
 				54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
