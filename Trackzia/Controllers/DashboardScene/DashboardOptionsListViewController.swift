@@ -13,6 +13,9 @@ enum DashboardOptionListMode {
     case userTrackOptions
 }
 
+protocol DashboardOptionsListViewControllerDelegate: class {
+    func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectUserOption option: DashboardListUserOption)
+}
 
 class DashboardOptionsListViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -30,6 +33,8 @@ class DashboardOptionsListViewController: UIViewController {
             }
         }
     }
+    
+    weak var delegate: DashboardOptionsListViewControllerDelegate!
     
     override func viewDidLoad() {
         setupTableForUserOptionsMode()
@@ -64,7 +69,14 @@ extension DashboardOptionsListViewController: DashboardTableDataSourceDelegate {
 }
 
 extension DashboardOptionsListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch dashboardOptionListMode {
+        case .userOptions:
+            guard let selectedOption = DashboardListUserOption(rawValue: indexPath.row) else { return }
+            delegate.dashboardOptionsListViewController(self, didSelectUserOption: selectedOption)
+        case .userTrackOptions: print("Havent implemented yet")
+        }
+    }
 }
 
 class DashboardCell: UITableViewCell {
@@ -100,4 +112,12 @@ func userTrackingOptionsModels() -> [[UserDashboardOption]] {
     let other = UserDashboardOption(text: "Other", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
     let addDevice = UserDashboardOption(text: "Add Device", showAddButton: true, isSelected: false, cellIdentifier: "TrackCategoryCell")
     return [[pet, kid, seniorCitizen, vehicle, other, addDevice]]
+}
+
+
+enum DashboardListUserOption: Int {
+    case profile = 0
+    case geofence
+    case changePassword
+    case alertSettings
 }

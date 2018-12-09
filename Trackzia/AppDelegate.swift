@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let splitViewController = window?.rootViewController as! UISplitViewController
         let navCtrl = UINavigationController(rootViewController: viewController)
         splitViewController.viewControllers[1] = navCtrl
-
         return true
     }
 
