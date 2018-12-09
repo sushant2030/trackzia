@@ -10,7 +10,8 @@ import UIKit
 
 class UserProfileViewController: UITableViewController {
     
-    @IBOutlet var userImageView: UIImageView!
+    @IBOutlet var userProfileImageView: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,9 @@ class UserProfileViewController: UITableViewController {
         tableView.backgroundColor = .clear
         tableView.backgroundView = bgImage
         
-        userImageView.layer.cornerRadius = 50.0
-        userImageView.layer.masksToBounds = true
+        userProfileImageView.layer.cornerRadius = 50.0
+        userProfileImageView.layer.masksToBounds = true
     }
 }
+
+
