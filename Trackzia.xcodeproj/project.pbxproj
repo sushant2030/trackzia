@@ -15,6 +15,7 @@
 		54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54365A1921B98FB4008E650B /* PostLogin.storyboard */; };
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
 		54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1E21B9A870008E650B /* DashboardViewController.swift */; };
+		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
 		54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */; };
 		54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */; };
 		54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */; };
@@ -38,6 +39,7 @@
 		54365A1921B98FB4008E650B /* PostLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostLogin.storyboard; sourceTree = "<group>"; };
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
 		54365A1E21B9A870008E650B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
 		54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOptionsListViewController.swift; sourceTree = "<group>"; };
 		54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableDataSource.swift; sourceTree = "<group>"; };
 		54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				79C4A56721BBA1AD00B72377 /* Login.storyboard */,
 				54365A1921B98FB4008E650B /* PostLogin.storyboard */,
 				7959E97E21BC57F100EEB963 /* TabBar.storyboard */,
+				54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				1C8E315221B6F79600169421 /* LaunchScreen.storyboard in Resources */,
 				1C8E314F21B6F79500169421 /* Assets.xcassets in Resources */,
 				1C8E314D21B6F78500169421 /* Main.storyboard in Resources */,
+				54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */,
 				79C4A56821BBA1AD00B72377 /* Login.storyboard in Resources */,
 				7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */,
 				54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */,
