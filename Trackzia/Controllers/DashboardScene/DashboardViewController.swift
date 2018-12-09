@@ -21,14 +21,19 @@ class DashboardViewController: UIViewController {
         
         if segue.identifier == "OptionsDashboardSegue" {
             dashboardOptionsController = (segue.destination as! DashboardOptionsListViewController)
+            dashboardOptionsController.delegate = self
         }
     }
-    
-    
 }
 
 extension DashboardViewController: DashboardProfileViewControllerDelegate {
     func arrowButtonTouched(_ sender: UIButton) {
         dashboardOptionsController.switchTableMode()
+    }
+}
+
+extension DashboardViewController: DashboardOptionsListViewControllerDelegate {
+    func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectUserOption option: DashboardListUserOption) {
+        PostLoginRouter.dashboardOptionsListViewController(dashboardOptionsListViewController, didSelectUserOption: option)
     }
 }
