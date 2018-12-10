@@ -15,6 +15,8 @@ enum DashboardOptionListMode {
 
 protocol DashboardOptionsListViewControllerDelegate: class {
     func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectUserOption option: DashboardListUserOption)
+    
+    func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectTrackListOption option: DashboardTrackListOptions)
 }
 
 class DashboardOptionsListViewController: UIViewController {
@@ -72,9 +74,12 @@ extension DashboardOptionsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch dashboardOptionListMode {
         case .userOptions:
-            guard let selectedOption = DashboardListUserOption(rawValue: indexPath.row) else { return }
+            guard let selectedOption = DashboardListUserOption(rawValue: indexPath.row) else { fatalError("No such option for DashboardListUserOption") }
             delegate.dashboardOptionsListViewController(self, didSelectUserOption: selectedOption)
-        case .userTrackOptions: print("Havent implemented yet")
+        case .userTrackOptions:
+            guard let selectedOption = DashboardTrackListOptions(rawValue: indexPath.row) else { fatalError("No such option for DashboardTrackListOptions") }
+            delegate.dashboardOptionsListViewController(self, didSelectTrackListOption: selectedOption)
+            
         }
     }
 }
@@ -120,4 +125,13 @@ enum DashboardListUserOption: Int {
     case geofence
     case changePassword
     case alertSettings
+}
+
+enum DashboardTrackListOptions: Int {
+    case pet
+    case kid
+    case seniorCitizen
+    case vehicle
+    case other
+    case addDevice
 }

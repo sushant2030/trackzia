@@ -43,5 +43,30 @@ class PostLoginRouter {
         splitViewController.showDetailViewController(navCtrl, sender: nil)
     }
     
-    
+    class func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectTrackListOption option: DashboardTrackListOptions) {
+        var storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "HomeVC")
+        let navCtrl = UINavigationController(rootViewController: viewController)
+        
+        switch option {
+        case .pet:
+            storyboard = UIStoryboard(name: "ProfileEditing", bundle: nil)
+            let petProfileViewController = storyboard.instantiateViewController(withIdentifier: "PetProfileViewController")
+            navCtrl.pushViewController(petProfileViewController, animated: true)
+            
+        case .kid:
+            storyboard = UIStoryboard(name: "ProfileEditing", bundle: nil)
+            let kidProfileViewController = storyboard.instantiateViewController(withIdentifier: "KidProfileViewController")
+            navCtrl.pushViewController(kidProfileViewController, animated: true)
+            
+        case .other:
+            storyboard = UIStoryboard(name: "ProfileEditing", bundle: nil)
+            let otherProfileViewController = storyboard.instantiateViewController(withIdentifier: "OtherProfileViewController")
+            navCtrl.pushViewController(otherProfileViewController, animated: true)
+            
+        default:
+            print("No other implementations")
+        }
+        splitViewController.showDetailViewController(navCtrl, sender: nil)
+    }
 }

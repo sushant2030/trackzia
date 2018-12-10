@@ -36,4 +36,8 @@ extension DashboardViewController: DashboardOptionsListViewControllerDelegate {
     func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectUserOption option: DashboardListUserOption) {
         PostLoginRouter.dashboardOptionsListViewController(dashboardOptionsListViewController, didSelectUserOption: option)
     }
+    
+    func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectTrackListOption option: DashboardTrackListOptions) {
+        PostLoginRouter.dashboardOptionsListViewController(dashboardOptionsListViewController, didSelectTrackListOption: option)
+    }
 }
