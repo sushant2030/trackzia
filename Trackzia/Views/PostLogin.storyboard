@@ -377,10 +377,10 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzP-DI-A0x">
-                                        <rect key="frame" x="312" y="18" width="45" height="45"/>
+                                        <rect key="frame" x="331" y="33" width="26" height="15"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="4mn-NX-dMk"/>
-                                            <constraint firstAttribute="width" constant="45" id="Tyw-ig-nx4"/>
+                                            <constraint firstAttribute="height" constant="15" id="4mn-NX-dMk"/>
+                                            <constraint firstAttribute="width" constant="26" id="Tyw-ig-nx4"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="down_arrow"/>
                                         <connections>
