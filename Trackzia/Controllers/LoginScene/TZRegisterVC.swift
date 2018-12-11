@@ -30,6 +30,10 @@ class TZRegisterVC: UIViewController {
     @IBAction func loginBtnAction(_ sender: UIButton) {
         dismiss(animated: false, completion: nil)
     }
+    @IBAction func sendVerificationAction(_ sender: UIButton) {
+        let verifyVC = UIStoryboard.init(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "TZVerifyVC")
+        self.present(verifyVC, animated: false, completion: nil)
+    }
 }
 
 //MARK: - UITextField Delegates

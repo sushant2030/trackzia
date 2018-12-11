@@ -29,10 +29,14 @@
 		54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */; };
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
+		7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */; };
+		7986225F21C03AF200510240 /* TZQRVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225E21C03AF200510240 /* TZQRVC.swift */; };
 		79C4A56821BBA1AD00B72377 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79C4A56721BBA1AD00B72377 /* Login.storyboard */; };
 		79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */; };
 		79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */; };
 		79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56C21BBA1C400B72377 /* TZRegisterVC.swift */; };
+		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
+		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +64,14 @@
 		54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleProfileViewController.swift; sourceTree = "<group>"; };
 		7959E97E21BC57F100EEB963 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		7959E98121BCD65C00EEB963 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZCreateProfileVC.swift; sourceTree = "<group>"; };
+		7986225E21C03AF200510240 /* TZQRVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZQRVC.swift; sourceTree = "<group>"; };
 		79C4A56721BBA1AD00B72377 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZLoginVC.swift; sourceTree = "<group>"; };
 		79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZForgetVC.swift; sourceTree = "<group>"; };
 		79C4A56C21BBA1C400B72377 /* TZRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZRegisterVC.swift; sourceTree = "<group>"; };
+		79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVerifyVC.swift; sourceTree = "<group>"; };
+		79DCF33921BF059200460F17 /* TZAssignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssignVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +203,10 @@
 				79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */,
 				79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */,
 				79C4A56C21BBA1C400B72377 /* TZRegisterVC.swift */,
+				79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */,
+				79DCF33921BF059200460F17 /* TZAssignVC.swift */,
+				7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */,
+				7986225E21C03AF200510240 /* TZQRVC.swift */,
 			);
 			path = LoginScene;
 			sourceTree = "<group>";
@@ -277,9 +289,11 @@
 				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
+				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
+				7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
@@ -289,6 +303,7 @@
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
+				79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */,
 				54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */,
 				54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */,
 				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
