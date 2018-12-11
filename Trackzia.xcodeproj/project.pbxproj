@@ -25,6 +25,8 @@
 		54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3C21BC1D4D00B47295 /* UserProfileViewController.swift */; };
 		54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F75FBF21BEE4FE007875E6 /* KidProfileViewController.swift */; };
 		54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F75FC121BEEB9B007875E6 /* OtherProfileViewController.swift */; };
+		54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */; };
+		54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */; };
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
 		79C4A56821BBA1AD00B72377 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79C4A56721BBA1AD00B72377 /* Login.storyboard */; };
@@ -54,6 +56,8 @@
 		54F66B3C21BC1D4D00B47295 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		54F75FBF21BEE4FE007875E6 /* KidProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KidProfileViewController.swift; sourceTree = "<group>"; };
 		54F75FC121BEEB9B007875E6 /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
+		54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorCitizenProfileViewController.swift; sourceTree = "<group>"; };
+		54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleProfileViewController.swift; sourceTree = "<group>"; };
 		7959E97E21BC57F100EEB963 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		7959E98121BCD65C00EEB963 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		79C4A56721BBA1AD00B72377 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				544FE26C21BD866F00479FBA /* PetProfileViewController.swift */,
 				54F75FBF21BEE4FE007875E6 /* KidProfileViewController.swift */,
 				54F75FC121BEEB9B007875E6 /* OtherProfileViewController.swift */,
+				54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */,
+				54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */,
 			);
 			path = UserProfileScene;
 			sourceTree = "<group>";
@@ -272,6 +278,7 @@
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
+				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
@@ -283,6 +290,7 @@
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
 				54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */,
+				54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */,
 				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
 				54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */,
 			);

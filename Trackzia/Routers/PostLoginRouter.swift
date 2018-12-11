@@ -64,6 +64,17 @@ class PostLoginRouter {
             let otherProfileViewController = storyboard.instantiateViewController(withIdentifier: "OtherProfileViewController")
             navCtrl.pushViewController(otherProfileViewController, animated: true)
             
+        case .seniorCitizen:
+            storyboard = UIStoryboard(name: "ProfileEditing", bundle: nil)
+            let seniorCitizenProfileViewController = storyboard.instantiateViewController(withIdentifier: "SeniorCitizenProfileViewController")
+            navCtrl.pushViewController(seniorCitizenProfileViewController, animated: true)
+            
+        case .vehicle:
+            storyboard = UIStoryboard(name: "ProfileEditing", bundle: nil)
+            let vehicleProfileViewController = storyboard.instantiateViewController(withIdentifier: "VehicleProfileViewController")
+            navCtrl.pushViewController(vehicleProfileViewController, animated: true)
+            
+            
         default:
             print("No other implementations")
         }
