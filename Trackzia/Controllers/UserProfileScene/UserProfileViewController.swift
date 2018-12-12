@@ -34,16 +34,5 @@ class UserProfileViewController: UITableViewController {
     }
 }
 
-extension UserProfileViewController: CommunicationResultListener {
-    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
-        print("Success")
-    }
-    
-    func onFailure(operationId: Int, error: Error, data: Data?) {
-        print("Success")
-    }
-    
-    
-}
 
 

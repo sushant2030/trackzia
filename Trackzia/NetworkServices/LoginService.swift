@@ -35,13 +35,44 @@ class LoginService: CommunicationEndPoint {
     }
     
     func parseResponse(withOperationId operationId: Int, andStatusCode: Int, data: Data) throws -> CommunicationOperationResult {
-        
-        return ComOperationResult()
+        if let dataString = String(data: data, encoding: .utf8) {
+            print(dataString)
+        }
+        // EG: Success
+        //{"Message":"Login Successfully","Success":true,"Data":{"AccountID":"Acc20181208095428me1HjI"}}
+        // EG: Failure by wrong password
+        //{"Message":"Password Wrong","Success":false,"Data":null}
+        // EG: Failure by nonexisting account
+        //{"Message":"Account Not Exists","Success":false,"Data":null}
+        do {
+            let decoder = JSONDecoder()
+            let loginServiceResult = try decoder.decode(LoginServiceResult.self, from: data)
+            return loginServiceResult
+        } catch let jsonParsingError {
+            fatalError(jsonParsingError.localizedDescription)
+        }
     }
     
     
 }
 
-class ComOperationResult: CommunicationOperationResult {
+class LoginServiceResult: CommunicationOperationResult, Codable {
+    let message: String
+    let success: Bool
+    let data:LoginAccountData?
     
+    private enum CodingKeys: String, CodingKey {
+        case message = "Message"
+        case success = "Success"
+        case data = "Data"
+    }
+    
+    class LoginAccountData: Codable {
+        var accountID: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case accountID = "AccountID"
+        }
+    }
 }
+

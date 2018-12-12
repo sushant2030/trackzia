@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ApiManager
 
 class TZLoginVC: UIViewController {
 
@@ -43,7 +44,9 @@ class TZLoginVC: UIViewController {
     }
     
     @IBAction func signInBtnAction(_ sender: UIButton) {
-        PostLoginRouter.showPostLoginHomeView()
+        guard let mobileNumber = mobileNumbertextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        CommunicationManager.getCommunicator().performOpertaion(with: LoginService(mobileNumber: mobileNumber, password: password, listener: self))
     }
     //MARK : - Customizing Views
     func customizingViews() {
@@ -63,4 +66,16 @@ extension TZLoginVC : UITextFieldDelegate {
         passwordTextField.resignFirstResponder()
 
     }
+}
+extension TZLoginVC: CommunicationResultListener {
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        guard let result = operation as? LoginServiceResult else { return }
+        PostLoginRouter.showPostLoginHomeView()
+    }
+    
+    func onFailure(operationId: Int, error: Error, data: Data?) {
+        
+    }
+    
+    
 }
