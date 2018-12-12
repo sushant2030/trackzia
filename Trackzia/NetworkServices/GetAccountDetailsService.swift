@@ -1,16 +1,16 @@
 //
-//  LoginService.swift
+//  GetAccountDetailsService.swift
 //  Trackzia
 //
-//  Created by Rohan Bhale on 11/12/18.
+//  Created by Rohan Bhale on 12/12/18.
 //  Copyright © 2018 Private. All rights reserved.
 //
 
 import ApiManager
 
-class LoginService: CommunicationEndPoint {
+class GetAccountDetailsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Login/Authenticate"
+        return "http://13.233.18.64:1166/api/Account/GetDetails"
     }
     
     var httpMethod = HTTPMethod.post
@@ -18,7 +18,7 @@ class LoginService: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
-        return ["Mobile":mobileNumber, "Password":password]
+        return ["Mobile":mobileNumber]
     }
     
     var operationId: Int = 0
@@ -26,15 +26,17 @@ class LoginService: CommunicationEndPoint {
     var listener: CommunicationResultListener
     
     let mobileNumber: String
-    let password: String
+   
     
-    init(mobileNumber: String, password: String, listener: CommunicationResultListener) {
+    init(mobileNumber: String, listener: CommunicationResultListener) {
         self.mobileNumber = mobileNumber
-        self.password = password
         self.listener = listener
     }
     
     func parseResponse(withOperationId operationId: Int, andStatusCode: Int, data: Data) throws -> CommunicationOperationResult {
+        if let dataString = String(data: data, encoding: .utf8) {
+            print(dataString)
+        }
         // EG: Success
         //{"Message":"Login Successfully","Success":true,"Data":{"AccountID":"Acc20181208095428me1HjI"}}
         // EG: Failure by wrong password
@@ -53,23 +55,23 @@ class LoginService: CommunicationEndPoint {
     
 }
 
-class LoginServiceResult: CommunicationOperationResult, Codable {
-    let message: String
-    let success: Bool
-    let data:LoginAccountData?
-    
-    private enum CodingKeys: String, CodingKey {
-        case message = "Message"
-        case success = "Success"
-        case data = "Data"
-    }
-    
-    class LoginAccountData: Codable {
-        var accountID: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case accountID = "AccountID"
-        }
-    }
-}
+//class LoginServiceResult: CommunicationOperationResult, Codable {
+//    let message: String
+//    let success: Bool
+//    let data:LoginAccountData?
+//
+//    private enum CodingKeys: String, CodingKey {
+//        case message = "Message"
+//        case success = "Success"
+//        case data = "Data"
+//    }
+//
+//    class LoginAccountData: Codable {
+//        var accountID: String
+//
+//        private enum CodingKeys: String, CodingKey {
+//            case accountID = "AccountID"
+//        }
+//    }
+//}
 

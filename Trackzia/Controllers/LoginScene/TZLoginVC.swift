@@ -67,6 +67,7 @@ extension TZLoginVC : UITextFieldDelegate {
 
     }
 }
+
 extension TZLoginVC: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
         guard let result = operation as? LoginServiceResult else { return }

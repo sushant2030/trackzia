@@ -19,6 +19,7 @@
 		54665BBE21C1724A00251267 /* ApiManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; };
 		54665BBF21C1724A00251267 /* ApiManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54665BC521C1728E00251267 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC421C1728E00251267 /* LoginService.swift */; };
+		54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC621C1870500251267 /* GetAccountDetailsService.swift */; };
 		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
 		54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682221BD319C000C7379 /* PostLoginRouter.swift */; };
 		54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */; };
@@ -69,6 +70,7 @@
 		544FE26C21BD866F00479FBA /* PetProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
 		54665BBD21C1724A00251267 /* ApiManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApiManager.framework; path = Trackzia/Frameworks/Simulator/ApiManager.framework; sourceTree = "<group>"; };
 		54665BC421C1728E00251267 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		54665BC621C1870500251267 /* GetAccountDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountDetailsService.swift; sourceTree = "<group>"; };
 		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
 		54A3682221BD319C000C7379 /* PostLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRouter.swift; sourceTree = "<group>"; };
 		54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				54665BC421C1728E00251267 /* LoginService.swift */,
+				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
+				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,

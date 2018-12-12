@@ -30,9 +30,20 @@ class UserProfileViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//       CommunicationManager.getCommunicator().performOpertaion(with: LoginService(listener: self))
+        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680548", listener: self))
     }
 }
 
 
 
+extension UserProfileViewController: CommunicationResultListener {
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        print("Success")
+    }
+    
+    func onFailure(operationId: Int, error: Error, data: Data?) {
+        print("Failure")
+    }
+    
+    
+}
