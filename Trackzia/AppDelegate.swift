@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red: CGFloat(240.0 / 255.0), green: 0.0, blue: CGFloat(27.0 / 255.0), alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.white
         
-        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "HomeVC")
-        
-        let splitViewController = window?.rootViewController as! UISplitViewController
-        let navCtrl = UINavigationController(rootViewController: viewController)
-        splitViewController.viewControllers[1] = navCtrl
+//        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "HomeVC")
+//        
+//        let splitViewController = window?.rootViewController as! UISplitViewController
+//        let navCtrl = UINavigationController(rootViewController: viewController)
+//        splitViewController.viewControllers[1] = navCtrl
         return true
     }
 

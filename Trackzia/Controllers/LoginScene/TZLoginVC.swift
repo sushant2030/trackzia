@@ -41,6 +41,10 @@ class TZLoginVC: UIViewController {
         let forgetVC = UIStoryboard.init(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "TZForgetVC")
         self.present(forgetVC, animated: false, completion: nil)
     }
+    
+    @IBAction func signInBtnAction(_ sender: UIButton) {
+        PostLoginRouter.showPostLoginHomeView()
+    }
     //MARK : - Customizing Views
     func customizingViews() {
         mobileNumbertextField.attributedPlaceholder = NSAttributedString(string: "Enter Mobile Number", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])

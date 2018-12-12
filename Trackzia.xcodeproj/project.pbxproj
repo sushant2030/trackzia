@@ -16,6 +16,9 @@
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
 		54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1E21B9A870008E650B /* DashboardViewController.swift */; };
 		544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544FE26C21BD866F00479FBA /* PetProfileViewController.swift */; };
+		54665BBE21C1724A00251267 /* ApiManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; };
+		54665BBF21C1724A00251267 /* ApiManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54665BC521C1728E00251267 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC421C1728E00251267 /* LoginService.swift */; };
 		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
 		54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682221BD319C000C7379 /* PostLoginRouter.swift */; };
 		54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */; };
@@ -30,7 +33,6 @@
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
 		7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */; };
-		7986225F21C03AF200510240 /* TZQRVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225E21C03AF200510240 /* TZQRVC.swift */; };
 		79C4A56821BBA1AD00B72377 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79C4A56721BBA1AD00B72377 /* Login.storyboard */; };
 		79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */; };
 		79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */; };
@@ -38,6 +40,20 @@
 		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
 		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		54665BC021C1724A00251267 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				54665BBF21C1724A00251267 /* ApiManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1C8E314421B6F78500169421 /* Trackzia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trackzia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +67,8 @@
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
 		54365A1E21B9A870008E650B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		544FE26C21BD866F00479FBA /* PetProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
+		54665BBD21C1724A00251267 /* ApiManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApiManager.framework; path = Trackzia/Frameworks/Simulator/ApiManager.framework; sourceTree = "<group>"; };
+		54665BC421C1728E00251267 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
 		54A3682221BD319C000C7379 /* PostLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRouter.swift; sourceTree = "<group>"; };
 		54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54665BBE21C1724A00251267 /* ApiManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +107,7 @@
 		1C8E313B21B6F78400169421 = {
 			isa = PBXGroup;
 			children = (
+				54665BBD21C1724A00251267 /* ApiManager.framework */,
 				1C8E314621B6F78500169421 /* Trackzia */,
 				1C8E314521B6F78500169421 /* Products */,
 			);
@@ -104,6 +124,7 @@
 		1C8E314621B6F78500169421 /* Trackzia */ = {
 			isa = PBXGroup;
 			children = (
+				54665BC321C1728E00251267 /* NetworkServices */,
 				54A3682121BD3181000C7379 /* Routers */,
 				54365A1B21B9A350008E650B /* Controllers */,
 				54365A1821B98F6D008E650B /* Views */,
@@ -139,6 +160,14 @@
 				79C4A56921BBA1C400B72377 /* LoginScene */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		54665BC321C1728E00251267 /* NetworkServices */ = {
+			isa = PBXGroup;
+			children = (
+				54665BC421C1728E00251267 /* LoginService.swift */,
+			);
+			path = NetworkServices;
 			sourceTree = "<group>";
 		};
 		54A3682121BD3181000C7379 /* Routers */ = {
@@ -221,6 +250,7 @@
 				1C8E314021B6F78400169421 /* Sources */,
 				1C8E314121B6F78400169421 /* Frameworks */,
 				1C8E314221B6F78400169421 /* Resources */,
+				54665BC021C1724A00251267 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -299,6 +329,7 @@
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
+				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
@@ -455,6 +486,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BZKRU747GN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Trackzia/Frameworks/Simulator",
+				);
 				INFOPLIST_FILE = Trackzia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -473,6 +508,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BZKRU747GN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Trackzia/Frameworks/Simulator",
+				);
 				INFOPLIST_FILE = Trackzia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

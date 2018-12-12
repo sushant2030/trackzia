@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ApiManager
 
 class UserProfileViewController: UITableViewController {
     
@@ -27,6 +28,22 @@ class UserProfileViewController: UITableViewController {
         userProfileImageView.layer.cornerRadius = 50.0
         userProfileImageView.layer.masksToBounds = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//       CommunicationManager.getCommunicator().performOpertaion(with: LoginService(listener: self))
+    }
+}
+
+extension UserProfileViewController: CommunicationResultListener {
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        print("Success")
+    }
+    
+    func onFailure(operationId: Int, error: Error, data: Data?) {
+        print("Success")
+    }
+    
+    
 }
 
 
