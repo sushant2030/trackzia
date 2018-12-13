@@ -1,17 +1,17 @@
 //
-//  ChangePasswordService.swift
+//  AddOtherProfileService.swift
 //  Trackzia
 //
-//  Created by Sushant Alone on 13/12/18.
+//  Created by Sushant Alone on 14/12/18.
 //  Copyright © 2018 Private. All rights reserved.
 //
 
 import Foundation
 import ApiManager
 
-class ChangePasswordService : CommunicationEndPoint {
-    var urlPath: String{
-        return "http://13.233.18.64:1166/api/Account/ResetPassword"
+class AddOtherProfileService : CommunicationEndPoint {
+    var urlPath: String {
+        return "http://13.233.18.64:1166/api/Profiles/UpdateOther"
     }
     
     var httpMethod: HTTPMethod {
@@ -23,37 +23,38 @@ class ChangePasswordService : CommunicationEndPoint {
     }
     
     var parameters: Parameters? {
-        return ["Mobile":self.mobile,"Password":self.newPassword,"OldPassword":self.oldPassword]
+        return ["Name":self.name,"Description":self.description]
     }
     
     var operationId: Int {
-        return 5
+        return 8
     }
     
+    var name:String!
+    var description:String!
+
+    
     var listener: CommunicationResultListener
-    var mobile:String
-    var oldPassword:String
-    var newPassword:String
     
     func parseResponse(withOperationId operationId: Int, andStatusCode: Int, data: Data) throws -> CommunicationOperationResult {
         do {
             let decoder = JSONDecoder()
-            let confirmPassword = try decoder.decode(ConfirmPassword.self, from: data)
-            return confirmPassword
+            let otherProfile = try decoder.decode(OtherProfiles.self, from: data)
+            return otherProfile
         } catch let jsonParsingError {
             fatalError(jsonParsingError.localizedDescription)
         }
     }
     
-    init(withMobileNumber mobile:String, withOldPassword oldPassword:String, andNewPassword newPassword:String, andListner listener:CommunicationResultListener) {
-        self.mobile = mobile
-        self.oldPassword = oldPassword
-        self.newPassword = newPassword
+    init(withName name:String, description:String, listener:CommunicationResultListener) {
+        self.name = name
+        self.description = description
         self.listener = listener
-    }    
+    }
 }
 
-struct ConfirmPassword: CommunicationOperationResult, Codable {
+
+struct OtherProfiles : Codable,CommunicationOperationResult {
     var message: String
     var success: Bool
     
@@ -68,5 +69,4 @@ struct ConfirmPassword: CommunicationOperationResult, Codable {
         try container.encode(message, forKey: .message)
         try container.encode(success, forKey: .success)
     }
-    
 }

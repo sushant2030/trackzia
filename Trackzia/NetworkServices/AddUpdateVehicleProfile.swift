@@ -1,17 +1,18 @@
 //
-//  ChangePasswordService.swift
+//  AddUpdateVehicleProfile.swift
 //  Trackzia
 //
-//  Created by Sushant Alone on 13/12/18.
+//  Created by Sushant Alone on 14/12/18.
 //  Copyright © 2018 Private. All rights reserved.
 //
 
 import Foundation
 import ApiManager
 
-class ChangePasswordService : CommunicationEndPoint {
-    var urlPath: String{
-        return "http://13.233.18.64:1166/api/Account/ResetPassword"
+
+class AddUpdateVehicle : CommunicationEndPoint {
+    var urlPath: String {
+        return "http://13.233.18.64:1166/api/Profiles/UpdateVehicle"
     }
     
     var httpMethod: HTTPMethod {
@@ -23,37 +24,46 @@ class ChangePasswordService : CommunicationEndPoint {
     }
     
     var parameters: Parameters? {
-        return ["Mobile":self.mobile,"Password":self.newPassword,"OldPassword":self.oldPassword]
+        return ["Name":self.name,"Type":self.type,"ChassieNo":self.chassieNo,"PurchaseDate":self.purchaseDate,"Color":self.color,"Model":self.model]
     }
     
     var operationId: Int {
-        return 5
+        return 7
     }
     
+    var name:String!
+    var chassieNo:String!
+    var purchaseDate:String!
+    var type:String!
+    var color:String!
+    var model:String!
+    
+    
     var listener: CommunicationResultListener
-    var mobile:String
-    var oldPassword:String
-    var newPassword:String
     
     func parseResponse(withOperationId operationId: Int, andStatusCode: Int, data: Data) throws -> CommunicationOperationResult {
         do {
             let decoder = JSONDecoder()
-            let confirmPassword = try decoder.decode(ConfirmPassword.self, from: data)
-            return confirmPassword
+            let vehicleProfile = try decoder.decode(VehicleProfile.self, from: data)
+            return vehicleProfile
         } catch let jsonParsingError {
             fatalError(jsonParsingError.localizedDescription)
         }
     }
     
-    init(withMobileNumber mobile:String, withOldPassword oldPassword:String, andNewPassword newPassword:String, andListner listener:CommunicationResultListener) {
-        self.mobile = mobile
-        self.oldPassword = oldPassword
-        self.newPassword = newPassword
+    init(withName name:String, type:String, chassieNo:String, purchaseDate:String, color:String, model:String, listener:CommunicationResultListener) {
+        self.name = name
+        self.chassieNo = chassieNo
+        self.purchaseDate = purchaseDate
+        self.color = color
+        self.type = type
+        self.model = model
         self.listener = listener
-    }    
+    }
 }
 
-struct ConfirmPassword: CommunicationOperationResult, Codable {
+
+struct VehicleProfile : Codable,CommunicationOperationResult {
     var message: String
     var success: Bool
     
@@ -68,5 +78,4 @@ struct ConfirmPassword: CommunicationOperationResult, Codable {
         try container.encode(message, forKey: .message)
         try container.encode(success, forKey: .success)
     }
-    
 }

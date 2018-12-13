@@ -39,6 +39,9 @@
 		79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */; };
 		79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */; };
 		79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4A56C21BBA1C400B72377 /* TZRegisterVC.swift */; };
+		79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6B4E821C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift */; };
+		79D6B4EB21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */; };
+		79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */; };
 		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
 		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +95,9 @@
 		79C4A56A21BBA1C400B72377 /* TZLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZLoginVC.swift; sourceTree = "<group>"; };
 		79C4A56B21BBA1C400B72377 /* TZForgetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZForgetVC.swift; sourceTree = "<group>"; };
 		79C4A56C21BBA1C400B72377 /* TZRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TZRegisterVC.swift; sourceTree = "<group>"; };
+		79D6B4E821C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateSeniorProfiles.swift; sourceTree = "<group>"; };
+		79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateVehicleProfile.swift; sourceTree = "<group>"; };
+		79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherProfileService.swift; sourceTree = "<group>"; };
 		79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVerifyVC.swift; sourceTree = "<group>"; };
 		79DCF33921BF059200460F17 /* TZAssignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssignVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +178,9 @@
 				54665BC421C1728E00251267 /* LoginService.swift */,
 				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
 				791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */,
+				79D6B4E821C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift */,
+				79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */,
+				79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -322,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D6B4EB21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift in Sources */,
 				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
@@ -334,8 +344,10 @@
 				791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
+				79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
+				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
 				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
