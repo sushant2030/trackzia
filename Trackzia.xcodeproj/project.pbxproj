@@ -35,6 +35,7 @@
 		54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */; };
 		54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */; };
 		791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */; };
+		795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795098AF21C5636B004D43CE /* GetDeviceDataService.swift */; };
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
 		7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */; };
@@ -93,6 +94,7 @@
 		54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorCitizenProfileViewController.swift; sourceTree = "<group>"; };
 		54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleProfileViewController.swift; sourceTree = "<group>"; };
 		791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordService.swift; sourceTree = "<group>"; };
+		795098AF21C5636B004D43CE /* GetDeviceDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeviceDataService.swift; sourceTree = "<group>"; };
 		7959E97E21BC57F100EEB963 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		7959E98121BCD65C00EEB963 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZCreateProfileVC.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				79D6B4E821C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift */,
 				79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */,
 				79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */,
+				795098AF21C5636B004D43CE /* GetDeviceDataService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
 				79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */,
 				548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */,
+				795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
 				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
