@@ -38,21 +38,53 @@ class GetAccountDetailsService: CommunicationEndPoint {
             print(dataString)
         }
         // EG: Success
-        //{"Message":"Login Successfully","Success":true,"Data":{"AccountID":"Acc20181208095428me1HjI"}}
-        // EG: Failure by wrong password
-        //{"Message":"Password Wrong","Success":false,"Data":null}
-        // EG: Failure by nonexisting account
+        //{"Message":"Account GetDetails Successfully","Success":true,"Data":{"EmailId":"akanksha.makos@gmail.com","City":"Solapur","Gender":"Female","Country":"India","AccName":"Akanksha Analkar","Mobile":"9422680548","DOB":"26-4-1997","StateName":"Maharashtra"}}
+        // EG: Failure by unregistered mobile number
         //{"Message":"Account Not Exists","Success":false,"Data":null}
         do {
             let decoder = JSONDecoder()
-            let loginServiceResult = try decoder.decode(LoginServiceResult.self, from: data)
-            return loginServiceResult
+            let accountDetailServiceResult = try decoder.decode(GetAccountDetailsServiceResult.self, from: data)
+            return accountDetailServiceResult
         } catch let jsonParsingError {
             fatalError(jsonParsingError.localizedDescription)
         }
     }
     
     
+}
+
+struct GetAccountDetailsServiceResult: CommunicationOperationResult, Codable {
+    let message: String
+    let success: Bool
+    let data: AccountDetailsData?
+    
+    private enum CodingKeys: String, CodingKey {
+        case message = "Message"
+        case success = "Success"
+        case data = "Data"
+    }
+    
+    struct AccountDetailsData: Codable {
+        let emailId: String?
+        let city: String?
+        let gender: String?
+        let country: String?
+        let accName: String?
+        let mobile: String
+        let dob: String?
+        let stateName: String?
+        
+        private enum CodingKeys: String, CodingKey {
+            case emailId = "EmailId"
+            case city = "City"
+            case gender = "Gender"
+            case country = "Country"
+            case accName = "AccName"
+            case mobile = "Mobile"
+            case dob = "DOB"
+            case stateName = "StateName"
+        }
+    }
 }
 
 //class LoginServiceResult: CommunicationOperationResult, Codable {

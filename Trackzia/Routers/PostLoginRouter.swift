@@ -81,7 +81,7 @@ class PostLoginRouter {
         splitViewController.showDetailViewController(navCtrl, sender: nil)
     }
     
-    class func showPostLoginHomeView() {
+    class func showHomeView() {
         let storyboard = UIStoryboard(name: "PostLogin", bundle: nil)
         let splitViewController = storyboard.instantiateViewController(withIdentifier: "MainSplitViewController") as! UISplitViewController
         

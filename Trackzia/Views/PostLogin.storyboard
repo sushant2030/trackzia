@@ -313,6 +313,7 @@
                                                     <constraint firstItem="OXd-ea-cQ0" firstAttribute="leading" secondItem="InJ-TG-PNn" secondAttribute="leading" id="U4G-XP-sTS"/>
                                                     <constraint firstAttribute="trailing" secondItem="Vsl-Sc-8Ux" secondAttribute="trailing" id="URx-ib-VT8"/>
                                                     <constraint firstAttribute="trailing" secondItem="OXd-ea-cQ0" secondAttribute="trailing" id="gfp-4F-43c"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Vsl-Sc-8Ux" secondAttribute="bottom" id="luK-HK-XQE"/>
                                                     <constraint firstItem="Vsl-Sc-8Ux" firstAttribute="leading" secondItem="InJ-TG-PNn" secondAttribute="leading" id="rF0-RV-IL4"/>
                                                 </constraints>
                                                 <connections>

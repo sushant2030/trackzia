@@ -12,6 +12,13 @@ import ApiManager
 class UserProfileViewController: UITableViewController {
     
     @IBOutlet var userProfileImageView: UIImageView!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var genderTextField: UITextField!
+    @IBOutlet var birthDateTextField: UITextField!
+    @IBOutlet var countryTextField: UITextField!
+    @IBOutlet var stateTextField: UITextField!
+    @IBOutlet var cityTextField: UITextField!
+    @IBOutlet var emailIdTextField: UITextField!
     
     
     override func viewDidLoad() {
@@ -31,6 +38,8 @@ class UserProfileViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680548", listener: self))
+        
+//        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680567", listener: self))
     }
 }
 
@@ -39,6 +48,15 @@ class UserProfileViewController: UITableViewController {
 extension UserProfileViewController: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
         print("Success")
+        if let result = operation as? GetAccountDetailsServiceResult, result.success {
+            nameTextField.text = result.data?.accName
+            genderTextField.text = result.data?.gender
+            birthDateTextField.text = result.data?.dob
+            countryTextField.text = result.data?.country
+            stateTextField.text = result.data?.stateName
+            cityTextField.text = result.data?.city
+            emailIdTextField.text = result.data?.emailId
+        }
     }
     
     func onFailure(operationId: Int, error: Error, data: Data?) {

@@ -53,7 +53,7 @@ class LoginService: CommunicationEndPoint {
     
 }
 
-class LoginServiceResult: CommunicationOperationResult, Codable {
+struct LoginServiceResult: CommunicationOperationResult, Codable {
     let message: String
     let success: Bool
     let data:LoginAccountData?
@@ -64,8 +64,8 @@ class LoginServiceResult: CommunicationOperationResult, Codable {
         case data = "Data"
     }
     
-    class LoginAccountData: Codable {
-        var accountID: String
+    struct LoginAccountData: Codable {
+        let accountID: String
         
         private enum CodingKeys: String, CodingKey {
             case accountID = "AccountID"

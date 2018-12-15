@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ApiManager
 
 protocol DashboardProfileViewControllerDelegate: class {
     func arrowButtonTouched(_ sender: UIButton)
@@ -35,6 +35,8 @@ class DashboardProfileViewController: UIViewController {
         gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
         view.layer.insertSublayer(gradientLayer, at:0)
+        
+//        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: "Acc20181208095428me1HjI", listener: self))
     }
     
     
@@ -48,19 +50,34 @@ class DashboardProfileViewController: UIViewController {
     }
 }
 
+extension DashboardProfileViewController: CommunicationResultListener {
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        print("Success")
+        
+    }
+    
+    func onFailure(operationId: Int, error: Error, data: Data?) {
+        print("Failure")
+    }
+    
+    
+}
+
 extension DashboardProfileViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return UserDataManager.shared.imeiList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TrackedProfileCell", for: indexPath) as! TrackedProfileCell
         cell.imageView.layer.cornerRadius = CGFloat(45 / 2)
         cell.imageView.layer.masksToBounds = true
+        let imei = UserDataManager.shared.imeiList[indexPath.item]
+        cell.label.text = imei
         return cell
     }
 }

@@ -46,7 +46,7 @@ class TZLoginVC: UIViewController {
     @IBAction func signInBtnAction(_ sender: UIButton) {
         guard let mobileNumber = mobileNumbertextField.text else { return }
         guard let password = passwordTextField.text else { return }
-        CommunicationManager.getCommunicator().performOpertaion(with: LoginService(mobileNumber: mobileNumber, password: password, listener: self))
+        UserDataManager.shared.login(mobileNumber: mobileNumber, password: password)
     }
     //MARK : - Customizing Views
     func customizingViews() {
@@ -68,15 +68,3 @@ extension TZLoginVC : UITextFieldDelegate {
     }
 }
 
-extension TZLoginVC: CommunicationResultListener {
-    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
-        guard let result = operation as? LoginServiceResult else { return }
-        PostLoginRouter.showPostLoginHomeView()
-    }
-    
-    func onFailure(operationId: Int, error: Error, data: Data?) {
-        
-    }
-    
-    
-}
