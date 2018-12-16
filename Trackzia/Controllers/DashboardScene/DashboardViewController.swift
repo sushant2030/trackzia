@@ -13,6 +13,10 @@ class DashboardViewController: UIViewController {
     var dashboardProfileController: DashboardProfileViewController!
     var dashboardOptionsController: DashboardOptionsListViewController!
     
+    override func viewDidLoad() {
+        if UserDataManager.shared.imeiList.count > 0 { IMEISelectionManager.shared.selectedIndex = 0 }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileDashboardSegue" {
             dashboardProfileController = (segue.destination as! DashboardProfileViewController)

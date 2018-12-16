@@ -8,15 +8,47 @@
 
 import UIKit
 
+
+protocol IMEIWiseProfileListenerChangeListener {
+    func updateFields()
+    func imeiWiseProfileChangesListener(_ imeiNumber: String)
+}
+
+extension IMEIWiseProfileListenerChangeListener {
+    func imeiWiseProfileChangesListener(_ imeiNumber: String) {
+        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+            let dataDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
+            if dataDisplayedForIMEINumber == imeiNumber {
+                updateFields()
+            }
+        }
+    }
+}
+
 class PetProfileViewController: UITableViewController {
     @IBOutlet var petImageView: UIImageView!
+    @IBOutlet var imeiNumberTextField: UITextField!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var birthDateTextField: UITextField!
+    @IBOutlet var genderTextField: UITextField!
+    @IBOutlet var typeTextField: UITextField!
+    @IBOutlet var heightTextField: UITextField!
+    @IBOutlet var weightTextField: UITextField!
+    @IBOutlet var colorTextField: UITextField!
+    @IBOutlet var breedTextField: UITextField!
+    @IBOutlet var doctorsInfoTextField: UITextField!
+    
     @IBOutlet var submitButton: UIButton!
+    
+    var imeiWiseProfileListenerToken:IMEIWiseProfileListenerToken!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeAppearance()
+        updateFields()
+        imeiWiseProfileListenerToken = UserDataManager.shared.addListener(imeiWiseProfileChangesListener)
     }
-
+    
     
     func customizeAppearance() {
         let bgImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 320, height:624))
@@ -32,4 +64,32 @@ class PetProfileViewController: UITableViewController {
         submitButton.layer.borderWidth = 1.0
     }
     
+    
+}
+
+extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
+    func updateFields() {
+        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
+            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
+            
+            imeiWiseProfiles.forEach { profile in
+                switch profile {
+                case let petProfile as ProfileTypePet:
+                    imeiNumberTextField.text = imeiNumber
+                    nameTextField.text = petProfile.name
+                    birthDateTextField.text = petProfile.birthDate
+                    genderTextField.text = petProfile.gender
+                    typeTextField.text = petProfile.type
+                    heightTextField.text = petProfile.height
+                    weightTextField.text = petProfile.weight
+                    colorTextField.text = petProfile.color
+                    breedTextField.text = petProfile.breed
+                    doctorsInfoTextField.text = petProfile.doctorInfo
+                default: break
+                }
+            }
+        }
+        
+    }
 }

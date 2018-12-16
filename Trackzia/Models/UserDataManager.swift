@@ -14,21 +14,34 @@ enum LoginState: Int {
     case loggedIn
 }
 
+class IMEIWiseProfileListenerToken {
+    let uuidString = UUID().uuidString
+}
+
 class UserDataManager {
     static var shared = UserDataManager()
     
-    private init() {}
+    var imeiSelectionManagerListenerToken: IMEISelectionManagerListenerToken!
+    
+    private init() {
+        imeiSelectionManagerListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionManagerListener)
+    }
     
     var isLoggedIn: Bool { return UserDataStore.shared.loggedInState == .loggedIn ? true : false }
     
-    var volatileLoginData: (mobileNumber: String, password: String)? {
-        didSet {
-            print(volatileLoginData)
-        }
+    var volatileLoginData: (mobileNumber: String, password: String)?
+    var volatileIMEINumber: String?
+    
+    var imeiList: [String] {
+        return AccntWiseIMEIListStore.shared.sortedKeys.map({ AccntWiseIMEIListStore.shared.imeiDictionary[$0]! })
     }
     
-    var imeiList: [String] { return IMEIListStore.shared.sortedKeys.map({ IMEIListStore.shared.imeiDictionary[$0]! })}
+    var imeiWiseProfileFetchInProgress: Set<String> = []
     
+    typealias IMEINumber = String
+    var imeiWiseProfileChangesListeners: [String: (IMEINumber) -> Void] = [:]
+    
+    // MARK: Service usage
     func login(mobileNumber: String, password: String) {
         volatileLoginData = (mobileNumber, password)
         CommunicationManager.getCommunicator().performOpertaion(with: LoginService(mobileNumber: mobileNumber, password: password, listener: self))
@@ -40,6 +53,39 @@ class UserDataManager {
     
     func getAccountDetails(mobileNumber: String) {
         CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: mobileNumber, listener: self))
+    }
+    
+    func getIMEIWiseProfiles(imeiNumber: String) {
+        volatileIMEINumber = imeiNumber
+        CommunicationManager.getCommunicator().performOpertaion(with: GetIMEIWiseProfiles(imeiNumber: imeiNumber, listener: UserDataManager.shared))
+    }
+    
+    // MARK: Local data
+    func profileTypesFrom(imeiNumber: String) -> [Any] {
+        return IMEIWiseProfilesStore.shared.profileTypesFrom(imeiNumber: imeiNumber)
+    }
+    
+    // MARK: IMEI data
+    func imeiSelectionManagerListener() {
+        if imeiList.count > IMEISelectionManager.shared.selectedIndex {
+            let imeiNumber = imeiList[IMEISelectionManager.shared.selectedIndex]
+            if IMEIWiseProfilesStore.shared.imeiWiseProfiles[imeiNumber] == nil {
+                if imeiWiseProfileFetchInProgress.contains(imeiNumber) { return }
+                imeiWiseProfileFetchInProgress.insert(imeiNumber)
+                getIMEIWiseProfiles(imeiNumber: imeiNumber)
+            }
+        }
+    }
+    
+    // MARK: Add remove listeners to changes in IMEI wise profiles
+    func addListener(_ listener: @escaping (IMEINumber) -> Void) -> IMEIWiseProfileListenerToken {
+        let token = IMEIWiseProfileListenerToken()
+        imeiWiseProfileChangesListeners[token.uuidString] = listener
+        return token
+    }
+    
+    func removeListener(_ token: IMEIWiseProfileListenerToken) {
+        imeiWiseProfileChangesListeners[token.uuidString] = nil
     }
 }
 
@@ -58,10 +104,10 @@ extension UserDataManager: CommunicationResultListener {
         }
         
         if let result = operation as? GetAccountWiseIMEIServiceResult, result.success {
-            IMEIListStore.shared.imeiDictionary = result.data ?? [:]
+            AccntWiseIMEIListStore.shared.imeiDictionary = result.data ?? [:]
             getAccountDetails(mobileNumber: UserDataStore.shared.mobile!)
         }
-
+        
         if let result = operation as? GetAccountDetailsServiceResult, result.success {
             UserDataStore.shared.emailId = result.data?.emailId
             UserDataStore.shared.city = result.data?.city
@@ -71,7 +117,15 @@ extension UserDataManager: CommunicationResultListener {
             UserDataStore.shared.dob = result.data?.dob
             UserDataStore.shared.stateName = result.data?.stateName
             
-             PostLoginRouter.showHomeView()
+            PostLoginRouter.showHomeView()
+        }
+        
+        if let wrapper = operation as? GetIMEIWiseProfilesResultWrapper {
+            imeiWiseProfileFetchInProgress.remove(wrapper.imeiNumber)
+            if wrapper.result.success {
+                IMEIWiseProfilesStore.shared.setProfiles(wrapper.result.dataList, for: wrapper.imeiNumber)
+                imeiWiseProfileChangesListeners.forEach({ $1(wrapper.imeiNumber) })
+            }
         }
     }
     
@@ -199,8 +253,8 @@ private class UserDataStore {
     }
 }
 
-private class IMEIListStore {
-    static var shared = IMEIListStore()
+private class AccntWiseIMEIListStore {
+    static var shared = AccntWiseIMEIListStore()
     
     private init() {}
     
@@ -212,9 +266,60 @@ private class IMEIListStore {
         
         set {
             UserDefaults.standard.set(newValue, forKey: "imeiDictionary")
-            sortedKeys = newValue.keys.sorted()
         }
     }
     
-    var sortedKeys: [String] = []
+    var sortedKeys: [String] { return imeiDictionary.keys.sorted() }
 }
+
+private class IMEIWiseProfilesStore {
+    typealias IMEINumber = String
+    
+    static var shared = IMEIWiseProfilesStore()
+    
+    private init() {
+        imeiWiseProfiles = UserDefaults.standard.value(forKey: "imeiWiseProfiles") as? [IMEINumber: [[String: String]]] ?? [:]
+    }
+    
+    var imeiWiseProfiles: [IMEINumber: [[String: String]]]
+    
+    func setProfiles(_ profiles: [[String: String]], for imeiNumber: String) {
+        imeiWiseProfiles[imeiNumber] = profiles
+        UserDefaults.standard.set(imeiWiseProfiles, forKey: "imeiWiseProfiles")
+    }
+    
+    func profileTypesFrom(imeiNumber: String) -> [Any] {
+        let kidProfile = profileTypeKidFrom(imeiNumber: imeiNumber)
+        let petProfile = profileTypePetFrom(imeiNumber: imeiNumber)
+        let seniorCitizenProfile = profileTypeSeniorCitizenFrom(imeiNumber: imeiNumber)
+        let vehicleProfile = profileTypeVehicleFrom(imeiNumber: imeiNumber)
+        let otherProfile = profileTypeOtherFrom(imeiNumber: imeiNumber)
+        return [petProfile, kidProfile, seniorCitizenProfile, vehicleProfile, otherProfile]
+    }
+    
+    func profileTypeKidFrom(imeiNumber: String) -> ProfileTypeKid {
+        let dictionary = imeiWiseProfiles[imeiNumber]?.filter({ $0["ProfileType"] == "Kid" }).first ?? [:]
+        return profileTypeKid(dictionary: dictionary)
+    }
+    
+    func profileTypePetFrom(imeiNumber: String) -> ProfileTypePet {
+        let dictionary = imeiWiseProfiles[imeiNumber]?.filter({ $0["ProfileType"] == "Pet" }).first ?? [:]
+        return profileTypePet(dictionary: dictionary)
+    }
+    
+    func profileTypeSeniorCitizenFrom(imeiNumber: String) -> ProfileTypeSeniorCitizen {
+        let dictionary = imeiWiseProfiles[imeiNumber]?.filter({ $0["ProfileType"] == "SeniorCitizen" }).first ?? [:]
+        return profileTypeSeniorCitizen(dictionary: dictionary)
+    }
+    
+    func profileTypeVehicleFrom(imeiNumber: String) -> ProfileTypeVehicle {
+        let dictionary = imeiWiseProfiles[imeiNumber]?.filter({ $0["ProfileType"] == "Vehicle" }).first ?? [:]
+        return profileTypeVehicle(dictionary: dictionary)
+    }
+    
+    func profileTypeOtherFrom(imeiNumber: String) -> ProfileTypeOther {
+        let dictionary = imeiWiseProfiles[imeiNumber]?.filter({ $0["ProfileType"] == "Other" }).first ?? [:]
+        return profileTypeOther(dictionary: dictionary)
+    }
+}
+

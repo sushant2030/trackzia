@@ -10,11 +10,15 @@ import UIKit
 
 class OtherProfileViewController: UITableViewController {
     @IBOutlet var otherImageView: UIImageView!
+    @IBOutlet var imeiNumberTextField: UITextField!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var descriptionTextField: UITextField!
     @IBOutlet var submitButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeAppearance()
+        updateFields()
     }
     
     
@@ -31,5 +35,24 @@ class OtherProfileViewController: UITableViewController {
         submitButton.layer.borderColor = UIColor(red: CGFloat(168.0 / 255.0), green: 0.0, blue: 0.0, alpha: 1.0).cgColor
         submitButton.layer.borderWidth = 1.0
     }
-    
+}
+
+extension OtherProfileViewController: IMEIWiseProfileListenerChangeListener {
+    func updateFields() {
+        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
+            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
+            
+            imeiWiseProfiles.forEach { profile in
+                switch profile {
+                case let otherProfile as ProfileTypeOther:
+                    imeiNumberTextField.text = imeiNumber
+                    nameTextField.text = otherProfile.name
+                    descriptionTextField.text = otherProfile.description
+                default: break
+                }
+            }
+        }
+        
+    }
 }

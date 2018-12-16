@@ -38,8 +38,19 @@ class DashboardOptionsListViewController: UIViewController {
     
     weak var delegate: DashboardOptionsListViewControllerDelegate!
     
+    var imeiSelectionManagerListenerToken: IMEISelectionManagerListenerToken!
+    
+    var imeiWiseProfileListenerToken:IMEIWiseProfileListenerToken!
+    
+    deinit {
+        IMEISelectionManager.shared.removeListener(token: imeiSelectionManagerListenerToken)
+        UserDataManager.shared.removeListener(imeiWiseProfileListenerToken)
+    }
+    
     override func viewDidLoad() {
         setupTableForUserOptionsMode()
+        imeiSelectionManagerListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionManagerListener)
+        imeiWiseProfileListenerToken = UserDataManager.shared.addListener(imeiWiseProfileChangesListener)
     }
     
     func setupTableForUserOptionsMode() {
@@ -53,6 +64,25 @@ class DashboardOptionsListViewController: UIViewController {
     func switchTableMode() {
         dashboardOptionListMode = dashboardOptionListMode == .userOptions ? .userTrackOptions : .userOptions
         tableView.reloadData()
+    }
+    
+    func imeiSelectionManagerListener() {
+        if dashboardOptionListMode == .userTrackOptions {
+            userTrackingOptionsDataSource.models = userTrackingOptionsModels()
+            tableView.reloadData()
+        }
+    }
+    
+    func imeiWiseProfileChangesListener(_ imeiNumber: String) {
+        if dashboardOptionListMode == .userTrackOptions {
+            if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+                let dataDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
+                if dataDisplayedForIMEINumber == imeiNumber {
+                    userTrackingOptionsDataSource.models = userTrackingOptionsModels()
+                    tableView.reloadData()
+                }
+            }
+        }
     }
 }
 
@@ -110,13 +140,34 @@ func userDashboardOptionsModels() -> [[UserDashboardOption]] {
 }
 
 func userTrackingOptionsModels() -> [[UserDashboardOption]] {
-    let pet = UserDashboardOption(text: "Pet", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
-    let kid = UserDashboardOption(text: "Kid", showAddButton: false, isSelected: true, cellIdentifier: "TrackCategoryCell")
-    let seniorCitizen = UserDashboardOption(text: "Senior Citizen", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
-    let vehicle = UserDashboardOption(text: "Vehicle", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
-    let other = UserDashboardOption(text: "Other", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
-    let addDevice = UserDashboardOption(text: "Add Device", showAddButton: true, isSelected: false, cellIdentifier: "TrackCategoryCell")
-    return [[pet, kid, seniorCitizen, vehicle, other, addDevice]]
+    if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+        var pet = UserDashboardOption(text: "Pet", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        var kid = UserDashboardOption(text: "Kid", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        var seniorCitizen = UserDashboardOption(text: "Senior Citizen", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        var vehicle = UserDashboardOption(text: "Vehicle", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        var other = UserDashboardOption(text: "Other", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        let addDevice = UserDashboardOption(text: "Add Device", showAddButton: true, isSelected: false, cellIdentifier: "TrackCategoryCell")
+        
+        let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
+        let profileTypes = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
+        
+        profileTypes.forEach({
+            switch $0 {
+            case let petProfile as ProfileTypePet: pet.isSelected = petProfile.name.count > 0 ? true : false
+            case let kidProfile as ProfileTypeKid: kid.isSelected = kidProfile.name.count > 0 ? true : false
+            case let seniorCitizenProfile as ProfileTypeSeniorCitizen: seniorCitizen.isSelected = seniorCitizenProfile.name.count > 0 ? true : false
+                
+            case let vehicleProfile as ProfileTypeVehicle: vehicle.isSelected = vehicleProfile.name.count > 0 ? true : false
+            case let otherProfile as ProfileTypeOther: other.isSelected = otherProfile.name.count > 0 ? true : false
+            default: print("")
+            }
+        })
+        
+        
+        return [[pet, kid, seniorCitizen, vehicle, other, addDevice]]
+    } else {
+        return []
+    }
 }
 
 

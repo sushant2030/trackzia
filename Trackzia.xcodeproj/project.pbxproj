@@ -26,6 +26,13 @@
 		54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */; };
 		54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682221BD319C000C7379 /* PostLoginRouter.swift */; };
 		54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */; };
+		54B05DBD21C63D7900597A42 /* ProfileTypeVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DB721C63D7900597A42 /* ProfileTypeVehicle.swift */; };
+		54B05DBE21C63D7900597A42 /* IMEISelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DB821C63D7900597A42 /* IMEISelectionManager.swift */; };
+		54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DB921C63D7900597A42 /* ProfileTypePet.swift */; };
+		54B05DC021C63D7900597A42 /* ProfileTypeKid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DBA21C63D7900597A42 /* ProfileTypeKid.swift */; };
+		54B05DC121C63D7900597A42 /* ProfileTypeOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DBB21C63D7900597A42 /* ProfileTypeOther.swift */; };
+		54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */; };
+		54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */; };
 		54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */; };
 		54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */; };
 		54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */; };
@@ -85,6 +92,13 @@
 		54A3681F21BCE55B000C7379 /* ProfileEditing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEditing.storyboard; sourceTree = "<group>"; };
 		54A3682221BD319C000C7379 /* PostLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginRouter.swift; sourceTree = "<group>"; };
 		54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewController.swift; sourceTree = "<group>"; };
+		54B05DB721C63D7900597A42 /* ProfileTypeVehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeVehicle.swift; sourceTree = "<group>"; };
+		54B05DB821C63D7900597A42 /* IMEISelectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMEISelectionManager.swift; sourceTree = "<group>"; };
+		54B05DB921C63D7900597A42 /* ProfileTypePet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypePet.swift; sourceTree = "<group>"; };
+		54B05DBA21C63D7900597A42 /* ProfileTypeKid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeKid.swift; sourceTree = "<group>"; };
+		54B05DBB21C63D7900597A42 /* ProfileTypeOther.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeOther.swift; sourceTree = "<group>"; };
+		54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeSeniorCitizen.swift; sourceTree = "<group>"; };
+		54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIMEIWiseProfiles.swift; sourceTree = "<group>"; };
 		54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOptionsListViewController.swift; sourceTree = "<group>"; };
 		54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableDataSource.swift; sourceTree = "<group>"; };
 		54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +198,7 @@
 		54665BC321C1728E00251267 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
+				54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */,
 				548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */,
 				54665BC421C1728E00251267 /* LoginService.swift */,
 				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
@@ -199,6 +214,7 @@
 		548FC21221C42EEB00A64213 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				54B05DB621C63D7900597A42 /* IMEIWiseProfileTypes */,
 				548FC21321C42F3600A64213 /* UserDataManager.swift */,
 			);
 			path = Models;
@@ -219,6 +235,19 @@
 				54A3682521BD4D70000C7379 /* AlertSettingsViewController.swift */,
 			);
 			path = AlertSettingsScene;
+			sourceTree = "<group>";
+		};
+		54B05DB621C63D7900597A42 /* IMEIWiseProfileTypes */ = {
+			isa = PBXGroup;
+			children = (
+				54B05DB721C63D7900597A42 /* ProfileTypeVehicle.swift */,
+				54B05DB821C63D7900597A42 /* IMEISelectionManager.swift */,
+				54B05DB921C63D7900597A42 /* ProfileTypePet.swift */,
+				54B05DBA21C63D7900597A42 /* ProfileTypeKid.swift */,
+				54B05DBB21C63D7900597A42 /* ProfileTypeOther.swift */,
+				54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */,
+			);
+			path = IMEIWiseProfileTypes;
 			sourceTree = "<group>";
 		};
 		54F66B3721BBDA2400B47295 /* DashboardScene */ = {
@@ -359,8 +388,10 @@
 				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
+				54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
 				7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */,
+				54B05DBE21C63D7900597A42 /* IMEISelectionManager.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
 				791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
@@ -374,14 +405,19 @@
 				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
+				54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */,
+				54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */,
 				5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */,
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
 				79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */,
+				54B05DBD21C63D7900597A42 /* ProfileTypeVehicle.swift in Sources */,
 				54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */,
+				54B05DC121C63D7900597A42 /* ProfileTypeOther.swift in Sources */,
 				54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */,
 				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
+				54B05DC021C63D7900597A42 /* ProfileTypeKid.swift in Sources */,
 				54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

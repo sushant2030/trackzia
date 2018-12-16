@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ApiManager
 
 protocol DashboardProfileViewControllerDelegate: class {
     func arrowButtonTouched(_ sender: UIButton)
@@ -35,11 +34,8 @@ class DashboardProfileViewController: UIViewController {
         gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
         view.layer.insertSublayer(gradientLayer, at:0)
-        
-//        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: "Acc20181208095428me1HjI", listener: self))
+        //896574231025467
     }
-    
-    
     
     @IBAction func arrowButtonTouched(_ sender: UIButton) {
         delegate.arrowButtonTouched(sender)
@@ -50,25 +46,13 @@ class DashboardProfileViewController: UIViewController {
     }
 }
 
-extension DashboardProfileViewController: CommunicationResultListener {
-    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
-        print("Success")
-        
-    }
-    
-    func onFailure(operationId: Int, error: Error, data: Data?) {
-        print("Failure")
-    }
-    
-    
-}
-
 extension DashboardProfileViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(UserDataManager.shared.imeiList.count)
         return UserDataManager.shared.imeiList.count
     }
     
@@ -84,7 +68,7 @@ extension DashboardProfileViewController: UICollectionViewDataSource {
 
 extension DashboardProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        IMEISelectionManager.shared.selectedIndex = indexPath.item
     }
 }
 
