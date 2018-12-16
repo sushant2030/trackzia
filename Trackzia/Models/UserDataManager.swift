@@ -130,7 +130,7 @@ extension UserDataManager: CommunicationResultListener {
     }
     
     func onFailure(operationId: Int, error: Error, data: Data?) {
-        
+        print(error)
     }
     
     

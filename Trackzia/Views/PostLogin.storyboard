@@ -527,6 +527,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4i-UX-CIk">
                                                     <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="geoFenceSwitchValueChanged:" destination="N03-If-XnE" eventType="valueChanged" id="qB2-xu-bZa"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geo-fence InOut" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnD-cE-5dT">
                                                     <rect key="frame" x="52" y="11.5" width="128" height="21"/>
@@ -553,6 +556,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xM0-lu-G8i">
                                                     <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="lowBatterInoutSwitchValueChanged:" destination="N03-If-XnE" eventType="valueChanged" id="8n7-SU-b9u"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low battery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edQ-BG-1C6">
                                                     <rect key="frame" x="52" y="11.5" width="90.5" height="21"/>
@@ -579,6 +585,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3d-cj-PRQ">
                                                     <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="panicSwitchValueChanged:" destination="N03-If-XnE" eventType="valueChanged" id="9Rm-ib-t9g"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Panic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s07-qc-XHs">
                                                     <rect key="frame" x="52" y="11.5" width="42" height="21"/>
@@ -604,6 +613,11 @@
                             <outlet property="delegate" destination="N03-If-XnE" id="i7I-TH-8mA"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="geoFenceInoutSwitch" destination="M4i-UX-CIk" id="fTe-8y-0OD"/>
+                        <outlet property="lowBatterInoutSwitch" destination="xM0-lu-G8i" id="0yj-Ps-ts6"/>
+                        <outlet property="panicSwitch" destination="r3d-cj-PRQ" id="FNB-Pn-LDU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xyU-0V-rHL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

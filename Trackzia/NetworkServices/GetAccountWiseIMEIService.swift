@@ -39,7 +39,12 @@ class GetAccountWiseIMEIService: CommunicationEndPoint {
         }
         // EG: Success
         //{"Message":"IMEI List","Success":true,"Data":{"IMEI1":"896574231025467","IMEI2":"85236417"}}
-        // EG: Failure by invalid account id
+        // EG: Success no imei with this account
+//        {
+//            "Message": "IMEI Not Exists with this Account",
+//            "Success": false,
+//            "Data": null
+//        }
         do {
             let decoder = JSONDecoder()
             let getAccountWiseIMEIServiceResult = try decoder.decode(GetAccountWiseIMEIServiceResult.self, from: data)

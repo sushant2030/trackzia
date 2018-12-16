@@ -13,7 +13,7 @@ class IMEISelectionManager {
     
     private init() {}
     
-    var selectedIndex = -1 {
+    var selectedIndex = 0 {
         didSet {
             if oldValue != selectedIndex {
                 informListeners()

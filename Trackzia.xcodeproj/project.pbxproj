@@ -33,6 +33,9 @@
 		54B05DC121C63D7900597A42 /* ProfileTypeOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DBB21C63D7900597A42 /* ProfileTypeOther.swift */; };
 		54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */; };
 		54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */; };
+		54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */; };
+		54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */; };
+		54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */; };
 		54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */; };
 		54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */; };
 		54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */; };
@@ -99,6 +102,9 @@
 		54B05DBB21C63D7900597A42 /* ProfileTypeOther.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeOther.swift; sourceTree = "<group>"; };
 		54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTypeSeniorCitizen.swift; sourceTree = "<group>"; };
 		54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIMEIWiseProfiles.swift; sourceTree = "<group>"; };
+		54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlertSettingsPreference.swift; sourceTree = "<group>"; };
+		54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllAlertSettingsService.swift; sourceTree = "<group>"; };
+		54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertSettingValueService.swift; sourceTree = "<group>"; };
 		54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOptionsListViewController.swift; sourceTree = "<group>"; };
 		54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableDataSource.swift; sourceTree = "<group>"; };
 		54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 				79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */,
 				79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */,
 				795098AF21C5636B004D43CE /* GetDeviceDataService.swift */,
+				54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */,
+				54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 			children = (
 				54B05DB621C63D7900597A42 /* IMEIWiseProfileTypes */,
 				548FC21321C42F3600A64213 /* UserDataManager.swift */,
+				54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -401,10 +410,13 @@
 				795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
+				54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */,
+				54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */,
 				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
 				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
+				54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */,
 				54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */,
 				54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */,
 				5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */,
