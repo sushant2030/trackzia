@@ -65,3 +65,14 @@ extension UserProfileViewController: CommunicationResultListener {
     
     
 }
+
+
+//let userAccntData = UserAccountData(accName: accName,
+//                                    city: city,
+//                                    country: country,
+//                                    dob: dob,
+//                                    emailId: emailId,
+//                                    gender: gender,
+//                                    mobile: mobile,
+//                                    stateName: stateName,
+//                                    result: result)

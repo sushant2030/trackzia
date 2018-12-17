@@ -47,12 +47,17 @@ class UserDataManager {
         CommunicationManager.getCommunicator().performOpertaion(with: LoginService(mobileNumber: mobileNumber, password: password, listener: self))
     }
     
-    func getAccntWiseIMEI(accntId: String) {
-        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
-    }
-    
     func getAccountDetails(mobileNumber: String) {
         CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: mobileNumber, listener: self))
+    }
+    
+    func updateAccountDetails(userAccntData: UserAccountData, completionHandler: @escaping () -> Void) {
+        UserDataStore.shared.updateObserver = completionHandler
+        CommunicationManager.getCommunicator().performOpertaion(with: UpdateAccountDetailsService(userAccntData: userAccntData, listener: self))
+    }
+    
+    func getAccntWiseIMEI(accntId: String) {
+        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
     }
     
     func getIMEIWiseProfiles(imeiNumber: String) {
@@ -127,6 +132,19 @@ extension UserDataManager: CommunicationResultListener {
                 imeiWiseProfileChangesListeners.forEach({ $1(wrapper.imeiNumber) })
             }
         }
+        
+        if let wrapper = operation as? UpdateAccountDetailsServiceResultWrapper {
+            if wrapper.result.success {
+                UserDataStore.shared.emailId = wrapper.accntData.emailId
+                UserDataStore.shared.city = wrapper.accntData.city
+                UserDataStore.shared.gender = wrapper.accntData.gender
+                UserDataStore.shared.country = wrapper.accntData.country
+                UserDataStore.shared.accName = wrapper.accntData.accName
+                UserDataStore.shared.dob = wrapper.accntData.dob
+                UserDataStore.shared.stateName = wrapper.accntData.stateName
+                UserDataStore.shared.updateObserver?()
+            }
+        }
     }
     
     func onFailure(operationId: Int, error: Error, data: Data?) {
@@ -140,6 +158,8 @@ private class UserDataStore {
     static var shared = UserDataStore()
     
     private init() {}
+    
+    var updateObserver: (() -> Void)?
     
     var mobile: String? {
         get {

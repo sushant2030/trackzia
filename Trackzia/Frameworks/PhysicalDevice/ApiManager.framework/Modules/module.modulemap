@@ -1,0 +1,11 @@
+framework module ApiManager {
+  umbrella header "ApiManager.h"
+
+  export *
+  module * { export * }
+}
+
+module ApiManager.Swift {
+    header "ApiManager-Swift.h"
+    requires objc
+}
