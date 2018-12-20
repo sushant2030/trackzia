@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KidProfileViewController: UITableViewController {
+class KidProfileViewController: UITableViewController, PopoverPresenter {
     @IBOutlet var kidImageView: UIImageView!
     @IBOutlet var imeiNumberTextField: UITextField!
     @IBOutlet var nameTextField: UITextField!
@@ -41,6 +41,10 @@ class KidProfileViewController: UITableViewController {
         submitButton.layer.borderColor = UIColor(red: CGFloat(168.0 / 255.0), green: 0.0, blue: 0.0, alpha: 1.0).cgColor
         submitButton.layer.borderWidth = 1.0
     }
+    
+    @IBAction func genderDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: genderOptionItems(), from: genderTextField)
+    }
 }
 
 extension KidProfileViewController: IMEIWiseProfileListenerChangeListener {
@@ -66,5 +70,24 @@ extension KidProfileViewController: IMEIWiseProfileListenerChangeListener {
             }
         }
         
+    }
+}
+
+extension KidProfileViewController: RBOptionItemListViewControllerDelegate {
+    func optionItemListViewController(_ controller: RBOptionItemListViewController, didSelectOptionItem item: RBOptionItem) {
+        switch item {
+        case let option as GenderOptionItem:
+            genderTextField.text = option.text
+        default:
+            break
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension KidProfileViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

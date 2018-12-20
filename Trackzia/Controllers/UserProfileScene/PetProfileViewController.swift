@@ -25,7 +25,7 @@ extension IMEIWiseProfileListenerChangeListener {
     }
 }
 
-class PetProfileViewController: UITableViewController {
+class PetProfileViewController: UITableViewController, PopoverPresenter {
     @IBOutlet var petImageView: UIImageView!
     @IBOutlet var imeiNumberTextField: UITextField!
     @IBOutlet var nameTextField: UITextField!
@@ -64,7 +64,9 @@ class PetProfileViewController: UITableViewController {
         submitButton.layer.borderWidth = 1.0
     }
     
-    
+    @IBAction func genderDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: genderOptionItems(), from: genderTextField)
+    }
 }
 
 extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
@@ -91,5 +93,24 @@ extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
             }
         }
         
+    }
+}
+
+extension PetProfileViewController: RBOptionItemListViewControllerDelegate {
+    func optionItemListViewController(_ controller: RBOptionItemListViewController, didSelectOptionItem item: RBOptionItem) {
+        switch item {
+        case let option as GenderOptionItem:
+            genderTextField.text = option.text
+        default:
+            break
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PetProfileViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

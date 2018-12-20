@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VehicleProfileViewController: UITableViewController {
+class VehicleProfileViewController: UITableViewController, PopoverPresenter {
     @IBOutlet var vehicleImageView: UIImageView!
     
     @IBOutlet var imeiNumberTextField: UITextField!
@@ -41,6 +41,10 @@ class VehicleProfileViewController: UITableViewController {
         submitButton.layer.borderColor = UIColor(red: CGFloat(168.0 / 255.0), green: 0.0, blue: 0.0, alpha: 1.0).cgColor
         submitButton.layer.borderWidth = 1.0
     }
+    
+    @IBAction func vehicleTypeDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: vehicleTypeOptionItems(), from: typeTextField)
+    }
 }
 
 extension VehicleProfileViewController: IMEIWiseProfileListenerChangeListener {
@@ -65,5 +69,24 @@ extension VehicleProfileViewController: IMEIWiseProfileListenerChangeListener {
             }
         }
         
+    }
+}
+
+extension VehicleProfileViewController: RBOptionItemListViewControllerDelegate {
+    func optionItemListViewController(_ controller: RBOptionItemListViewController, didSelectOptionItem item: RBOptionItem) {
+        switch item {
+        case let option as VehicleTypeOptionItem:
+            typeTextField.text = option.text
+        default:
+            break
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension VehicleProfileViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

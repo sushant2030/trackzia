@@ -9,7 +9,28 @@
 import UIKit
 import ApiManager
 
-class UserProfileViewController: UITableViewController {
+protocol PopoverPresenter: UIPopoverPresentationControllerDelegate, RBOptionItemListViewControllerDelegate {
+    func presentOptionsPopover(withOptionItems items: [[RBOptionItem]], from textField: UITextField)
+}
+
+extension PopoverPresenter where Self: UIViewController{
+    func presentOptionsPopover(withOptionItems items: [[RBOptionItem]], from textField: UITextField) {
+        let optionItemListVC = RBOptionItemListViewController()
+        optionItemListVC.items = items
+        optionItemListVC.delegate = self
+        
+        guard let popoverPresentationController = optionItemListVC.popoverPresentationController else { fatalError("Set Modal presentation style") }
+        popoverPresentationController.sourceView = textField
+        popoverPresentationController.sourceRect = textField.bounds
+        popoverPresentationController.delegate = self
+        popoverPresentationController.permittedArrowDirections = [.down, .up]
+        self.present(optionItemListVC, animated: true, completion: nil)
+    }
+    
+    
+}
+
+class UserProfileViewController: UITableViewController, PopoverPresenter {
     
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var nameTextField: UITextField!
@@ -41,6 +62,23 @@ class UserProfileViewController: UITableViewController {
         
 //        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680567", listener: self))
     }
+    
+    
+    @IBAction func genderDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: genderOptionItems(), from: genderTextField)
+    }
+    
+    @IBAction func countryDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: countryOptionItems(), from: countryTextField)
+    }
+    
+    @IBAction func stateDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: stateOptionItems(), from: stateTextField)
+    }
+    
+    @IBAction func cityDropDownTouched(_ sender: UIButton) {
+        presentOptionsPopover(withOptionItems: cityOptionItems(), from: cityTextField)
+    }
 }
 
 
@@ -62,11 +100,35 @@ extension UserProfileViewController: CommunicationResultListener {
     func onFailure(operationId: Int, error: Error, data: Data?) {
         print("Failure")
     }
-    
-    
 }
 
+extension UserProfileViewController: RBOptionItemListViewControllerDelegate {
+    func optionItemListViewController(_ controller: RBOptionItemListViewController, didSelectOptionItem item: RBOptionItem) {
+        switch item {
+        case let option as GenderOptionItem:
+            genderTextField.text = option.text
+        
+        case let option as CountryOptionItem:
+            countryTextField.text = option.text
+            
+        case let option as StateOptionItem:
+            stateTextField.text = option.text
+            
+        case let option as CityOptionItem:
+            cityTextField.text = option.text
+        default:
+            break
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
 
+extension UserProfileViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+}
 //let userAccntData = UserAccountData(accName: accName,
 //                                    city: city,
 //                                    country: country,

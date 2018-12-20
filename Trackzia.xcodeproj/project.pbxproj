@@ -38,6 +38,12 @@
 		54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */; };
 		54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */; };
 		54BF988D21C8182F005F66AF /* UserAccountData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF988C21C8182F005F66AF /* UserAccountData.swift */; };
+		54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025021C950740050D377 /* RBOptionItemListViewController.swift */; };
+		54D3025421C950750050D377 /* RBOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025121C950740050D377 /* RBOptionItem.swift */; };
+		54D3025521C950750050D377 /* UITableViewCellOptionItemUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025221C950750050D377 /* UITableViewCellOptionItemUtility.swift */; };
+		54D3025821C953170050D377 /* GenderOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025721C953170050D377 /* GenderOptionItem.swift */; };
+		54D3025A21C9538C0050D377 /* CountryOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025921C9538C0050D377 /* CountryOptionItem.swift */; };
+		54D3025C21C96E600050D377 /* VehicleTypeOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025B21C96E600050D377 /* VehicleTypeOptionItem.swift */; };
 		54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */; };
 		54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */; };
 		54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */; };
@@ -109,6 +115,12 @@
 		54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertSettingValueService.swift; sourceTree = "<group>"; };
 		54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAccountDetailsService.swift; sourceTree = "<group>"; };
 		54BF988C21C8182F005F66AF /* UserAccountData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountData.swift; sourceTree = "<group>"; };
+		54D3025021C950740050D377 /* RBOptionItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBOptionItemListViewController.swift; sourceTree = "<group>"; };
+		54D3025121C950740050D377 /* RBOptionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBOptionItem.swift; sourceTree = "<group>"; };
+		54D3025221C950750050D377 /* UITableViewCellOptionItemUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellOptionItemUtility.swift; sourceTree = "<group>"; };
+		54D3025721C953170050D377 /* GenderOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderOptionItem.swift; sourceTree = "<group>"; };
+		54D3025921C9538C0050D377 /* CountryOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryOptionItem.swift; sourceTree = "<group>"; };
+		54D3025B21C96E600050D377 /* VehicleTypeOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleTypeOptionItem.swift; sourceTree = "<group>"; };
 		54F66B3221BB90DC00B47295 /* DashboardOptionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOptionsListViewController.swift; sourceTree = "<group>"; };
 		54F66B3421BB93B400B47295 /* DashboardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableDataSource.swift; sourceTree = "<group>"; };
 		54F66B3921BBDAE700B47295 /* GeofenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +196,7 @@
 		54365A1821B98F6D008E650B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54D3024F21C9505D0050D377 /* RBOptionsPopover */,
 				79C4A56721BBA1AD00B72377 /* Login.storyboard */,
 				54365A1921B98FB4008E650B /* PostLogin.storyboard */,
 				7959E97E21BC57F100EEB963 /* TabBar.storyboard */,
@@ -227,6 +240,7 @@
 		548FC21221C42EEB00A64213 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				54D3025621C952AC0050D377 /* RBPopoverOptionItems */,
 				54B05DB621C63D7900597A42 /* IMEIWiseProfileTypes */,
 				548FC21321C42F3600A64213 /* UserDataManager.swift */,
 				54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */,
@@ -263,6 +277,26 @@
 				54B05DBC21C63D7900597A42 /* ProfileTypeSeniorCitizen.swift */,
 			);
 			path = IMEIWiseProfileTypes;
+			sourceTree = "<group>";
+		};
+		54D3024F21C9505D0050D377 /* RBOptionsPopover */ = {
+			isa = PBXGroup;
+			children = (
+				54D3025121C950740050D377 /* RBOptionItem.swift */,
+				54D3025021C950740050D377 /* RBOptionItemListViewController.swift */,
+				54D3025221C950750050D377 /* UITableViewCellOptionItemUtility.swift */,
+			);
+			path = RBOptionsPopover;
+			sourceTree = "<group>";
+		};
+		54D3025621C952AC0050D377 /* RBPopoverOptionItems */ = {
+			isa = PBXGroup;
+			children = (
+				54D3025721C953170050D377 /* GenderOptionItem.swift */,
+				54D3025921C9538C0050D377 /* CountryOptionItem.swift */,
+				54D3025B21C96E600050D377 /* VehicleTypeOptionItem.swift */,
+			);
+			path = RBPopoverOptionItems;
 			sourceTree = "<group>";
 		};
 		54F66B3721BBDA2400B47295 /* DashboardScene */ = {
@@ -398,6 +432,7 @@
 				79D6B4EB21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift in Sources */,
 				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
 				548FC21421C42F3600A64213 /* UserDataManager.swift in Sources */,
+				54D3025521C950750050D377 /* UITableViewCellOptionItemUtility.swift in Sources */,
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
@@ -406,6 +441,8 @@
 				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
 				54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */,
 				79C4A56E21BBA1C400B72377 /* TZForgetVC.swift in Sources */,
+				54D3025821C953170050D377 /* GenderOptionItem.swift in Sources */,
+				54D3025A21C9538C0050D377 /* CountryOptionItem.swift in Sources */,
 				7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */,
 				54B05DBE21C63D7900597A42 /* IMEISelectionManager.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
@@ -424,12 +461,15 @@
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */,
+				54D3025C21C96E600050D377 /* VehicleTypeOptionItem.swift in Sources */,
 				54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */,
 				54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */,
 				5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */,
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
+				54D3025421C950750050D377 /* RBOptionItem.swift in Sources */,
 				54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
+				54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
 				79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */,
 				54B05DBD21C63D7900597A42 /* ProfileTypeVehicle.swift in Sources */,
