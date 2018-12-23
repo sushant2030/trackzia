@@ -66,6 +66,7 @@
 		79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */; };
 		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
 		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
+		79DE0AE621CFA4F0002DC9F3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -144,6 +145,7 @@
 		79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherProfileService.swift; sourceTree = "<group>"; };
 		79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVerifyVC.swift; sourceTree = "<group>"; };
 		79DCF33921BF059200460F17 /* TZAssignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssignVC.swift; sourceTree = "<group>"; };
+		79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 		1C8E313B21B6F78400169421 = {
 			isa = PBXGroup;
 			children = (
+				79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */,
 				54665BBD21C1724A00251267 /* ApiManager.framework */,
 				1C8E314621B6F78500169421 /* Trackzia */,
 				1C8E314521B6F78500169421 /* Products */,
@@ -437,6 +440,7 @@
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
 				54BF988D21C8182F005F66AF /* UserAccountData.swift in Sources */,
+				79DE0AE621CFA4F0002DC9F3 /* Model.xcdatamodeld in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
 				54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */,
@@ -686,6 +690,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */,
+			);
+			currentVersion = 79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = Trackzia/Storage/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1C8E313C21B6F78400169421 /* Project object */;
 }
