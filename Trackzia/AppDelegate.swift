@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         UINavigationBar.appearance().barTintColor = UIColor(red: CGFloat(240.0 / 255.0), green: 0.0, blue: CGFloat(27.0 / 255.0), alpha: 1.0)
-        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = .white
+        UITabBar.appearance().tintColor = UIColor(red: CGFloat(240.0 / 255.0), green: 0.0, blue: CGFloat(27.0 / 255.0), alpha: 1.0)
         
         if UserDataManager.shared.isLoggedIn {
             PostLoginRouter.showHomeView()

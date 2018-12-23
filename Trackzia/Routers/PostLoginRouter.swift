@@ -94,4 +94,11 @@ class PostLoginRouter {
         delegate.window?.rootViewController = splitViewController
         
     }
+    
+    class func showTabBarView() {
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+        tabBarController.selectedIndex = 1
+        splitViewController.showDetailViewController(tabBarController, sender: nil)
+    }
 }

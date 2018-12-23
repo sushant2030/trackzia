@@ -28,6 +28,7 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func btnMapAction(_ sender: Any) {
+        PostLoginRouter.showTabBarView()
     }
     
     @IBAction func btnMenuAction(_ sender: Any) {
@@ -42,4 +43,12 @@ class HomeVC: UIViewController {
     }
     */
 
+}
+
+
+class HomeVCPlaceHolder: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        PostLoginRouter.showHomeView()
+    }
 }

@@ -38,7 +38,7 @@ class GetAccountWiseIMEIService: CommunicationEndPoint {
             print(dataString)
         }
         // EG: Success
-        //{"Message":"IMEI List","Success":true,"Data":{"IMEI1":"896574231025467","IMEI2":"85236417"}}
+        //{"Message":"IMEI List","Success":true,"Data":{"IMEI1":"896574231025467","IMEI2":"896574231025467"}}
         // EG: Success no imei with this account
 //        {
 //            "Message": "IMEI Not Exists with this Account",

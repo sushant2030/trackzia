@@ -20,6 +20,7 @@
 		54665BBF21C1724A00251267 /* ApiManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54665BC521C1728E00251267 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC421C1728E00251267 /* LoginService.swift */; };
 		54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC621C1870500251267 /* GetAccountDetailsService.swift */; };
+		547A7E1221CFFE4C00040FB6 /* CurrentLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */; };
 		5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */; };
 		548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */; };
 		548FC21421C42F3600A64213 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548FC21321C42F3600A64213 /* UserDataManager.swift */; };
@@ -97,6 +98,7 @@
 		54665BBD21C1724A00251267 /* ApiManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApiManager.framework; path = Trackzia/Frameworks/Simulator/ApiManager.framework; sourceTree = "<group>"; };
 		54665BC421C1728E00251267 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		54665BC621C1870500251267 /* GetAccountDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountDetailsService.swift; sourceTree = "<group>"; };
+		547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationVC.swift; sourceTree = "<group>"; };
 		5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreLoginRouter.swift; sourceTree = "<group>"; };
 		548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAccountWiseIMEIService.swift; sourceTree = "<group>"; };
 		548FC21321C42F3600A64213 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				7959E98121BCD65C00EEB963 /* HomeVC.swift */,
+				547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */,
 			);
 			path = TabBarScene;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */,
 				5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */,
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
+				547A7E1221CFFE4C00040FB6 /* CurrentLocationVC.swift in Sources */,
 				54D3025421C950750050D377 /* RBOptionItem.swift in Sources */,
 				54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
