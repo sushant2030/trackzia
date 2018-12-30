@@ -16,9 +16,8 @@ protocol IMEIWiseProfileListenerChangeListener {
 
 extension IMEIWiseProfileListenerChangeListener {
     func imeiWiseProfileChangesListener(_ imeiNumber: String) {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let dataDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            if dataDisplayedForIMEINumber == imeiNumber {
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            if device.imei == imeiNumber {
                 updateFields()
             }
         }
@@ -71,28 +70,19 @@ class PetProfileViewController: UITableViewController, PopoverPresenter {
 
 extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
-            
-            imeiWiseProfiles.forEach { profile in
-                switch profile {
-                case let petProfile as ProfileTypePet:
-                    imeiNumberTextField.text = imeiNumber
-                    nameTextField.text = petProfile.name
-                    birthDateTextField.text = petProfile.birthDate
-                    genderTextField.text = petProfile.gender
-                    typeTextField.text = petProfile.type
-                    heightTextField.text = petProfile.height
-                    weightTextField.text = petProfile.weight
-                    colorTextField.text = petProfile.color
-                    breedTextField.text = petProfile.breed
-                    doctorsInfoTextField.text = petProfile.doctorInfo
-                default: break
-                }
-            }
-        }
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        let petProfile = IMEIWiseProfilesStore.shared.profileTypePetFrom(imeiNumber: device.imei)
         
+        imeiNumberTextField.text = device.imei
+        nameTextField.text = petProfile.name
+        birthDateTextField.text = petProfile.birthDate
+        genderTextField.text = petProfile.gender
+        typeTextField.text = petProfile.type
+        heightTextField.text = petProfile.height
+        weightTextField.text = petProfile.weight
+        colorTextField.text = petProfile.color
+        breedTextField.text = petProfile.breed
+        doctorsInfoTextField.text = petProfile.doctorInfo
     }
 }
 

@@ -20,6 +20,17 @@
 		54665BBF21C1724A00251267 /* ApiManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54665BBD21C1724A00251267 /* ApiManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54665BC521C1728E00251267 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC421C1728E00251267 /* LoginService.swift */; };
 		54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54665BC621C1870500251267 /* GetAccountDetailsService.swift */; };
+		546AB07321D91883001E4F99 /* Trackzia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07121D91882001E4F99 /* Trackzia.xcdatamodeld */; };
+		546AB08021D918C3001E4F99 /* ActiveProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07621D918C3001E4F99 /* ActiveProfile.swift */; };
+		546AB08121D918C3001E4F99 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07721D918C3001E4F99 /* Profile.swift */; };
+		546AB08221D918C3001E4F99 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07821D918C3001E4F99 /* Device.swift */; };
+		546AB08321D918C3001E4F99 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07921D918C3001E4F99 /* Account.swift */; };
+		546AB08421D918C3001E4F99 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07B21D918C3001E4F99 /* Managed.swift */; };
+		546AB08521D918C3001E4F99 /* TrackziaStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07D21D918C3001E4F99 /* TrackziaStack.swift */; };
+		546AB08621D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB07F21D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift */; };
+		546AB08A21D918ED001E4F99 /* IMEIWiseProfilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */; };
+		546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08821D918ED001E4F99 /* UserDataStore.swift */; };
+		546AB08C21D918ED001E4F99 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08921D918ED001E4F99 /* DeviceStore.swift */; };
 		547A7E1221CFFE4C00040FB6 /* CurrentLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */; };
 		5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */; };
 		548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */; };
@@ -68,7 +79,6 @@
 		79D7D49D21D7B1BF00E39C3C /* LocationDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D7D49C21D7B1BF00E39C3C /* LocationDetailModel.swift */; };
 		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
 		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
-		79DE0AE621CFA4F0002DC9F3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -100,6 +110,17 @@
 		54665BBD21C1724A00251267 /* ApiManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApiManager.framework; path = Trackzia/Frameworks/Simulator/ApiManager.framework; sourceTree = "<group>"; };
 		54665BC421C1728E00251267 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		54665BC621C1870500251267 /* GetAccountDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountDetailsService.swift; sourceTree = "<group>"; };
+		546AB07221D91882001E4F99 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		546AB07621D918C3001E4F99 /* ActiveProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveProfile.swift; sourceTree = "<group>"; };
+		546AB07721D918C3001E4F99 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		546AB07821D918C3001E4F99 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		546AB07921D918C3001E4F99 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		546AB07B21D918C3001E4F99 /* Managed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
+		546AB07D21D918C3001E4F99 /* TrackziaStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackziaStack.swift; sourceTree = "<group>"; };
+		546AB07F21D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
+		546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMEIWiseProfilesStore.swift; sourceTree = "<group>"; };
+		546AB08821D918ED001E4F99 /* UserDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
+		546AB08921D918ED001E4F99 /* DeviceStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
 		547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationVC.swift; sourceTree = "<group>"; };
 		5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreLoginRouter.swift; sourceTree = "<group>"; };
 		548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAccountWiseIMEIService.swift; sourceTree = "<group>"; };
@@ -149,7 +170,6 @@
 		79D7D49C21D7B1BF00E39C3C /* LocationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailModel.swift; sourceTree = "<group>"; };
 		79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVerifyVC.swift; sourceTree = "<group>"; };
 		79DCF33921BF059200460F17 /* TZAssignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssignVC.swift; sourceTree = "<group>"; };
-		79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +187,7 @@
 		1C8E313B21B6F78400169421 = {
 			isa = PBXGroup;
 			children = (
-				79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */,
+				546AB07021D91882001E4F99 /* Storage */,
 				54665BBD21C1724A00251267 /* ApiManager.framework */,
 				1C8E314621B6F78500169421 /* Trackzia */,
 				1C8E314521B6F78500169421 /* Products */,
@@ -244,9 +264,68 @@
 			path = NetworkServices;
 			sourceTree = "<group>";
 		};
+		546AB07021D91882001E4F99 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07121D91882001E4F99 /* Trackzia.xcdatamodeld */,
+			);
+			name = Storage;
+			path = Trackzia/Storage;
+			sourceTree = "<group>";
+		};
+		546AB07421D918C3001E4F99 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07521D918C3001E4F99 /* ManagedObjects */,
+				546AB07C21D918C3001E4F99 /* Stack */,
+				546AB07E21D918C3001E4F99 /* Helpers */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		546AB07521D918C3001E4F99 /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07621D918C3001E4F99 /* ActiveProfile.swift */,
+				546AB07721D918C3001E4F99 /* Profile.swift */,
+				546AB07821D918C3001E4F99 /* Device.swift */,
+				546AB07921D918C3001E4F99 /* Account.swift */,
+				546AB07A21D918C3001E4F99 /* Helpers */,
+			);
+			path = ManagedObjects;
+			sourceTree = "<group>";
+		};
+		546AB07A21D918C3001E4F99 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07B21D918C3001E4F99 /* Managed.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		546AB07C21D918C3001E4F99 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07D21D918C3001E4F99 /* TrackziaStack.swift */,
+			);
+			path = Stack;
+			sourceTree = "<group>";
+		};
+		546AB07E21D918C3001E4F99 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				546AB07F21D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		548FC21221C42EEB00A64213 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				546AB08921D918ED001E4F99 /* DeviceStore.swift */,
+				546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */,
+				546AB08821D918ED001E4F99 /* UserDataStore.swift */,
+				546AB07421D918C3001E4F99 /* CoreData */,
 				79D7D49B21D7928B00E39C3C /* LocationDetailModel */,
 				54D3025621C952AC0050D377 /* RBPopoverOptionItems */,
 				54B05DB621C63D7900597A42 /* IMEIWiseProfileTypes */,
@@ -453,8 +532,8 @@
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
+				546AB08A21D918ED001E4F99 /* IMEIWiseProfilesStore.swift in Sources */,
 				54BF988D21C8182F005F66AF /* UserAccountData.swift in Sources */,
-				79DE0AE621CFA4F0002DC9F3 /* Model.xcdatamodeld in Sources */,
 				54F66B3521BB93B400B47295 /* DashboardTableDataSource.swift in Sources */,
 				54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */,
 				54B05DC421C63DA400597A42 /* GetIMEIWiseProfiles.swift in Sources */,
@@ -464,21 +543,27 @@
 				7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */,
 				54B05DBE21C63D7900597A42 /* IMEISelectionManager.swift in Sources */,
 				79C4A56F21BBA1C400B72377 /* TZRegisterVC.swift in Sources */,
+				546AB08321D918C3001E4F99 /* Account.swift in Sources */,
 				791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
 				79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */,
 				548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */,
 				795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */,
+				546AB08C21D918ED001E4F99 /* DeviceStore.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
 				54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */,
 				54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */,
 				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
+				546AB08421D918C3001E4F99 /* Managed.swift in Sources */,
 				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
+				546AB08021D918C3001E4F99 /* ActiveProfile.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
+				546AB07321D91883001E4F99 /* Trackzia.xcdatamodeld in Sources */,
 				54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */,
+				546AB08521D918C3001E4F99 /* TrackziaStack.swift in Sources */,
 				54D3025C21C96E600050D377 /* VehicleTypeOptionItem.swift in Sources */,
 				54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */,
 				54B05DBF21C63D7900597A42 /* ProfileTypePet.swift in Sources */,
@@ -486,11 +571,14 @@
 				54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */,
 				547A7E1221CFFE4C00040FB6 /* CurrentLocationVC.swift in Sources */,
 				54D3025421C950750050D377 /* RBOptionItem.swift in Sources */,
+				546AB08121D918C3001E4F99 /* Profile.swift in Sources */,
 				54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
+				546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */,
 				54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
 				79D7D49D21D7B1BF00E39C3C /* LocationDetailModel.swift in Sources */,
+				546AB08221D918C3001E4F99 /* Device.swift in Sources */,
 				79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */,
 				54B05DBD21C63D7900597A42 /* ProfileTypeVehicle.swift in Sources */,
 				54F66B3D21BC1D4D00B47295 /* UserProfileViewController.swift in Sources */,
@@ -499,6 +587,7 @@
 				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
 				54B05DC021C63D7900597A42 /* ProfileTypeKid.swift in Sources */,
 				54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */,
+				546AB08621D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,14 +797,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		79DE0AE421CFA4F0002DC9F3 /* Model.xcdatamodeld */ = {
+		546AB07121D91882001E4F99 /* Trackzia.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */,
+				546AB07221D91882001E4F99 /* Model.xcdatamodel */,
 			);
-			currentVersion = 79DE0AE521CFA4F0002DC9F3 /* Model.xcdatamodel */;
-			name = Model.xcdatamodeld;
-			path = Trackzia/Storage/Model.xcdatamodeld;
+			currentVersion = 546AB07221D91882001E4F99 /* Model.xcdatamodel */;
+			path = Trackzia.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

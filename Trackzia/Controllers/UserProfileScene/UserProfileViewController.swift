@@ -45,6 +45,7 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeAppearance()
+        updateFields()
     }
     
     func customizeAppearance() {
@@ -57,11 +58,18 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
         userProfileImageView.layer.masksToBounds = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680548", listener: self))
-        
-//        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountDetailsService(mobileNumber: "9422680567", listener: self))
+    func updateFields() {
+        let account = UserDataStore.shared.account
+        nameTextField.text = account?.fullName
+        genderTextField.text = account?.gender
+        birthDateTextField.text = account?.dob
+        countryTextField.text = account?.country
+        stateTextField.text = account?.state
+        cityTextField.text = account?.city
+        emailIdTextField.text = account?.emailId
     }
+    
+    
     
     
     @IBAction func genderDropDownTouched(_ sender: UIButton) {
@@ -78,27 +86,6 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
     
     @IBAction func cityDropDownTouched(_ sender: UIButton) {
         presentOptionsPopover(withOptionItems: cityOptionItems(), from: cityTextField)
-    }
-}
-
-
-
-extension UserProfileViewController: CommunicationResultListener {
-    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
-        print("Success")
-        if let result = operation as? GetAccountDetailsServiceResult, result.success {
-            nameTextField.text = result.data?.accName
-            genderTextField.text = result.data?.gender
-            birthDateTextField.text = result.data?.dob
-            countryTextField.text = result.data?.country
-            stateTextField.text = result.data?.stateName
-            cityTextField.text = result.data?.city
-            emailIdTextField.text = result.data?.emailId
-        }
-    }
-    
-    func onFailure(operationId: Int, error: Error, data: Data?) {
-        print("Failure")
     }
 }
 

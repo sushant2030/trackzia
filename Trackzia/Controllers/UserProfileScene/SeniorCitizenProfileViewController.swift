@@ -49,14 +49,13 @@ class SeniorCitizenProfileViewController: UITableViewController, PopoverPresente
 
 extension SeniorCitizenProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: device.imei)
             
             imeiWiseProfiles.forEach { profile in
                 switch profile {
                 case let seniorCitizenProfile as ProfileTypeSeniorCitizen:
-                    imeiNumberTextField.text = imeiNumber
+                    imeiNumberTextField.text = device.imei
                     nameTextField.text = seniorCitizenProfile.name
                     relationTextField.text = seniorCitizenProfile.sonDaughter
                     birthDateTextField.text = seniorCitizenProfile.birthDate

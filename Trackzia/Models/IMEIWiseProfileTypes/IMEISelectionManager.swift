@@ -13,14 +13,13 @@ class IMEISelectionManager {
     
     private init() {}
     
-    var selectedIndex = 0 {
+    var selectedDevice: Device? {
         didSet {
-            if oldValue != selectedIndex {
+            if oldValue?.imei != selectedDevice?.imei {
                 informListeners()
             }
         }
     }
-    
     
     var listeners: [String: () -> Void] = [:]
     

@@ -21,46 +21,39 @@ class AlertSettingsViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            UserAlertSettingsPreference.shared.getAllAlertSettings(for: settingsDisplayedForIMEINumber)
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            UserAlertSettingsPreference.shared.getAllAlertSettings(for: device.imei)
         }
         changeListenerToken = UserAlertSettingsPreference.shared.addListener({ [weak self] (imeiNumber) in
-            if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-                let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-                if settingsDisplayedForIMEINumber == imeiNumber {
-                    self?.updateSwitches(imeiNumber: settingsDisplayedForIMEINumber)
+            if let device = IMEISelectionManager.shared.selectedDevice {
+                if device.imei == imeiNumber {
+                    self?.updateSwitches(imeiNumber: device.imei)
                 }
             }
         })
     }
     
     @IBAction func geoFenceSwitchValueChanged(_ sender: UISwitch) {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: settingsDisplayedForIMEINumber, type: .geofence, value: sender.isOn)
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: device.imei, type: .geofence, value: sender.isOn)
         }
     }
     
     @IBAction func lowBatterInoutSwitchValueChanged(_ sender: UISwitch) {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: settingsDisplayedForIMEINumber, type: .battery, value: sender.isOn)
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: device.imei, type: .battery, value: sender.isOn)
         }
     }
     
     @IBAction func panicSwitchValueChanged(_ sender: UISwitch) {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            
-            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: settingsDisplayedForIMEINumber, type: .panic, value: sender.isOn)
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            UserAlertSettingsPreference.shared.setAlertSettingService(imeiNumber: device.imei, type: .panic, value: sender.isOn)
         }
     }
     
     func updateSwitches(imeiNumber: String) {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let settingsDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            if settingsDisplayedForIMEINumber == imeiNumber {
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            if device.imei == imeiNumber {
                 let values = UserAlertSettingsPreference.shared.alertValues(for: imeiNumber)
                 geoFenceInoutSwitch.isOn = values.0
                 lowBatterInoutSwitch.isOn = values.1

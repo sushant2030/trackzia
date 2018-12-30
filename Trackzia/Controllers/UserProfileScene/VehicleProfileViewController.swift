@@ -49,26 +49,15 @@ class VehicleProfileViewController: UITableViewController, PopoverPresenter {
 
 extension VehicleProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
-            
-            imeiWiseProfiles.forEach { profile in
-                switch profile {
-                case let vehicleProfile as ProfileTypeVehicle:
-                    imeiNumberTextField.text = imeiNumber
-                    nameTextField.text = vehicleProfile.name
-                    typeTextField.text = vehicleProfile.type
-                    chasisNoTextField.text = vehicleProfile.chasisNo
-                    purchaseDateTextField.text = vehicleProfile.purchaseDate
-                    colorTextField.text = vehicleProfile.color
-                    modelTextField.text = vehicleProfile.model
-                    
-                default: break
-                }
-            }
-        }
-        
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        let vehicleProfile = IMEIWiseProfilesStore.shared.profileTypeVehicleFrom(imeiNumber: device.imei)
+        imeiNumberTextField.text = device.imei
+        nameTextField.text = vehicleProfile.name
+        typeTextField.text = vehicleProfile.type
+        chasisNoTextField.text = vehicleProfile.chasisNo
+        purchaseDateTextField.text = vehicleProfile.purchaseDate
+        colorTextField.text = vehicleProfile.color
+        modelTextField.text = vehicleProfile.model
     }
 }
 

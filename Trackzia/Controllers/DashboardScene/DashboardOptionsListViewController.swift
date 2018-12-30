@@ -33,6 +33,9 @@ class DashboardOptionsListViewController: UIViewController {
             case .userTrackOptions: setupTableForUserTrackOptionsMode()
                 
             }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -63,7 +66,6 @@ class DashboardOptionsListViewController: UIViewController {
     
     func switchTableMode() {
         dashboardOptionListMode = dashboardOptionListMode == .userOptions ? .userTrackOptions : .userOptions
-        tableView.reloadData()
     }
     
     func imeiSelectionManagerListener() {
@@ -75,9 +77,8 @@ class DashboardOptionsListViewController: UIViewController {
     
     func imeiWiseProfileChangesListener(_ imeiNumber: String) {
         if dashboardOptionListMode == .userTrackOptions {
-            if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-                let dataDisplayedForIMEINumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-                if dataDisplayedForIMEINumber == imeiNumber {
+            if let device = IMEISelectionManager.shared.selectedDevice {
+                if device.imei == imeiNumber {
                     userTrackingOptionsDataSource.models = userTrackingOptionsModels()
                     tableView.reloadData()
                 }
@@ -140,7 +141,7 @@ func userDashboardOptionsModels() -> [[UserDashboardOption]] {
 }
 
 func userTrackingOptionsModels() -> [[UserDashboardOption]] {
-    if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
+    if let device = IMEISelectionManager.shared.selectedDevice {
         var pet = UserDashboardOption(text: "Pet", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
         var kid = UserDashboardOption(text: "Kid", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
         var seniorCitizen = UserDashboardOption(text: "Senior Citizen", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
@@ -148,8 +149,8 @@ func userTrackingOptionsModels() -> [[UserDashboardOption]] {
         var other = UserDashboardOption(text: "Other", showAddButton: false, isSelected: false, cellIdentifier: "TrackCategoryCell")
         let addDevice = UserDashboardOption(text: "Add Device", showAddButton: true, isSelected: false, cellIdentifier: "TrackCategoryCell")
         
-        let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-        let profileTypes = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
+        
+        let profileTypes = UserDataManager.shared.profileTypesFrom(imeiNumber: device.imei)
         
         profileTypes.forEach({
             switch $0 {

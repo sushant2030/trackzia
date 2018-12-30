@@ -23,8 +23,23 @@ class DashboardProfileViewController: UIViewController {
     weak var delegate: DashboardProfileViewControllerDelegate!
     let gradientLayer = CAGradientLayer()
     
+    var account: Account!
+    var devices: [Device] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        account = UserDataStore.shared.account!
+        if let accountDevices = account.devices {
+            let sortedArray:[Device] = accountDevices.sorted(by: { $0.order > $1.order })
+            devices.append(contentsOf: sortedArray)
+            if let firstDevice = devices.first {
+                DispatchQueue.main.async {
+                    IMEISelectionManager.shared.selectedDevice = firstDevice
+                }
+            }
+        }
+        
         userProfileImageView.layer.cornerRadius = 30
         userProfileImageView.layer.masksToBounds = true
         
@@ -35,6 +50,13 @@ class DashboardProfileViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
         view.layer.insertSublayer(gradientLayer, at:0)
         //896574231025467
+        
+        updateFields()
+    }
+    
+    func updateFields() {
+        nameLabel.text = account.fullName
+        emailLabel.text = account.emailId
     }
     
     @IBAction func arrowButtonTouched(_ sender: UIButton) {
@@ -52,23 +74,23 @@ extension DashboardProfileViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(UserDataManager.shared.imeiList.count)
-        return UserDataManager.shared.imeiList.count
+        return devices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TrackedProfileCell", for: indexPath) as! TrackedProfileCell
         cell.imageView.layer.cornerRadius = CGFloat(45 / 2)
         cell.imageView.layer.masksToBounds = true
-        let imei = UserDataManager.shared.imeiList[indexPath.item]
-        cell.label.text = imei
+        let device = devices[indexPath.item]
+        cell.label.text = device.imei
         return cell
     }
 }
 
 extension DashboardProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        IMEISelectionManager.shared.selectedIndex = indexPath.item
+        let device = devices[indexPath.item]
+        IMEISelectionManager.shared.selectedDevice = device
     }
 }
 

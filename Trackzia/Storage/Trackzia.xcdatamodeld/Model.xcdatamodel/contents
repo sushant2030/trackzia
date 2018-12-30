@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Account" representedClassName=".Account" syncable="YES">
+        <attribute name="accountId" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dob" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="emailId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileno" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Device" inverseName="account" inverseEntity="Device" syncable="YES"/>
+    </entity>
+    <entity name="ActiveProfile" representedClassName=".ActiveProfile" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="profileType" attributeType="String" syncable="YES"/>
+        <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="activeProfile" inverseEntity="Device" syncable="YES"/>
+    </entity>
+    <entity name="Device" representedClassName=".Device" syncable="YES">
+        <attribute name="deviceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imei" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="simcard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="simOperator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="devices" inverseEntity="Account" syncable="YES"/>
+        <relationship name="activeProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveProfile" inverseName="device" inverseEntity="ActiveProfile" syncable="YES"/>
+        <relationship name="geofences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoFence" inverseName="device" inverseEntity="GeoFence" syncable="YES"/>
+        <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="device" inverseEntity="Profile" syncable="YES"/>
+    </entity>
+    <entity name="GeoFence" representedClassName=".GeoFence" syncable="YES">
+        <attribute name="endTime" attributeType="String" syncable="YES"/>
+        <attribute name="lat" attributeType="String" syncable="YES"/>
+        <attribute name="long" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="radius" attributeType="String" syncable="YES"/>
+        <attribute name="startTime" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="geofences" inverseEntity="Device" syncable="YES"/>
+    </entity>
+    <entity name="Profile" representedClassName=".Profile" syncable="YES">
+        <attribute name="com1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com7" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com8" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="com9" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="profileType" attributeType="String" syncable="YES"/>
+        <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="profiles" inverseEntity="Device" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Account" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="ActiveProfile" positionX="-54" positionY="117" width="128" height="90"/>
+        <element name="Device" positionX="-36" positionY="126" width="128" height="210"/>
+        <element name="GeoFence" positionX="-45" positionY="135" width="128" height="195"/>
+        <element name="Profile" positionX="-63" positionY="54" width="128" height="255"/>
+    </elements>
+</model>

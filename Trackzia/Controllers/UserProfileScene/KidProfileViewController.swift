@@ -49,27 +49,18 @@ class KidProfileViewController: UITableViewController, PopoverPresenter {
 
 extension KidProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
-            
-            imeiWiseProfiles.forEach { profile in
-                switch profile {
-                case let kidProfile as ProfileTypeKid:
-                    imeiNumberTextField.text = imeiNumber
-                    nameTextField.text = kidProfile.name
-                    relationTextField.text = kidProfile.sonDaughter
-                    birthDateTextField.text = kidProfile.birthDate
-                    genderTextField.text = kidProfile.gender
-                    bodyTypeTextField.text = kidProfile.bodyType
-                    colorTextField.text = kidProfile.color
-                    schoolTextField.text = kidProfile.school
-                    heightTextField.text = kidProfile.height
-                default: break
-                }
-            }
-        }
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        let kidProfile = IMEIWiseProfilesStore.shared.profileTypeKidFrom(imeiNumber: device.imei)
         
+        imeiNumberTextField.text = device.imei
+        nameTextField.text = kidProfile.name
+        relationTextField.text = kidProfile.sonDaughter
+        birthDateTextField.text = kidProfile.birthDate
+        genderTextField.text = kidProfile.gender
+        bodyTypeTextField.text = kidProfile.bodyType
+        colorTextField.text = kidProfile.color
+        schoolTextField.text = kidProfile.school
+        heightTextField.text = kidProfile.height
     }
 }
 

@@ -191,7 +191,10 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9lo-Wa-DIW">
-                                <rect key="frame" x="101.5" y="40" width="172" height="162"/>
+                                <rect key="frame" x="56.5" y="40" width="262.5" height="245.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9lo-Wa-DIW" secondAttribute="height" multiplier="764:714" id="0Aw-wc-2mb"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN IN PROFILE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmR-eh-m9h">
                                 <rect key="frame" x="132.5" y="620" width="110.5" height="17"/>
@@ -206,17 +209,16 @@
                             <constraint firstItem="oJE-VG-Ldt" firstAttribute="top" secondItem="7Ej-4o-GHf" secondAttribute="top" id="56m-TQ-8gU"/>
                             <constraint firstItem="Gxz-J1-LzB" firstAttribute="bottom" secondItem="wqq-XL-vkz" secondAttribute="bottom" id="Kgw-zq-XOF"/>
                             <constraint firstItem="wqq-XL-vkz" firstAttribute="leading" secondItem="Gxz-J1-LzB" secondAttribute="leading" id="YbY-ct-89L"/>
-                            <constraint firstItem="8uX-re-Ibi" firstAttribute="centerY" secondItem="7Ej-4o-GHf" secondAttribute="centerY" multiplier="1.2" id="h6W-xI-UhV"/>
                             <constraint firstItem="oJE-VG-Ldt" firstAttribute="bottom" secondItem="Gxz-J1-LzB" secondAttribute="bottom" id="ieZ-uu-BGr"/>
                             <constraint firstItem="9lo-Wa-DIW" firstAttribute="top" secondItem="Gxz-J1-LzB" secondAttribute="top" constant="20" id="iz6-Gm-kal"/>
                             <constraint firstItem="oJE-VG-Ldt" firstAttribute="leading" secondItem="Gxz-J1-LzB" secondAttribute="leading" id="j8Q-K3-O9f"/>
-                            <constraint firstItem="9lo-Wa-DIW" firstAttribute="height" secondItem="Gxz-J1-LzB" secondAttribute="height" multiplier="1.75:7" id="jAd-Dc-9Mv"/>
                             <constraint firstItem="8uX-re-Ibi" firstAttribute="width" secondItem="Gxz-J1-LzB" secondAttribute="width" multiplier="2:3" id="jeB-Oc-Uyk"/>
+                            <constraint firstItem="8uX-re-Ibi" firstAttribute="top" secondItem="9lo-Wa-DIW" secondAttribute="bottom" constant="10.5" id="kbp-P1-n0b"/>
+                            <constraint firstItem="9lo-Wa-DIW" firstAttribute="width" secondItem="7Ej-4o-GHf" secondAttribute="width" multiplier="0.7" id="lQk-uX-SMg"/>
                             <constraint firstItem="Gxz-J1-LzB" firstAttribute="trailing" secondItem="wqq-XL-vkz" secondAttribute="trailing" id="nmi-HZ-zvA"/>
                             <constraint firstItem="oJE-VG-Ldt" firstAttribute="trailing" secondItem="Gxz-J1-LzB" secondAttribute="trailing" id="oos-EZ-3ei"/>
                             <constraint firstItem="xmR-eh-m9h" firstAttribute="centerX" secondItem="7Ej-4o-GHf" secondAttribute="centerX" id="pZ4-h2-Z8o"/>
                             <constraint firstItem="9lo-Wa-DIW" firstAttribute="centerX" secondItem="7Ej-4o-GHf" secondAttribute="centerX" id="qtk-z6-1Ou"/>
-                            <constraint firstItem="9lo-Wa-DIW" firstAttribute="width" secondItem="Gxz-J1-LzB" secondAttribute="width" multiplier="1.1:2.4" id="wt8-vu-eJ7"/>
                             <constraint firstItem="8uX-re-Ibi" firstAttribute="centerX" secondItem="7Ej-4o-GHf" secondAttribute="centerX" id="yIj-Tx-Cso"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gxz-J1-LzB"/>

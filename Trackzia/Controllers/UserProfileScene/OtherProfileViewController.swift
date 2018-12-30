@@ -15,10 +15,13 @@ class OtherProfileViewController: UITableViewController {
     @IBOutlet var descriptionTextField: UITextField!
     @IBOutlet var submitButton: UIButton!
     
+    var account: Account!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeAppearance()
         updateFields()
+        account = UserDataStore.shared.account
     }
     
     
@@ -39,20 +42,11 @@ class OtherProfileViewController: UITableViewController {
 
 extension OtherProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
-        if UserDataManager.shared.imeiList.count > IMEISelectionManager.shared.selectedIndex {
-            let imeiNumber = UserDataManager.shared.imeiList[IMEISelectionManager.shared.selectedIndex]
-            let imeiWiseProfiles = UserDataManager.shared.profileTypesFrom(imeiNumber: imeiNumber)
-            
-            imeiWiseProfiles.forEach { profile in
-                switch profile {
-                case let otherProfile as ProfileTypeOther:
-                    imeiNumberTextField.text = imeiNumber
-                    nameTextField.text = otherProfile.name
-                    descriptionTextField.text = otherProfile.description
-                default: break
-                }
-            }
-        }
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        let otherProfile = IMEIWiseProfilesStore.shared.profileTypeOtherFrom(imeiNumber: device.imei)
         
+        imeiNumberTextField.text = device.imei
+        nameTextField.text = otherProfile.name
+        descriptionTextField.text = otherProfile.description
     }
 }
