@@ -29,20 +29,21 @@
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="devices" inverseEntity="Account" syncable="YES"/>
         <relationship name="activeProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveProfile" inverseName="device" inverseEntity="ActiveProfile" syncable="YES"/>
-        <relationship name="geofences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoFence" inverseName="device" inverseEntity="GeoFence" syncable="YES"/>
+        <relationship name="geoFences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoFence" inverseName="device" inverseEntity="GeoFence" syncable="YES"/>
         <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="device" inverseEntity="Profile" syncable="YES"/>
     </entity>
     <entity name="GeoFence" representedClassName=".GeoFence" syncable="YES">
-        <attribute name="endTime" attributeType="String" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="geoEndTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lat" attributeType="String" syncable="YES"/>
         <attribute name="long" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="radius" attributeType="String" syncable="YES"/>
-        <attribute name="startTime" attributeType="String" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="geofences" inverseEntity="Device" syncable="YES"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="geoFences" inverseEntity="Device" syncable="YES"/>
     </entity>
     <entity name="Profile" representedClassName=".Profile" syncable="YES">
         <attribute name="com1" optional="YES" attributeType="String" syncable="YES"/>
@@ -64,7 +65,7 @@
         <element name="Account" positionX="-63" positionY="-18" width="128" height="225"/>
         <element name="ActiveProfile" positionX="-54" positionY="117" width="128" height="90"/>
         <element name="Device" positionX="-36" positionY="126" width="128" height="210"/>
-        <element name="GeoFence" positionX="-45" positionY="135" width="128" height="195"/>
+        <element name="GeoFence" positionX="-45" positionY="135" width="128" height="210"/>
         <element name="Profile" positionX="-63" positionY="54" width="128" height="255"/>
     </elements>
 </model>
