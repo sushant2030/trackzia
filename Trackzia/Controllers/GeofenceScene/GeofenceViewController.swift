@@ -52,7 +52,24 @@ class GeofenceViewController: UIViewController {
     }
     
     func updateView(for device: Device) {
-        nameTextField.text = device.geoFences?.filter({ $0.type == selectedGeoFenceType.rawValue }).first?.name ?? "0"
+        guard let geoFence = device.geoFences?.filter({ $0.type == selectedGeoFenceType.rawValue }).first else {
+            nameTextField.text = "0"
+            return
+        }
+        
+        nameTextField.text = geoFence.name
+        guard geoFence.lat != "0" && geoFence.long != "0" else { return }
+        guard let latitude = CLLocationDegrees(geoFence.lat) else { return }
+        guard let longitude = CLLocationDegrees(geoFence.long) else { return }
+        
+        let coordinate2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let region = MKCoordinateRegion(center: coordinate2D, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        mapView.setRegion(region, animated: true)
+    
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate2D
+        annotation.title = "\(coordinate2D.latitude, coordinate2D.longitude)"
+        mapView.addAnnotation(annotation)
     }
     
     @IBAction func homeButtonTapped(_ sender: Any) {
