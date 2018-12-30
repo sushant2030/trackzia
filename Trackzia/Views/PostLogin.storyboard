@@ -121,22 +121,37 @@
                                                                 <constraint firstAttribute="width" constant="30" id="TKU-UT-MEf"/>
                                                             </constraints>
                                                             <state key="normal" backgroundImage="home"/>
+                                                            <connections>
+                                                                <action selector="homeButtonTapped:" destination="xWO-Aa-jow" eventType="touchUpInside" id="JpK-Cs-a7u"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-NA-DFo">
                                                             <rect key="frame" x="52" y="0.0" width="30" height="30"/>
                                                             <state key="normal" backgroundImage="school"/>
+                                                            <connections>
+                                                                <action selector="schoolButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="yYb-Kg-lld"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0f-SP-JiF">
                                                             <rect key="frame" x="104" y="0.0" width="30" height="30"/>
                                                             <state key="normal" backgroundImage="garden"/>
+                                                            <connections>
+                                                                <action selector="playgroundButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="qDv-17-sOK"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qrY-8O-vPf">
                                                             <rect key="frame" x="156" y="0.0" width="30" height="30"/>
                                                             <state key="normal" backgroundImage="other_icon"/>
+                                                            <connections>
+                                                                <action selector="otherButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="gtA-FW-boj"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DA-fo-d32">
                                                             <rect key="frame" x="208" y="0.0" width="30" height="30"/>
                                                             <state key="normal" backgroundImage="lock_geo_fence"/>
+                                                            <connections>
+                                                                <action selector="lockButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="XYx-BP-5LC"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>

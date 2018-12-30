@@ -31,6 +31,8 @@
 		546AB08A21D918ED001E4F99 /* IMEIWiseProfilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */; };
 		546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08821D918ED001E4F99 /* UserDataStore.swift */; };
 		546AB08C21D918ED001E4F99 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08921D918ED001E4F99 /* DeviceStore.swift */; };
+		546AB08E21D91A75001E4F99 /* GeoFence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08D21D91A75001E4F99 /* GeoFence.swift */; };
+		546AB09021D9239E001E4F99 /* GetGeoFenceDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */; };
 		547A7E1221CFFE4C00040FB6 /* CurrentLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */; };
 		5488BC7321C4B9C9003D3467 /* PreLoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */; };
 		548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */; };
@@ -121,6 +123,8 @@
 		546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMEIWiseProfilesStore.swift; sourceTree = "<group>"; };
 		546AB08821D918ED001E4F99 /* UserDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		546AB08921D918ED001E4F99 /* DeviceStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		546AB08D21D91A75001E4F99 /* GeoFence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFence.swift; sourceTree = "<group>"; };
+		546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGeoFenceDetailsService.swift; sourceTree = "<group>"; };
 		547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationVC.swift; sourceTree = "<group>"; };
 		5488BC7221C4B9C9003D3467 /* PreLoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreLoginRouter.swift; sourceTree = "<group>"; };
 		548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAccountWiseIMEIService.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */,
 				54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */,
 				54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */,
+				546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				546AB07721D918C3001E4F99 /* Profile.swift */,
 				546AB07821D918C3001E4F99 /* Device.swift */,
 				546AB07921D918C3001E4F99 /* Account.swift */,
+				546AB08D21D91A75001E4F99 /* GeoFence.swift */,
 				546AB07A21D918C3001E4F99 /* Helpers */,
 			);
 			path = ManagedObjects;
@@ -562,7 +568,9 @@
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				546AB07321D91883001E4F99 /* Trackzia.xcdatamodeld in Sources */,
+				546AB08E21D91A75001E4F99 /* GeoFence.swift in Sources */,
 				54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */,
+				546AB09021D9239E001E4F99 /* GetGeoFenceDetailsService.swift in Sources */,
 				546AB08521D918C3001E4F99 /* TrackziaStack.swift in Sources */,
 				54D3025C21C96E600050D377 /* VehicleTypeOptionItem.swift in Sources */,
 				54B05DC221C63D7900597A42 /* ProfileTypeSeniorCitizen.swift in Sources */,

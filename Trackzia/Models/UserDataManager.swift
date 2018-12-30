@@ -58,10 +58,10 @@ class UserDataManager {
     
     var imeiWiseProfileFetchInProgress: Set<String> = []
     
-    typealias IMEINumber = String
-    var imeiWiseProfileChangesListeners: [String: (IMEINumber) -> Void] = [:]
+    var imeiWiseProfileChangesListeners: [String: (IMEI) -> Void] = [:]
     
     var volatileLoginAccountData: LoginServiceResult.LoginAccountData? = nil
+    var geoFenceDetailsCompletionHandler: ((IMEI) -> Void)?
     
     // MARK: Service usage
     func login(mobileNumber: String, password: String) {
@@ -82,9 +82,14 @@ class UserDataManager {
         CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
     }
     
-    func getIMEIWiseProfiles(imeiNumber: String) {
+    func getIMEIWiseProfiles(imeiNumber: IMEI) {
         volatileIMEINumber = imeiNumber
-        CommunicationManager.getCommunicator().performOpertaion(with: GetIMEIWiseProfiles(imeiNumber: imeiNumber, listener: UserDataManager.shared))
+        CommunicationManager.getCommunicator().performOpertaion(with: GetIMEIWiseProfiles(imeiNumber: imeiNumber, listener: self))
+    }
+    
+    func getGeoFenceDetails(imei: IMEI, completionHandlder: @escaping (IMEI) -> Void) {
+        geoFenceDetailsCompletionHandler = completionHandlder
+        CommunicationManager.getCommunicator().performOpertaion(with: GetGeoFenceDetailsService(imei: imei, listener: self))
     }
     
     // MARK: Local data
@@ -104,7 +109,7 @@ class UserDataManager {
     }
     
     // MARK: Add remove listeners to changes in IMEI wise profiles
-    func addListener(_ listener: @escaping (IMEINumber) -> Void) -> IMEIWiseProfileListenerToken {
+    func addListener(_ listener: @escaping (IMEI) -> Void) -> IMEIWiseProfileListenerToken {
         let token = IMEIWiseProfileListenerToken()
         imeiWiseProfileChangesListeners[token.uuidString] = listener
         return token
@@ -165,6 +170,24 @@ extension UserDataManager: CommunicationResultListener {
             if wrapper.result.success {
                 UserDataStore.shared.updateAccount(in: context, userAccountData: wrapper.accntData)
                 UserDataStore.shared.updateObserver?()
+            }
+        }
+        
+        if let wrapper = operation as? GetGeoFenceDetailsServiceResultWrapper {
+            if wrapper.result.success {
+                guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
+                context.performChanges {
+                    device.geoFences?.forEach({ self.context.delete($0) })
+                    device.geoFences = []
+                    for geoFenceData in wrapper.result.data {
+                        let geoFence = GeoFence.insert(into: self.context, geoFenceData: geoFenceData)
+                        device.geoFences?.insert(geoFence)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.geoFenceDetailsCompletionHandler?(device.imei)
+                }
             }
         }
     }

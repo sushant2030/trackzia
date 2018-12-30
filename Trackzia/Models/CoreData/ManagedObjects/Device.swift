@@ -20,6 +20,7 @@ class Device: NSManagedObject {
     @NSManaged var account: Account
     @NSManaged var profiles: Set<Profile>?
     @NSManaged var activeProfile: ActiveProfile?
+    @NSManaged var geoFences: Set<GeoFence>?
     
     static func insert(into context: NSManagedObjectContext, imei: String) -> Device {
         let device: Device = context.insertObject()
