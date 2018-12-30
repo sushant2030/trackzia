@@ -112,43 +112,43 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQw-cs-vAG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="nfd-fC-wFr">
-                                                    <rect key="frame" x="68.5" y="22.5" width="238" height="30"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="nfd-fC-wFr">
+                                                    <rect key="frame" x="65.5" y="22.5" width="244" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phf-wM-z1x">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="TKU-UT-MEf"/>
                                                             </constraints>
-                                                            <state key="normal" backgroundImage="home"/>
+                                                            <state key="normal" backgroundImage="home_icon"/>
                                                             <connections>
                                                                 <action selector="homeButtonTapped:" destination="xWO-Aa-jow" eventType="touchUpInside" id="JpK-Cs-a7u"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-NA-DFo">
-                                                            <rect key="frame" x="52" y="0.0" width="30" height="30"/>
-                                                            <state key="normal" backgroundImage="school"/>
+                                                            <rect key="frame" x="52" y="0.0" width="29" height="30"/>
+                                                            <state key="normal" backgroundImage="school_icon"/>
                                                             <connections>
                                                                 <action selector="schoolButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="yYb-Kg-lld"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0f-SP-JiF">
-                                                            <rect key="frame" x="104" y="0.0" width="30" height="30"/>
-                                                            <state key="normal" backgroundImage="garden"/>
+                                                            <rect key="frame" x="103" y="0.0" width="52" height="30"/>
+                                                            <state key="normal" backgroundImage="garden_icon"/>
                                                             <connections>
                                                                 <action selector="playgroundButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="qDv-17-sOK"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qrY-8O-vPf">
-                                                            <rect key="frame" x="156" y="0.0" width="30" height="30"/>
-                                                            <state key="normal" backgroundImage="other_icon"/>
+                                                            <rect key="frame" x="177" y="0.0" width="23" height="30"/>
+                                                            <state key="normal" backgroundImage="other2_icon"/>
                                                             <connections>
                                                                 <action selector="otherButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="gtA-FW-boj"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DA-fo-d32">
-                                                            <rect key="frame" x="208" y="0.0" width="30" height="30"/>
-                                                            <state key="normal" backgroundImage="lock_geo_fence"/>
+                                                            <rect key="frame" x="222" y="0.0" width="22" height="30"/>
+                                                            <state key="normal" backgroundImage="lock_geo_fence2"/>
                                                             <connections>
                                                                 <action selector="lockButtonTouched:" destination="xWO-Aa-jow" eventType="touchUpInside" id="XYx-BP-5LC"/>
                                                             </connections>
@@ -641,12 +641,12 @@
     </scenes>
     <resources>
         <image name="down_arrow" width="900" height="520"/>
-        <image name="garden" width="683" height="392"/>
-        <image name="home" width="473" height="423"/>
-        <image name="lock_geo_fence" width="323" height="432"/>
-        <image name="other_icon" width="398" height="518"/>
+        <image name="garden_icon" width="52" height="30"/>
+        <image name="home_icon" width="33" height="30"/>
+        <image name="lock_geo_fence2" width="22" height="30"/>
+        <image name="other2_icon" width="23" height="30"/>
         <image name="profilepic" width="340" height="340"/>
-        <image name="school" width="501" height="516"/>
+        <image name="school_icon" width="29" height="30"/>
         <image name="small_add" width="512" height="512"/>
     </resources>
 </document>
