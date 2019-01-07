@@ -55,7 +55,7 @@ extension SeniorCitizenProfileViewController: IMEIWiseProfileListenerChangeListe
             imeiWiseProfiles.forEach { profile in
                 switch profile {
                 case let seniorCitizenProfile as ProfileTypeSeniorCitizen:
-                    imeiNumberTextField.text = device.imei
+                    imeiNumberTextField.text = String(device.imei)
                     nameTextField.text = seniorCitizenProfile.name
                     relationTextField.text = seniorCitizenProfile.sonDaughter
                     birthDateTextField.text = seniorCitizenProfile.birthDate

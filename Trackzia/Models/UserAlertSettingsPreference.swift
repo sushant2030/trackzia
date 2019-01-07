@@ -22,38 +22,38 @@ class UserAlertSettingsPreference {
     static var shared = UserAlertSettingsPreference()
     
     private init() {
-        if let alertSetValues = UserDefaults.standard.value(forKey: "alertSettings") as? [IMEINumber: [Bool]] {
+        if let alertSetValues = UserDefaults.standard.value(forKey: "alertSettings") as? [IMEI: [Bool]] {
             alertSettings = alertSetValues
         } else {
             alertSettings = [:]
         }
     }
     typealias IMEINumber = String
-    var alertSettings: [IMEINumber: [Bool]]
+    var alertSettings: [IMEI: [Bool]]
     
-    var alertSettingsChangeListeners: [String: (IMEINumber) -> Void] = [:]
+    var alertSettingsChangeListeners: [String: (IMEI) -> Void] = [:]
     
-    func getAllAlertSettings(for imeiNumber: IMEINumber) {
+    func getAllAlertSettings(for imeiNumber: IMEI) {
         CommunicationManager.getCommunicator().performOpertaion(with: GetAllAlertSettingsService(imeiNumber: imeiNumber, listener: self))
     }
     
-    func setAlertSettingService(imeiNumber: String, type: AlertSettingType, value: Bool) {
+    func setAlertSettingService(imeiNumber: IMEI, type: AlertSettingType, value: Bool) {
         let onOffValue = value ? "true" : "false"
         CommunicationManager.getCommunicator().performOpertaion(with: SetAlertSettingValueService(imeiNumber: imeiNumber, alertName: type.rawValue, onOffValue: onOffValue, listener: self))
     }
     
-    func setAlertValues(values: [Bool], for imeiNumber: String) {
+    func setAlertValues(values: [Bool], for imeiNumber: IMEI) {
         alertSettings[imeiNumber] = values
         UserDefaults.standard.set(alertSettings, forKey: "alertSettings")
         alertSettingsChangeListeners.forEach{ $1(imeiNumber) }
     }
     
-    func alertValues(for imeiNumber: String) -> (Bool, Bool, Bool) {
+    func alertValues(for imeiNumber: IMEI) -> (Bool, Bool, Bool) {
         if let values = alertSettings[imeiNumber] { return (values[0], values[1], values[2]) }
         return (true, true, true)
     }
     
-    func addListener(_ listener: @escaping (IMEINumber) -> Void) -> UserAlertSettingsPreferenceChangeToken {
+    func addListener(_ listener: @escaping (IMEI) -> Void) -> UserAlertSettingsPreferenceChangeToken {
         let token = UserAlertSettingsPreferenceChangeToken()
         alertSettingsChangeListeners[token.uuidString] = listener
         return token

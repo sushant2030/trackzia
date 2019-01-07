@@ -18,7 +18,7 @@ class GetGeoFenceDetailsService: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
-        return ["IMEI": imei]
+        return ["IMEI": String(imei)]
     }
     
     var operationId: Int = 0

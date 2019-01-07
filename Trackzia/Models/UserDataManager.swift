@@ -50,13 +50,13 @@ class UserDataManager {
     var isLoggedIn: Bool { return UserDataStore.shared.loggedInState == .loggedIn ? true : false }
     
     var volatileLoginData: (mobileNumber: String, password: String)?
-    var volatileIMEINumber: String?
+    var volatileIMEINumber: IMEI?
     
-    var imeiList: [String] {
+    var imeiList: [IMEI] {
         return DeviceStore.shared.devices.map{ $0.imei }
     }
     
-    var imeiWiseProfileFetchInProgress: Set<String> = []
+    var imeiWiseProfileFetchInProgress: Set<IMEI> = []
     
     var imeiWiseProfileChangesListeners: [String: (IMEI) -> Void] = [:]
     
@@ -92,8 +92,26 @@ class UserDataManager {
         CommunicationManager.getCommunicator().performOpertaion(with: GetGeoFenceDetailsService(imei: imei, listener: self))
     }
     
+    func getDataPackets(imei: IMEI, completionHandler: @escaping (IMEI) -> Void) {
+        guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == imei }).first else {
+            completionHandler(-1)
+            return
+        }
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName: "DataPacket")
+        request.resultType = .dictionaryResultType
+        request.predicate = NSPredicate(format: "device == %@", device)
+        
+        let timeStampExpressionDescription = NSExpressionDescription()
+        timeStampExpressionDescription.expressionResultType = .doubleAttributeType
+        timeStampExpressionDescription.expression = NSExpression(forFunction: "max:", arguments: [NSExpression(forKeyPath: "timeStamp")])
+        timeStampExpressionDescription.name = "maxTimeStamp"
+        
+        
+    }
+    
     // MARK: Local data
-    func profileTypesFrom(imeiNumber: String) -> [Any] {
+    func profileTypesFrom(imeiNumber: IMEI) -> [Any] {
         return IMEIWiseProfilesStore.shared.profileTypesFrom(imeiNumber: imeiNumber)
     }
     
@@ -145,7 +163,7 @@ extension UserDataManager: CommunicationResultListener {
         
         if let result = operation as? GetAccountWiseIMEIServiceResult, result.success {
             if let data = result.data {
-                let imeiList = data.keys.sorted().map{ data[$0]! }
+                let imeiList = data.keys.sorted().map{ Int64(data[$0]!)! }
                 UserDataStore.shared.insertDevices(in: context, for: imeiList)
                 
                 DispatchQueue.main.async {

@@ -51,7 +51,7 @@ extension VehicleProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         let vehicleProfile = IMEIWiseProfilesStore.shared.profileTypeVehicleFrom(imeiNumber: device.imei)
-        imeiNumberTextField.text = device.imei
+        imeiNumberTextField.text = String(device.imei)
         nameTextField.text = vehicleProfile.name
         typeTextField.text = vehicleProfile.type
         chasisNoTextField.text = vehicleProfile.chasisNo

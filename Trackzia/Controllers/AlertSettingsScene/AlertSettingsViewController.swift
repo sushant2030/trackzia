@@ -51,7 +51,7 @@ class AlertSettingsViewController: UITableViewController {
         }
     }
     
-    func updateSwitches(imeiNumber: String) {
+    func updateSwitches(imeiNumber: IMEI) {
         if let device = IMEISelectionManager.shared.selectedDevice {
             if device.imei == imeiNumber {
                 let values = UserAlertSettingsPreference.shared.alertValues(for: imeiNumber)

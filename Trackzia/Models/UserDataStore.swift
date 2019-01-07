@@ -8,7 +8,7 @@
 
 import CoreData
 
-typealias IMEI = String
+typealias IMEI = Int64
 
 class UserDataStore {
     static var shared = UserDataStore()

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         createTrackziaContainer { (container) in
             self.persistentContainer = container
             UserDataManager.shared.context = self.persistentContainer.viewContext
+            DeviceStore.shared.context = self.persistentContainer.viewContext
             
             DispatchQueue.main.async {
                 if UserDataManager.shared.isLoggedIn {

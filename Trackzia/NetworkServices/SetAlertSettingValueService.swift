@@ -18,7 +18,7 @@ class SetAlertSettingValueService: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
-        return ["IMEI": imeiNumber,
+        return ["IMEI": String(imeiNumber),
                 "AlertName":alertName,
                 "Onoff": onOffValue]
     }
@@ -27,12 +27,12 @@ class SetAlertSettingValueService: CommunicationEndPoint {
     
     var listener: CommunicationResultListener
     
-    let imeiNumber: String
+    let imeiNumber: IMEI
     let alertName: String
     let onOffValue: String
     
     
-    init(imeiNumber: String, alertName: String, onOffValue: String, listener: CommunicationResultListener) {
+    init(imeiNumber: IMEI, alertName: String, onOffValue: String, listener: CommunicationResultListener) {
         self.imeiNumber = imeiNumber
         self.alertName = alertName
         self.onOffValue = onOffValue
@@ -65,7 +65,7 @@ class SetAlertSettingValueService: CommunicationEndPoint {
 }
 
 struct SetAlertSettingValueServiceResultWrapper: CommunicationOperationResult {
-    let imeiNumber: String
+    let imeiNumber: IMEI
     let alertName: String
     let onOffValue: String
     let result: SetAlertSettingValueServiceResult

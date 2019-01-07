@@ -11,11 +11,11 @@ import UIKit
 
 protocol IMEIWiseProfileListenerChangeListener {
     func updateFields()
-    func imeiWiseProfileChangesListener(_ imeiNumber: String)
+    func imeiWiseProfileChangesListener(_ imeiNumber: IMEI)
 }
 
 extension IMEIWiseProfileListenerChangeListener {
-    func imeiWiseProfileChangesListener(_ imeiNumber: String) {
+    func imeiWiseProfileChangesListener(_ imeiNumber: IMEI) {
         if let device = IMEISelectionManager.shared.selectedDevice {
             if device.imei == imeiNumber {
                 updateFields()
@@ -73,7 +73,7 @@ extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         let petProfile = IMEIWiseProfilesStore.shared.profileTypePetFrom(imeiNumber: device.imei)
         
-        imeiNumberTextField.text = device.imei
+        imeiNumberTextField.text = String(device.imei)
         nameTextField.text = petProfile.name
         birthDateTextField.text = petProfile.birthDate
         genderTextField.text = petProfile.gender

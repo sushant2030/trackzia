@@ -18,17 +18,17 @@ class GetIMEIWiseProfiles: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
-        return ["IMEI":imeiNumber]
+        return ["IMEI": String(imeiNumber)]
     }
     
     var operationId: Int = 0
     
     var listener: CommunicationResultListener
     
-    let imeiNumber: String
+    let imeiNumber: IMEI
     
     
-    init(imeiNumber: String, listener: CommunicationResultListener) {
+    init(imeiNumber: IMEI, listener: CommunicationResultListener) {
         self.imeiNumber = imeiNumber
         self.listener = listener
     }
@@ -55,7 +55,7 @@ class GetIMEIWiseProfiles: CommunicationEndPoint {
 }
 
 struct GetIMEIWiseProfilesResultWrapper: CommunicationOperationResult {
-    let imeiNumber: String
+    let imeiNumber: IMEI
     let result: GetIMEIWiseProfilesResult
 }
 

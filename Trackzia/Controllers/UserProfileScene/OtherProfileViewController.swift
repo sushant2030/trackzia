@@ -45,7 +45,7 @@ extension OtherProfileViewController: IMEIWiseProfileListenerChangeListener {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         let otherProfile = IMEIWiseProfilesStore.shared.profileTypeOtherFrom(imeiNumber: device.imei)
         
-        imeiNumberTextField.text = device.imei
+        imeiNumberTextField.text = String(device.imei)
         nameTextField.text = otherProfile.name
         descriptionTextField.text = otherProfile.description
     }

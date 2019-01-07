@@ -35,7 +35,7 @@ class IMEIWiseProfilesStore {
         }
     }
     
-    func profileTypesFrom(imeiNumber: String) -> [Any] {
+    func profileTypesFrom(imeiNumber: IMEI) -> [Any] {
         let kidProfile = profileTypeKidFrom(imeiNumber: imeiNumber)
         let petProfile = profileTypePetFrom(imeiNumber: imeiNumber)
         let seniorCitizenProfile = profileTypeSeniorCitizenFrom(imeiNumber: imeiNumber)
@@ -44,7 +44,7 @@ class IMEIWiseProfilesStore {
         return [petProfile, kidProfile, seniorCitizenProfile, vehicleProfile, otherProfile]
     }
     
-    func profileTypeKidFrom(imeiNumber: String) -> ProfileTypeKid {
+    func profileTypeKidFrom(imeiNumber: IMEI) -> ProfileTypeKid {
         guard let device = DeviceStore.shared.devices.filter({ $0.imei == imeiNumber }).first else {
             return profileTypeKid(dictionary: [:])
         }
@@ -57,7 +57,7 @@ class IMEIWiseProfilesStore {
         return profileTypeKid(dictionary: dictionary)
     }
     
-    func profileTypePetFrom(imeiNumber: String) -> ProfileTypePet {
+    func profileTypePetFrom(imeiNumber: IMEI) -> ProfileTypePet {
         guard let device = DeviceStore.shared.devices.filter({ $0.imei == imeiNumber }).first else {
             return profileTypePet(dictionary: [:])
         }
@@ -70,7 +70,7 @@ class IMEIWiseProfilesStore {
         return profileTypePet(dictionary: dictionary)
     }
     
-    func profileTypeSeniorCitizenFrom(imeiNumber: String) -> ProfileTypeSeniorCitizen {
+    func profileTypeSeniorCitizenFrom(imeiNumber: IMEI) -> ProfileTypeSeniorCitizen {
         guard let device = DeviceStore.shared.devices.filter({ $0.imei == imeiNumber }).first else {
             return profileTypeSeniorCitizen(dictionary: [:])
         }
@@ -83,7 +83,7 @@ class IMEIWiseProfilesStore {
         return profileTypeSeniorCitizen(dictionary: dictionary)
     }
     
-    func profileTypeVehicleFrom(imeiNumber: String) -> ProfileTypeVehicle {
+    func profileTypeVehicleFrom(imeiNumber: IMEI) -> ProfileTypeVehicle {
         guard let device = DeviceStore.shared.devices.filter({ $0.imei == imeiNumber }).first else {
             return profileTypeVehicle(dictionary: [:])
         }
@@ -96,7 +96,7 @@ class IMEIWiseProfilesStore {
         return profileTypeVehicle(dictionary: dictionary)
     }
     
-    func profileTypeOtherFrom(imeiNumber: String) -> ProfileTypeOther {
+    func profileTypeOtherFrom(imeiNumber: IMEI) -> ProfileTypeOther {
         guard let device = DeviceStore.shared.devices.filter({ $0.imei == imeiNumber }).first else {
             return profileTypeOther(dictionary: [:])
         }

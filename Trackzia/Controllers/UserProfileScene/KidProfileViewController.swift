@@ -52,7 +52,7 @@ extension KidProfileViewController: IMEIWiseProfileListenerChangeListener {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         let kidProfile = IMEIWiseProfilesStore.shared.profileTypeKidFrom(imeiNumber: device.imei)
         
-        imeiNumberTextField.text = device.imei
+        imeiNumberTextField.text = String(device.imei)
         nameTextField.text = kidProfile.name
         relationTextField.text = kidProfile.sonDaughter
         birthDateTextField.text = kidProfile.birthDate

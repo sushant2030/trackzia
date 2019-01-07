@@ -66,8 +66,10 @@
 		54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F75FC121BEEB9B007875E6 /* OtherProfileViewController.swift */; };
 		54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */; };
 		54FBF8BB21C01D7E0008DCD6 /* VehicleProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */; };
+		54FD835221DB5C3D000996E5 /* DataPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD835121DB5C3D000996E5 /* DataPacket.swift */; };
+		54FD835421DB5F13000996E5 /* GetDataPacketsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */; };
+		54FD835821DD2FFA000996E5 /* GetDeviceDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */; };
 		791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */; };
-		795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795098AF21C5636B004D43CE /* GetDeviceDataService.swift */; };
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
 		7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */; };
@@ -158,8 +160,10 @@
 		54F75FC121BEEB9B007875E6 /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		54FBF8B821C016260008DCD6 /* SeniorCitizenProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorCitizenProfileViewController.swift; sourceTree = "<group>"; };
 		54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleProfileViewController.swift; sourceTree = "<group>"; };
+		54FD835121DB5C3D000996E5 /* DataPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPacket.swift; sourceTree = "<group>"; };
+		54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataPacketsService.swift; sourceTree = "<group>"; };
+		54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeviceDetailsService.swift; sourceTree = "<group>"; };
 		791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordService.swift; sourceTree = "<group>"; };
-		795098AF21C5636B004D43CE /* GetDeviceDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeviceDataService.swift; sourceTree = "<group>"; };
 		7959E97E21BC57F100EEB963 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		7959E98121BCD65C00EEB963 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZCreateProfileVC.swift; sourceTree = "<group>"; };
@@ -252,18 +256,14 @@
 		54665BC321C1728E00251267 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
-				54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */,
-				548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */,
-				54665BC421C1728E00251267 /* LoginService.swift */,
-				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
+				54FD835521DD2478000996E5 /* User */,
+				54FD835621DD248F000996E5 /* Devices */,
 				791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */,
 				79D6B4E821C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift */,
 				79D6B4EA21C2EE5300AA8A68 /* AddUpdateVehicleProfile.swift */,
 				79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */,
-				795098AF21C5636B004D43CE /* GetDeviceDataService.swift */,
 				54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */,
 				54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */,
-				54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */,
 				546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */,
 			);
 			path = NetworkServices;
@@ -297,6 +297,7 @@
 				546AB07921D918C3001E4F99 /* Account.swift */,
 				546AB08D21D91A75001E4F99 /* GeoFence.swift */,
 				546AB07A21D918C3001E4F99 /* Helpers */,
+				54FD835121DB5C3D000996E5 /* DataPacket.swift */,
 			);
 			path = ManagedObjects;
 			sourceTree = "<group>";
@@ -422,6 +423,27 @@
 				54FBF8BA21C01D7E0008DCD6 /* VehicleProfileViewController.swift */,
 			);
 			path = UserProfileScene;
+			sourceTree = "<group>";
+		};
+		54FD835521DD2478000996E5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */,
+				54665BC421C1728E00251267 /* LoginService.swift */,
+				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		54FD835621DD248F000996E5 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				548FC21021C4293000A64213 /* GetAccountWiseIMEIService.swift */,
+				54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */,
+				54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */,
+				54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */,
+			);
+			path = Devices;
 			sourceTree = "<group>";
 		};
 		7959E98021BCD5FA00EEB963 /* TabBarScene */ = {
@@ -555,11 +577,11 @@
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
 				79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */,
 				548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */,
-				795098B021C5636B004D43CE /* GetDeviceDataService.swift in Sources */,
 				546AB08C21D918ED001E4F99 /* DeviceStore.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
 				54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */,
+				54FD835221DB5C3D000996E5 /* DataPacket.swift in Sources */,
 				54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */,
 				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
 				546AB08421D918C3001E4F99 /* Managed.swift in Sources */,
@@ -569,6 +591,7 @@
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				546AB07321D91883001E4F99 /* Trackzia.xcdatamodeld in Sources */,
 				546AB08E21D91A75001E4F99 /* GeoFence.swift in Sources */,
+				54FD835821DD2FFA000996E5 /* GetDeviceDetailsService.swift in Sources */,
 				54B05DC621C6653200597A42 /* UserAlertSettingsPreference.swift in Sources */,
 				546AB09021D9239E001E4F99 /* GetGeoFenceDetailsService.swift in Sources */,
 				546AB08521D918C3001E4F99 /* TrackziaStack.swift in Sources */,
@@ -594,6 +617,7 @@
 				54FBF8B921C016260008DCD6 /* SeniorCitizenProfileViewController.swift in Sources */,
 				54A3682321BD319C000C7379 /* PostLoginRouter.swift in Sources */,
 				54B05DC021C63D7900597A42 /* ProfileTypeKid.swift in Sources */,
+				54FD835421DB5F13000996E5 /* GetDataPacketsService.swift in Sources */,
 				54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */,
 				546AB08621D918C3001E4F99 /* NSManagedObjectContext+Extensions.swift in Sources */,
 			);

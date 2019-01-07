@@ -18,17 +18,17 @@ class GetAllAlertSettingsService: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
-        return ["IMEI":imeiNumber]
+        return ["IMEI":String(imeiNumber)]
     }
     
     var operationId: Int = 0
     
     var listener: CommunicationResultListener
     
-    let imeiNumber: String
+    let imeiNumber: IMEI
     
     
-    init(imeiNumber: String, listener: CommunicationResultListener) {
+    init(imeiNumber: IMEI, listener: CommunicationResultListener) {
         self.imeiNumber = imeiNumber
         self.listener = listener
     }
@@ -63,7 +63,7 @@ class GetAllAlertSettingsService: CommunicationEndPoint {
 }
 
 struct GetAllAlertSettingsServiceResultWrapper: CommunicationOperationResult {
-    let imeiNumber: String
+    let imeiNumber: IMEI
     let result: GetAllAlertSettingsServiceResult
 }
 

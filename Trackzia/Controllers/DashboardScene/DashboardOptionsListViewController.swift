@@ -75,7 +75,7 @@ class DashboardOptionsListViewController: UIViewController {
         }
     }
     
-    func imeiWiseProfileChangesListener(_ imeiNumber: String) {
+    func imeiWiseProfileChangesListener(_ imeiNumber: IMEI) {
         if dashboardOptionListMode == .userTrackOptions {
             if let device = IMEISelectionManager.shared.selectedDevice {
                 if device.imei == imeiNumber {

@@ -82,7 +82,7 @@ extension DashboardProfileViewController: UICollectionViewDataSource {
         cell.imageView.layer.cornerRadius = CGFloat(45 / 2)
         cell.imageView.layer.masksToBounds = true
         let device = devices[indexPath.item]
-        cell.label.text = device.imei
+        cell.label.text = String(device.imei)
         return cell
     }
 }
