@@ -28,7 +28,7 @@ class UserAlertSettingsPreference {
             alertSettings = [:]
         }
     }
-    typealias IMEINumber = String
+    
     var alertSettings: [IMEI: [Bool]]
     
     var alertSettingsChangeListeners: [String: (IMEI) -> Void] = [:]

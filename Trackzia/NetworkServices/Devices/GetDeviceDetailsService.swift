@@ -27,7 +27,6 @@ class GetDeviceDetailsService: CommunicationEndPoint {
     
     let imeiNumber: IMEI
     
-    
     init(imeiNumber: IMEI, listener: CommunicationResultListener) {
         self.imeiNumber = imeiNumber
         self.listener = listener

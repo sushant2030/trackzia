@@ -20,12 +20,14 @@
         <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="activeProfile" inverseEntity="Device" syncable="YES"/>
     </entity>
     <entity name="DataPacket" representedClassName=".DataPacket" syncable="YES">
-        <attribute name="battery" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="panic" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="timeStamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="accuracy" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="battery" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="charging" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lat" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="long" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="panic" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="speed" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="dataPackets" inverseEntity="Device" syncable="YES"/>
     </entity>
     <entity name="Device" representedClassName=".Device" syncable="YES">
@@ -38,10 +40,25 @@
         <attribute name="sync" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="devices" inverseEntity="Account" syncable="YES"/>
+        <relationship name="actionsInfo" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceActionsInfo" inverseName="device" inverseEntity="DeviceActionsInfo" syncable="YES"/>
         <relationship name="activeProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ActiveProfile" inverseName="device" inverseEntity="ActiveProfile" syncable="YES"/>
         <relationship name="dataPackets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DataPacket" inverseName="device" inverseEntity="DataPacket" syncable="YES"/>
         <relationship name="geoFences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoFence" inverseName="device" inverseEntity="GeoFence" syncable="YES"/>
         <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="device" inverseEntity="Profile" syncable="YES"/>
+    </entity>
+    <entity name="DeviceActionsInfo" representedClassName=".DeviceActionsInfo" syncable="YES">
+        <attribute name="accuracy" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="battery" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="charging" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="complete" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="exploring" attributeType="String" syncable="YES"/>
+        <attribute name="lat" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="long" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="resting" attributeType="String" syncable="YES"/>
+        <attribute name="running" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="speed" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="device" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="actionsInfo" inverseEntity="Device" syncable="YES"/>
     </entity>
     <entity name="GeoFence" representedClassName=".GeoFence" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
@@ -75,8 +92,9 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="225"/>
         <element name="ActiveProfile" positionX="-54" positionY="117" width="128" height="90"/>
-        <element name="DataPacket" positionX="-36" positionY="144" width="128" height="30"/>
-        <element name="Device" positionX="-36" positionY="126" width="128" height="240"/>
+        <element name="DataPacket" positionX="-36" positionY="144" width="128" height="180"/>
+        <element name="Device" positionX="-36" positionY="126" width="128" height="255"/>
+        <element name="DeviceActionsInfo" positionX="-36" positionY="135" width="128" height="225"/>
         <element name="GeoFence" positionX="-45" positionY="135" width="128" height="210"/>
         <element name="Profile" positionX="-63" positionY="54" width="128" height="255"/>
     </elements>

@@ -9,8 +9,6 @@
 import CoreData
 
 class IMEIWiseProfilesStore {
-    typealias IMEINumber = String
-    
     static var shared = IMEIWiseProfilesStore()
     
     private init() {}

@@ -87,6 +87,9 @@ class UserDataStore {
                 let device = Device.insert(into: context, imei: imei)
                 device.order = Int16(index)
                 self.account?.devices?.insert(device)
+                
+                let actionsInfo = DeviceActionsInfo.insert(into: context)
+                actionsInfo.device = device
             }
         }
     }
