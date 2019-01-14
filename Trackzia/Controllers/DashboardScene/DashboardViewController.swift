@@ -39,5 +39,18 @@ extension DashboardViewController: DashboardOptionsListViewControllerDelegate {
     
     func dashboardOptionsListViewController(_ dashboardOptionsListViewController: DashboardOptionsListViewController, didSelectTrackListOption option: DashboardTrackListOptions) {
         PostLoginRouter.dashboardOptionsListViewController(dashboardOptionsListViewController, didSelectTrackListOption: option)
+        switch option {
+        case .kid: IMEISelectionManager.shared.profileType = .kid
+        
+        case .pet: IMEISelectionManager.shared.profileType = .pet
+            
+        case .other: IMEISelectionManager.shared.profileType = .other
+            
+        case .seniorCitizen: IMEISelectionManager.shared.profileType = .seniorCitizen
+            
+        case .vehicle: IMEISelectionManager.shared.profileType = .vehicle
+            
+        default: break
+        }
     }
 }

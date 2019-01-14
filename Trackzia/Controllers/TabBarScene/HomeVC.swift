@@ -23,11 +23,13 @@ class HomeVC: UIViewController {
     @IBOutlet var lblUpdatedAt: UILabel!
     
     var imeiChangeListenerToken: IMEISelectionManagerListenerToken!
+    var profileChangeListenerToken: ProfileSectionListenerToken!
     
     var deviceInfoObjectObserver: ManagedObjectObserver?
     
     deinit {
         IMEISelectionManager.shared.removeListener(token: imeiChangeListenerToken)
+        IMEISelectionManager.shared.removeProfileListener(token: profileChangeListenerToken)
     }
     
     override func viewDidLoad() {
@@ -36,7 +38,9 @@ class HomeVC: UIViewController {
         // Do any additional setup after loading the view.
         updateFields()
         imeiSelectionChangeListener()
+        profileChangeListener()
         imeiChangeListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionChangeListener)
+        profileChangeListenerToken = IMEISelectionManager.shared.addListener(profileChangeListener)
     }
     
     @IBAction func btnMapAction(_ sender: Any) {
@@ -58,6 +62,13 @@ class HomeVC: UIViewController {
     func imeiSelectionChangeListener() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         startObserving(device: device)
+    }
+    
+    func profileChangeListener() {
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        guard let profile = device.profiles?.filter({ $0.profileType == IMEISelectionManager.shared.profileType.rawValue }).first else { return }
+        lblProfileName.text = profile.name
+        
     }
     
     func startObserving(device: Device) {
