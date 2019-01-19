@@ -12,6 +12,7 @@
 		1C8E314D21B6F78500169421 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E314B21B6F78500169421 /* Main.storyboard */; };
 		1C8E314F21B6F79500169421 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E314E21B6F79500169421 /* Assets.xcassets */; };
 		1C8E315221B6F79600169421 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E315021B6F79600169421 /* LaunchScreen.storyboard */; };
+		540683DA21F24F6B009AC78B /* DeviceActionsInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */; };
 		540E5EF121E79F1200855BF6 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */; };
 		540E5EF321E7A05800855BF6 /* NSManagedObjectContext+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */; };
 		54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54365A1921B98FB4008E650B /* PostLogin.storyboard */; };
@@ -110,6 +111,7 @@
 		1C8E314E21B6F79500169421 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C8E315121B6F79600169421 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C8E315321B6F79600169421 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActionsInfoStore.swift; sourceTree = "<group>"; };
 		540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observers.swift"; sourceTree = "<group>"; };
 		54365A1921B98FB4008E650B /* PostLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostLogin.storyboard; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				546AB08921D918ED001E4F99 /* DeviceStore.swift */,
 				546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */,
 				546AB08821D918ED001E4F99 /* UserDataStore.swift */,
+				540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */,
 				546AB07421D918C3001E4F99 /* CoreData */,
 				79D7D49B21D7928B00E39C3C /* LocationDetailModel */,
 				54D3025621C952AC0050D377 /* RBPopoverOptionItems */,
@@ -566,6 +569,7 @@
 				54A3682621BD4D70000C7379 /* AlertSettingsViewController.swift in Sources */,
 				548FC21421C42F3600A64213 /* UserDataManager.swift in Sources */,
 				54D3025521C950750050D377 /* UITableViewCellOptionItemUtility.swift in Sources */,
+				540683DA21F24F6B009AC78B /* DeviceActionsInfoStore.swift in Sources */,
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				540E5EF121E79F1200855BF6 /* ManagedObjectObserver.swift in Sources */,

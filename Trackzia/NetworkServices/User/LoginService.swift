@@ -35,6 +35,9 @@ class LoginService: CommunicationEndPoint {
     }
     
     func parseResponse(withOperationId operationId: Int, andStatusCode: Int, data: Data) throws -> CommunicationOperationResult {
+        if let dataString = String(data: data, encoding: .utf8) {
+            print(dataString)
+        }
         // EG: Success
         //{"Message":"Login Successfully","Success":true,"Data":{"AccountID":"Acc20181208095428me1HjI"}}
         // EG: Failure by wrong password

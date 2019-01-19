@@ -47,4 +47,15 @@ class DataPacketDateFormatter {
         formatter.dateFormat = "yyyy-MM-ddHH:mm:ss"
         return formatter
     }()
+    
+    static var calendar: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = DataPacketDateFormatter.dateFormatter.timeZone
+        return calendar
+    }()
+    
+    static var calendarComponents: Set<Calendar.Component> = {
+        let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
+        return components
+    }()
 }

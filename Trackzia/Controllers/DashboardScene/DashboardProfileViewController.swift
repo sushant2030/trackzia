@@ -34,8 +34,9 @@ class DashboardProfileViewController: UIViewController {
             let sortedArray:[Device] = accountDevices.sorted(by: { $0.order > $1.order })
             devices.append(contentsOf: sortedArray)
             if let firstDevice = devices.first {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     IMEISelectionManager.shared.selectedDevice = firstDevice
+                    self?.trackedProfilesCollectionView.reloadData()
                 }
             }
         }
@@ -82,6 +83,21 @@ extension DashboardProfileViewController: UICollectionViewDataSource {
         cell.imageView.layer.cornerRadius = CGFloat(45 / 2)
         cell.imageView.layer.masksToBounds = true
         let device = devices[indexPath.item]
+        
+        if device .imei == IMEISelectionManager.shared.selectedDevice?.imei {
+            cell.imageView.layer.borderColor = UIColor.black.cgColor
+            cell.imageView.layer.borderWidth = 1.0
+//            var viewBorder = CAShapeLayer()
+//            viewBorder.strokeColor = UIColor.black.cgColor
+//            viewBorder.lineDashPattern = [2, 2]
+//            viewBorder.frame = cell.imageView.bounds
+//            viewBorder.fillColor = nil
+//            viewBorder.path = cell.imageView.layer.accessibilityPath?.cgPath//UIBezierPath(rect: cell.imageView.bounds).cgPath
+//            cell.imageView.layer.addSublayer(viewBorder)
+        } else {
+            cell.imageView.layer.borderWidth = 0.0
+        }
+        
         cell.label.text = String(device.imei)
         return cell
     }
@@ -91,6 +107,9 @@ extension DashboardProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let device = devices[indexPath.item]
         IMEISelectionManager.shared.selectedDevice = device
+        DispatchQueue.main.async { [weak self] in
+            self?.trackedProfilesCollectionView.reloadData()
+        }
     }
 }
 

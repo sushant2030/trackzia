@@ -51,7 +51,17 @@ class DeviceActionsInfo: NSManagedObject {
         actionsInfo.resting = "00:00:00"
         actionsInfo.running = "00:00:00"
         actionsInfo.speed = 0.0
-        actionsInfo.timeStamp = Date()
+        
+        let calendar = DataPacketDateFormatter.calendar
+        var components = DateComponents()
+        //"0001-01-01T00:00:00"
+        components.year = 0001
+        components.month = 01
+        components.day = 01
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        actionsInfo.timeStamp = calendar.date(from: components)!
         return actionsInfo
     }
     
@@ -76,15 +86,61 @@ class DeviceActionsInfo: NSManagedObject {
         battery = info.battery
         charging = info.charging
         complete = info.complete
-        exploring = info.exploring
+        
         lat = info.lat
         long = info.long
-        resting = info.resting
-        running = info.running
+        
         speed = info.speed
         if info.timeStamp != "0001-01-01T00:00:00" {
+            let infoTimeStampString = info.timeStamp.components(separatedBy: "T").joined()
+            let infoTimeStampDate = DataPacketDateFormatter.dateFormatter.date(from: infoTimeStampString)!
+            
+            let calendarComponents: Set<Calendar.Component> = [.year, .month, .day]
+            let infoTimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(calendarComponents, from: infoTimeStampDate)
+            
+            let storedtimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(calendarComponents, from: timeStamp)
+            
+            if infoTimeStampDateComponents == storedtimeStampDateComponents {
+                //Add to existing time
+                let formatter = DateFormatter()
+                formatter.timeZone = DataPacketDateFormatter.dateFormatter.timeZone
+                formatter.calendar = DataPacketDateFormatter.calendar
+                formatter.dateFormat = "HH:mm:ss"
+                
+                var storedDatecomponents = storedtimeStampDateComponents
+                storedDatecomponents.hour = Int(exploring.components(separatedBy: ":")[0])!
+                storedDatecomponents.minute = Int(exploring.components(separatedBy: ":")[1])!
+                storedDatecomponents.second = Int(exploring.components(separatedBy: ":")[2])!
+                
+                exploring = hourMinsSecs(baseTimeString: exploring, timeStringToAdd: info.exploring, formatter: formatter, baseDateComponents: storedDatecomponents)
+                resting = hourMinsSecs(baseTimeString: resting, timeStringToAdd: info.resting, formatter: formatter, baseDateComponents: storedDatecomponents)
+                running = hourMinsSecs(baseTimeString: running, timeStringToAdd: info.running, formatter: formatter, baseDateComponents: storedDatecomponents)
+            } else {
+                //Update existing time
+                exploring = info.exploring
+                resting = info.resting
+                running = info.running
+            }
+            
             timeStamp = DataPacketDateFormatter.dateFormatter.date(from: info.timeStamp.split(separator: "T").joined())!
         }
+    }
+    
+    func hourMinsSecs(baseTimeString: String, timeStringToAdd: String,formatter: DateFormatter, baseDateComponents: DateComponents) -> String {
+        var storedDatecomponents = baseDateComponents
+        storedDatecomponents.hour = Int(baseTimeString.components(separatedBy: ":")[0])!
+        storedDatecomponents.minute = Int(baseTimeString.components(separatedBy: ":")[1])!
+        storedDatecomponents.second = Int(baseTimeString.components(separatedBy: ":")[2])!
+        let storedDate = DataPacketDateFormatter.calendar.date(from: storedDatecomponents)!
+        
+        let addHour = Int(timeStringToAdd.components(separatedBy: ":")[0])!
+        let addMinute = Int(timeStringToAdd.components(separatedBy: ":")[1])!
+        let addSecond = Int(timeStringToAdd.components(separatedBy: ":")[2])!
+        let addTotalSeconds = addHour * 60 * 60 + addMinute * 60 +  addSecond
+        
+        let dateByAddingTotalSeconds = storedDate.addingTimeInterval(TimeInterval(addTotalSeconds))
+        
+        return formatter.string(from: dateByAddingTotalSeconds)
     }
 }
 

@@ -39,29 +39,29 @@ class DeviceStore {
                 guard !detailsFetchingInProgress.contains(device.imei) else { return }
                 detailsFetchingInProgress.insert(device.imei)
                 getDeviceDetails(imei: device.imei)
-            } else {
-                updateDeviceDataPackets(imei: device.imei)
             }
         }
     }
     
-    func getDeviceDataPackets(device: Device) {
-        guard let activationDate = device.activationDate else { return } //"2018-12-08T09:54:54"
-        let charSet = CharacterSet(charactersIn: "-T:")
-        let components = activationDate.components(separatedBy: charSet)
-        let processedDateString = components.joined(separator: "")
-        CommunicationManager.getCommunicator().performOpertaion(with: GetDataPacketsService(imei: device.imei, timeStamp: processedDateString, listener: self))
-    }
+//    func getDeviceDataPackets(device: Device) {
+//        guard let activationDate = device.activationDate else { return } //"2018-12-08T09:54:54"
+//        let charSet = CharacterSet(charactersIn: "-T:")
+//        let components = activationDate.components(separatedBy: charSet)
+//        let processedDateString = components.joined(separator: "")
+//        let date = DataPacketDateFormatter.dateFormatter.date(from: "2019-01-1700:00:00")!
+//        let stringDate = DataPacketDateFormatter.dateFormatter.string(from: date).components(separatedBy: "-").joined().components(separatedBy: ":").joined()
+//        CommunicationManager.getCommunicator().performOpertaion(with: GetDataPacketsService(imei: device.imei, timeStamp: stringDate, listener: self))
+//    }
     
-    func updateDeviceDataPackets(imei: IMEI) {
-        if let device = IMEISelectionManager.shared.selectedDevice {
-            if device.imei == imei {
-                guard !dataPacketsFetchingInProgress.contains(device.imei) else { return }
-                dataPacketsFetchingInProgress.insert(device.imei)
-                getDeviceDataPackets(device: device)
-            }
-        }
-    }
+//    func updateDeviceDataPackets(imei: IMEI) {
+//        if let device = IMEISelectionManager.shared.selectedDevice {
+//            if device.imei == imei {
+//                guard !dataPacketsFetchingInProgress.contains(device.imei) else { return }
+//                dataPacketsFetchingInProgress.insert(device.imei)
+//                getDeviceDataPackets(device: device)
+//            }
+//        }
+//    }
 }
 
 extension DeviceStore: CommunicationResultListener {
@@ -75,9 +75,6 @@ extension DeviceStore: CommunicationResultListener {
                     device.simOperator = wrapper.result.data.simOperator
                     device.activationDate = wrapper.result.data.activationDate
                     device.actionsInfo.timeStamp = DataPacketDateFormatter.dateFormatter.date(from: wrapper.result.data.activationDate.split(separator: "T").joined())!
-                    DispatchQueue.main.async { [weak self] in
-                        self?.updateDeviceDataPackets(imei: device.imei)
-                    }
                 }
             }
         }

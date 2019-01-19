@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HomeVC: UIViewController {
 
@@ -22,6 +23,8 @@ class HomeVC: UIViewController {
     @IBOutlet var lblDetail: UILabel!
     @IBOutlet var lblUpdatedAt: UILabel!
     
+    let geoCoder = CLGeocoder()
+    
     var imeiChangeListenerToken: IMEISelectionManagerListenerToken!
     var profileChangeListenerToken: ProfileSectionListenerToken!
     
@@ -36,7 +39,7 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        updateFields()
+        updateDeviceInfoFields()
         imeiSelectionChangeListener()
         profileChangeListener()
         imeiChangeListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionChangeListener)
@@ -61,6 +64,7 @@ class HomeVC: UIViewController {
 
     func imeiSelectionChangeListener() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        profileChangeListener()
         startObserving(device: device)
     }
     
@@ -77,16 +81,82 @@ class HomeVC: UIViewController {
     
     func objectChangeObserver(changeType: ManagedObjectObserver.ChangeType) {
         if changeType == .update{
-            updateFields()
+            updateDeviceInfoFields()
         }
     }
     
-    func updateFields() {
+    func updateDeviceInfoFields() {
         guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
         
-        lblPlayinHours.text = splitHrsMinsString(actionsInfo.running) != nil ? "Playing" + " " + splitHrsMinsString(actionsInfo.running)! : nil
-        lblExploring.text = splitHrsMinsString(actionsInfo.exploring) != nil ? "Exploring" + " " + splitHrsMinsString(actionsInfo.running)! : nil
-        lblRestingHours.text = splitHrsMinsString(actionsInfo.resting) != nil ? "Resting" + " " +  splitHrsMinsString(actionsInfo.running)! : nil
+//        lblJustNow.text
+//        lblCurrentLocation.text
+//        lblUpdatedAt
+//        lblDetail
+//        lblCurrentDistance.text
+        
+        let location = CLLocation(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
+        geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Address dictionary
+            //print(placeMark.addressDictionary ?? "")
+            
+            // Location name
+            var address = ""
+            if let locationName = placeMark.name {
+                //print(locationName)
+                address += locationName
+                
+            }
+            
+            // Street address
+            if let street = placeMark.thoroughfare {
+                //print(street)
+                address += ", \(street)"
+            }
+            
+            // City
+            if let city = placeMark.locality {
+                //print(city)
+                address += ", \(city)"
+            }
+            
+            // Zip code
+            if let zip = placeMark.postalCode {
+                //print(zip)
+                address += "-\(zip)"
+            }
+            
+            // Country
+            if let country = placeMark.country {
+                //print(country)
+                address += ", \(country)"
+            }
+            
+            self?.lblCurrentLocation.text = address
+        }
+        
+        let timeStamp = actionsInfo.timeStamp
+        let timeStampYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: timeStamp)
+        
+        let currentDate = Date()
+        let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: currentDate)
+        
+        if timeStampYearMonthDay == currentDateYearMonthDay {
+            let timeStampHourMinutesSeconds = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: timeStamp)
+            let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: currentDate)
+            
+            
+            
+        } else {
+            
+        }
+        
+        
+        lblPlayinHours.text = "Playing" + "\n\(actionsInfo.running)"
+        lblExploring.text = "Exploring" + "\n\(actionsInfo.exploring)"
+        lblRestingHours.text = "Resting" + "\n\(actionsInfo.resting)"
     }
     
     func splitHrsMinsString(_ hrsMinsString: String) -> String? {

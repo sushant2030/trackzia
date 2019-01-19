@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.persistentContainer = container
             UserDataManager.shared.context = self.persistentContainer.viewContext
             DeviceStore.shared.context = self.persistentContainer.viewContext
+            DeviceActionsInfoStore.shared.context = self.persistentContainer.viewContext
             
             DispatchQueue.main.async {
                 if UserDataManager.shared.isLoggedIn {
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        DeviceActionsInfoStore.shared.alreadyFetched.removeAll()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

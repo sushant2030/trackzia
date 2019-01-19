@@ -21,6 +21,8 @@ import ApiManager
  // Shridhar shared device imei 865067027077604 used below:
  http://13.233.18.64:1166/api/DeviceData/GetData?IMEI=865067027077604&time_stamp=20190106154500&zone=+330
  
+ // Ganehs share account
+ http://13.233.18.64:1166/api/DeviceData/GetData?time_stamp=20190117000000&zone=+19800&IMEI=865067027370090
  
  [{
  "IMEI": 865067027076895,
