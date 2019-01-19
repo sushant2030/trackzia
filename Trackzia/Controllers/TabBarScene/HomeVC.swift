@@ -14,25 +14,47 @@ class HomeVC: UIViewController {
     @IBOutlet var lblProfileName: UILabel!
     @IBOutlet var lblJustNow: UILabel!
     @IBOutlet var lblCurrentLocation: UILabel!
+    
+    @IBOutlet var lblUpdatedAt: UILabel!
+    @IBOutlet var lblDetail: UILabel!
+    @IBOutlet var lblCurrentDistance: UILabel!
 
     @IBOutlet var lblRestingHours: UILabel!
     @IBOutlet var lblExploring: UILabel!
     @IBOutlet var lblPlayinHours: UILabel!
     @IBOutlet var imgProfile: UIImageView!
-    @IBOutlet var lblCurrentDistance: UILabel!
-    @IBOutlet var lblDetail: UILabel!
-    @IBOutlet var lblUpdatedAt: UILabel!
+    
+    
+    
+    
+    @IBOutlet var batteryLabel: UILabel!
     
     let geoCoder = CLGeocoder()
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.timeZone = DataPacketDateFormatter.dateFormatter.timeZone
+        return dateFormatter
+    }()
     
     var imeiChangeListenerToken: IMEISelectionManagerListenerToken!
     var profileChangeListenerToken: ProfileSectionListenerToken!
     
     var deviceInfoObjectObserver: ManagedObjectObserver?
     
+    var updatedAtUpdatedTimer: Timer!
+    
+    
+    var geofenceListenerToken: GeofenceStoreListenerToken!
+    
     deinit {
         IMEISelectionManager.shared.removeListener(token: imeiChangeListenerToken)
         IMEISelectionManager.shared.removeProfileListener(token: profileChangeListenerToken)
+        if let geofenceListenerToken = geofenceListenerToken {
+            GeofenceStore.shared.removeListener(geofenceListenerToken)
+        }
+        
+        updatedAtUpdatedTimer.invalidate()
     }
     
     override func viewDidLoad() {
@@ -44,6 +66,22 @@ class HomeVC: UIViewController {
         profileChangeListener()
         imeiChangeListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionChangeListener)
         profileChangeListenerToken = IMEISelectionManager.shared.addListener(profileChangeListener)
+        
+        if let device = IMEISelectionManager.shared.selectedDevice {
+            geofenceListenerToken = GeofenceStore.shared.addListener(for: device.imei, listener: { [weak self] (imei) in
+                if IMEISelectionManager.shared.selectedDevice?.imei == imei {
+                    DispatchQueue.main.async {
+                        self?.updateGeofenceFields()
+                    }
+                }
+            })
+        }
+        
+        updatedAtUpdatedTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (_) in
+            print("Got trigger")
+            guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
+            self?.updateUpdatedAtLabels(for: actionsInfo.timeStamp)
+        }
     }
     
     @IBAction func btnMapAction(_ sender: Any) {
@@ -87,13 +125,6 @@ class HomeVC: UIViewController {
     
     func updateDeviceInfoFields() {
         guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
-        
-//        lblJustNow.text
-//        lblCurrentLocation.text
-//        lblUpdatedAt
-//        lblDetail
-//        lblCurrentDistance.text
-        
         let location = CLLocation(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
         geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
             var placeMark: CLPlacemark!
@@ -137,26 +168,62 @@ class HomeVC: UIViewController {
             self?.lblCurrentLocation.text = address
         }
         
-        let timeStamp = actionsInfo.timeStamp
-        let timeStampYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: timeStamp)
+        updateUpdatedAtLabels(for: actionsInfo.timeStamp)
         
-        let currentDate = Date()
-        let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: currentDate)
-        
-        if timeStampYearMonthDay == currentDateYearMonthDay {
-            let timeStampHourMinutesSeconds = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: timeStamp)
-            let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: currentDate)
-            
-            
-            
-        } else {
-            
-        }
-        
+        batteryLabel.text = String(format: "%.0f", actionsInfo.battery) + "%"
         
         lblPlayinHours.text = "Playing" + "\n\(actionsInfo.running)"
         lblExploring.text = "Exploring" + "\n\(actionsInfo.exploring)"
         lblRestingHours.text = "Resting" + "\n\(actionsInfo.resting)"
+    }
+    
+    func updateUpdatedAtLabels(for timeStamp: Date) {
+        let timeStampYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: timeStamp)
+
+        let currentDate = Date()
+        let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: currentDate)
+
+        let text: String
+
+        if timeStampYearMonthDay == currentDateYearMonthDay {
+            let timeStampHourMinuteSecond = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: timeStamp)
+            let currentDateHourMinuteSecond = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: currentDate)
+
+            let timeStampSeconds = timeStampHourMinuteSecond.hour! * 60 * 60 + timeStampHourMinuteSecond.minute! * 60 + timeStampHourMinuteSecond.second!
+            let currentDateSeconds = currentDateHourMinuteSecond.hour! * 60 * 60 + currentDateHourMinuteSecond.minute! * 60 + currentDateHourMinuteSecond.second!
+
+            if currentDateSeconds - timeStampSeconds <= 60 {
+                text = "Just Now"
+            } else if currentDateSeconds - timeStampSeconds <= 180 {
+                text = "A moment ago"
+            } else  {
+                dateFormatter.dateFormat = "hh:mm a"
+                text = "Updated today at \(dateFormatter.string(from: timeStamp))"
+            }
+
+        } else if timeStampYearMonthDay.year == currentDateYearMonthDay.year &&
+            timeStampYearMonthDay.month == currentDateYearMonthDay.month {
+            if currentDateYearMonthDay.day! - timeStampYearMonthDay.day! == 1 {
+                dateFormatter.dateFormat = "hh:mm a"
+                text = "Updated yesterday at \(dateFormatter.string(from: timeStamp))"
+            } else {
+                dateFormatter.dateFormat = "dd MMM hh:mm a"
+                text = "Updated on \(dateFormatter.string(from: timeStamp))"
+            }
+        } else if timeStampYearMonthDay.year == currentDateYearMonthDay.year {
+            dateFormatter.dateFormat = "dd MMM hh:mm a"
+            text = "Updated on \(dateFormatter.string(from: timeStamp))"
+        } else {
+            dateFormatter.dateFormat = "dd MMM hh:mm a"
+            text = "Updated on \(dateFormatter.string(from: timeStamp))"
+        }
+
+        lblJustNow.text = text
+        lblUpdatedAt.text = text
+    }
+    
+    func updateGeofenceFields() {
+        
     }
     
     func splitHrsMinsString(_ hrsMinsString: String) -> String? {
@@ -220,3 +287,4 @@ class HomeVCPlaceHolder: UIViewController {
         PostLoginRouter.showHomeView()
     }
 }
+

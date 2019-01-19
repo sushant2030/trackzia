@@ -21,10 +21,22 @@ class DeviceActionsInfoStore {
         imeiSelectionManagerListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionManagerListener)
     }
     
+    func forceUpdateIfAlreadyFetched() {
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        guard !fetchInProgress.contains(device.imei) else { return }
+        
+        updateDevicePackets(for: device)
+    }
+    
     func imeiSelectionManagerListener() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         guard !alreadyFetched.contains(device.imei) else { return }
         guard !fetchInProgress.contains(device.imei) else { return }
+        
+        updateDevicePackets(for: device)
+    }
+    
+    func updateDevicePackets(for device: Device) {
         let currentDate = Date()
         let calendar = DataPacketDateFormatter.calendar
         var currentDateComponents = calendar.dateComponents(DataPacketDateFormatter.calendarComponents, from: currentDate)
@@ -35,22 +47,15 @@ class DeviceActionsInfoStore {
         let componentsToUse: DateComponents
         
         if timeStampComponents.year == 1  && timeStampComponents.month == 1 && timeStampComponents.day == 1 && timeStampComponents.hour == 0 && timeStampComponents.minute == 0 && timeStampComponents.second == 0 {
-            currentDateComponents.hour = 0
-            currentDateComponents.minute = 0
-            currentDateComponents.second = 0
-            
-            componentsToUse = currentDateComponents
+            // Fetch data from today with time as 00:00:00
+            componentsToUse = setComponents(components: currentDateComponents, hour: 0, minute: 0, second: 0)
         } else {
             if timeStampComponents.year == currentDateComponents.year && timeStampComponents.month == currentDateComponents.month && timeStampComponents.day == currentDateComponents.day {
                 // We have the packet update date as today so we need packets after that time stamp now
                 componentsToUse = timeStampComponents
             } else {
-                //We have packets from any other day before today, so we need to load data from time 00:00:00 today
-                currentDateComponents.hour = 0
-                currentDateComponents.minute = 0
-                currentDateComponents.second = 0
-                
-                componentsToUse = currentDateComponents
+                //We have packets from days before today, so we need to load data from time 00:00:00 today
+                componentsToUse = setComponents(components: currentDateComponents, hour: 0, minute: 0, second: 0)
             }
         }
         
@@ -58,6 +63,14 @@ class DeviceActionsInfoStore {
         let timeStampToUse = DataPacketDateFormatter.dateFormatter.string(from: dateToUse).components(separatedBy: "-").joined().components(separatedBy: ":").joined()
         fetchInProgress.insert(device.imei)
         getDeviceDataPackets(device: device, timeStampString: timeStampToUse)
+    }
+    
+    func setComponents(components: DateComponents, hour: Int, minute: Int, second: Int) -> DateComponents {
+        var newComponents = components
+        newComponents.hour = hour
+        newComponents.minute = minute
+        newComponents.second = second
+        return newComponents
     }
     
     func getDeviceDataPackets(device: Device, timeStampString: String) {

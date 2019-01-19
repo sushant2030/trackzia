@@ -15,6 +15,7 @@
 		540683DA21F24F6B009AC78B /* DeviceActionsInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */; };
 		540E5EF121E79F1200855BF6 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */; };
 		540E5EF321E7A05800855BF6 /* NSManagedObjectContext+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */; };
+		542DD4E521F3762F00F06EF5 /* GeofenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD4E421F3762F00F06EF5 /* GeofenceStore.swift */; };
 		54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54365A1921B98FB4008E650B /* PostLogin.storyboard */; };
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
 		54365A1F21B9A870008E650B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1E21B9A870008E650B /* DashboardViewController.swift */; };
@@ -114,6 +115,7 @@
 		540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActionsInfoStore.swift; sourceTree = "<group>"; };
 		540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observers.swift"; sourceTree = "<group>"; };
+		542DD4E421F3762F00F06EF5 /* GeofenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceStore.swift; sourceTree = "<group>"; };
 		54365A1921B98FB4008E650B /* PostLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostLogin.storyboard; sourceTree = "<group>"; };
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
 		54365A1E21B9A870008E650B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +238,21 @@
 			path = Trackzia;
 			sourceTree = "<group>";
 		};
+		542DD4E621F3763E00F06EF5 /* StoresAndManagers */ = {
+			isa = PBXGroup;
+			children = (
+				54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */,
+				54BF988C21C8182F005F66AF /* UserAccountData.swift */,
+				548FC21321C42F3600A64213 /* UserDataManager.swift */,
+				546AB08921D918ED001E4F99 /* DeviceStore.swift */,
+				546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */,
+				546AB08821D918ED001E4F99 /* UserDataStore.swift */,
+				540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */,
+				542DD4E421F3762F00F06EF5 /* GeofenceStore.swift */,
+			);
+			path = StoresAndManagers;
+			sourceTree = "<group>";
+		};
 		54365A1821B98F6D008E650B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,13 +357,7 @@
 		548FC21221C42EEB00A64213 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				54B05DC521C6653200597A42 /* UserAlertSettingsPreference.swift */,
-				54BF988C21C8182F005F66AF /* UserAccountData.swift */,
-				548FC21321C42F3600A64213 /* UserDataManager.swift */,
-				546AB08921D918ED001E4F99 /* DeviceStore.swift */,
-				546AB08721D918ED001E4F99 /* IMEIWiseProfilesStore.swift */,
-				546AB08821D918ED001E4F99 /* UserDataStore.swift */,
-				540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */,
+				542DD4E621F3763E00F06EF5 /* StoresAndManagers */,
 				546AB07421D918C3001E4F99 /* CoreData */,
 				79D7D49B21D7928B00E39C3C /* LocationDetailModel */,
 				54D3025621C952AC0050D377 /* RBPopoverOptionItems */,
@@ -620,6 +631,7 @@
 				54D3025421C950750050D377 /* RBOptionItem.swift in Sources */,
 				546AB08121D918C3001E4F99 /* Profile.swift in Sources */,
 				54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */,
+				542DD4E521F3762F00F06EF5 /* GeofenceStore.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
 				546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */,
 				54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */,

@@ -196,7 +196,7 @@
                                         <inset key="imageEdgeInsets" minX="12" minY="6" maxX="12" maxY="5"/>
                                         <state key="normal" image="batteryicon"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjT-ba-htS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjT-ba-htS">
                                         <rect key="frame" x="2.5" y="43" width="35.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,6 +250,7 @@
                         <viewLayoutGuide key="safeArea" id="60c-hW-la2"/>
                     </view>
                     <connections>
+                        <outlet property="batteryLabel" destination="vjT-ba-htS" id="lRt-aN-cXb"/>
                         <outlet property="imgProfile" destination="rDl-Ze-Nbx" id="wMu-r7-7ZP"/>
                         <outlet property="lblCurrentDistance" destination="dmA-aW-6kI" id="BRY-Hj-HIP"/>
                         <outlet property="lblCurrentLocation" destination="c1t-ib-q7t" id="eya-De-toO"/>
@@ -504,6 +505,9 @@
                                                 <state key="normal" title="Live">
                                                     <color key="titleColor" red="0.85098039219999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="liveButtonTapped:" destination="tju-wW-1aV" eventType="touchUpInside" id="Gk7-HB-6Gf"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXj-uJ-WJe">
                                                 <rect key="frame" x="341" y="11.5" width="34" height="30"/>
@@ -556,6 +560,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Current Location" image="city_icon_tab" id="745-n4-3Un"/>
                     <connections>
+                        <outlet property="lblCurrentLocation" destination="Bac-E6-snq" id="qQT-hR-VTd"/>
+                        <outlet property="lblJustNow" destination="qfa-Id-ngd" id="Dov-iF-4gF"/>
+                        <outlet property="lblProfileName" destination="bSa-oY-IxW" id="fWz-iW-LUd"/>
+                        <outlet property="lblUpdatedAt" destination="of2-f9-5fR" id="gyS-TP-TwE"/>
                         <outlet property="liveButton" destination="Yci-QK-CWZ" id="drY-AS-9jq"/>
                         <outlet property="mapView" destination="G7D-Ml-PgQ" id="Wqx-BR-Eh5"/>
                     </connections>

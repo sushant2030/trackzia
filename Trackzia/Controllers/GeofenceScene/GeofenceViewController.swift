@@ -24,20 +24,26 @@ class GeofenceViewController: UIViewController {
         }
     }
     
+    var geofenceListenerToken: GeofenceStoreListenerToken!
+    
+    deinit {
+        GeofenceStore.shared.removeListener(geofenceListenerToken)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeButtonAppearance()
         
         if let device = IMEISelectionManager.shared.selectedDevice {
             updateView(for: device)
-            UserDataManager.shared.getGeoFenceDetails(imei: device.imei) { [weak self](imei) in
-                if device.imei == imei {
+            
+            geofenceListenerToken = GeofenceStore.shared.addListener(for: device.imei, listener: { [weak self] (imei) in
+                if IMEISelectionManager.shared.selectedDevice?.imei == imei {
                     DispatchQueue.main.async {
                         self?.updateView(for: device)
                     }
-                    
                 }
-            }
+            })
         }
         
     }

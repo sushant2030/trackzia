@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDataManager.shared.context = self.persistentContainer.viewContext
             DeviceStore.shared.context = self.persistentContainer.viewContext
             DeviceActionsInfoStore.shared.context = self.persistentContainer.viewContext
+            GeofenceStore.shared.context = self.persistentContainer.viewContext
             
             DispatchQueue.main.async {
                 if UserDataManager.shared.isLoggedIn {
