@@ -55,9 +55,9 @@ class DeviceActionsInfo: NSManagedObject {
         let calendar = DataPacketDateFormatter.calendar
         var components = DateComponents()
         //"0001-01-01T00:00:00"
-        components.year = 0001
-        components.month = 01
-        components.day = 01
+        components.year = 1
+        components.month = 1
+        components.day = 1
         components.hour = 00
         components.minute = 00
         components.second = 00
@@ -93,30 +93,27 @@ class DeviceActionsInfo: NSManagedObject {
         speed = info.speed
         if info.timeStamp != "0001-01-01T00:00:00" {
             let infoTimeStampString = info.timeStamp.components(separatedBy: "T").joined()
+            //infoTimeStampString is in zone of the DataPacketDateFormatter.dateFormatter
             let infoTimeStampDate = DataPacketDateFormatter.dateFormatter.date(from: infoTimeStampString)!
             
-            let calendarComponents: Set<Calendar.Component> = [.year, .month, .day]
-            let infoTimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(calendarComponents, from: infoTimeStampDate)
-            
-            let storedtimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(calendarComponents, from: timeStamp)
+            let yearMonthDay: Set<Calendar.Component> = [.year, .month, .day]
+            let infoTimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(yearMonthDay, from: infoTimeStampDate)
+            let storedtimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(yearMonthDay, from: timeStamp)
             
             if infoTimeStampDateComponents == storedtimeStampDateComponents {
-                //Add to existing time
+                //Add to existing time for exploring, resting and running
                 let formatter = DateFormatter()
                 formatter.timeZone = DataPacketDateFormatter.dateFormatter.timeZone
                 formatter.calendar = DataPacketDateFormatter.calendar
                 formatter.dateFormat = "HH:mm:ss"
                 
-                var storedDatecomponents = storedtimeStampDateComponents
-                storedDatecomponents.hour = Int(exploring.components(separatedBy: ":")[0])!
-                storedDatecomponents.minute = Int(exploring.components(separatedBy: ":")[1])!
-                storedDatecomponents.second = Int(exploring.components(separatedBy: ":")[2])!
                 
+                let storedDatecomponents = storedtimeStampDateComponents
                 exploring = hourMinsSecs(baseTimeString: exploring, timeStringToAdd: info.exploring, formatter: formatter, baseDateComponents: storedDatecomponents)
                 resting = hourMinsSecs(baseTimeString: resting, timeStringToAdd: info.resting, formatter: formatter, baseDateComponents: storedDatecomponents)
                 running = hourMinsSecs(baseTimeString: running, timeStringToAdd: info.running, formatter: formatter, baseDateComponents: storedDatecomponents)
             } else {
-                //Update existing time
+                //The previous values were not for the same day, so we insert the new values here
                 exploring = info.exploring
                 resting = info.resting
                 running = info.running

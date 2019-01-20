@@ -9,6 +9,8 @@
 import CoreData
 
 class DataPacket: NSManagedObject {
+    @NSManaged var imei: Int64
+    
     @NSManaged var accuracy: Float
     @NSManaged var battery: Float
     @NSManaged var charging: Bool
@@ -20,8 +22,9 @@ class DataPacket: NSManagedObject {
     
     @NSManaged var device: Device
     
-    static func insert(into context: NSManagedObjectContext, packet: DeviceDataViewInfoPacket) -> DataPacket {
+    static func insert(into context: NSManagedObjectContext, packet: DeviceDataViewInfoPacket, imei: IMEI) -> DataPacket {
         let dataPacket: DataPacket = context.insertObject()
+        dataPacket.imei = imei
         dataPacket.accuracy = Float(packet.accuracy)
         dataPacket.battery = packet.battery
         dataPacket.charging = packet.charging
@@ -35,7 +38,9 @@ class DataPacket: NSManagedObject {
 }
 
 extension DataPacket: Managed {
-    
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: #keyPath(timeStamp), ascending: true)]
+    }
 }
 
 class DataPacketDateFormatter {

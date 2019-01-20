@@ -83,7 +83,7 @@ extension DeviceStore: CommunicationResultListener {
             guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
             context.performChanges {
                 wrapper.response.deviceDataViewinfo.forEach { (packet) in
-                    let dataPacket = DataPacket.insert(into: self.context, packet: packet)
+                    let dataPacket = DataPacket.insert(into: self.context, packet: packet, imei: device.imei)
                     dataPacket.device = device
                 }
                 

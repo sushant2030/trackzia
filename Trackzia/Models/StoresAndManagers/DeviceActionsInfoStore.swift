@@ -9,6 +9,9 @@
 import ApiManager
 import CoreData
 
+typealias DataPacketTuple = (device: Device, allPackets: [DataPacket], moreUpdatesToCome: Bool)
+typealias GetDataPacketCompletionHandler = (DataPacketTuple) -> ()
+
 class DeviceActionsInfoStore {
     static var shared = DeviceActionsInfoStore()
     var context: NSManagedObjectContext!
@@ -17,7 +20,12 @@ class DeviceActionsInfoStore {
     var fetchInProgress = Set<IMEI>()
     var alreadyFetched = Set<IMEI>()
     
+    let webServiceExpectedDateFormatter: DateFormatter
+    
     private init() {
+        webServiceExpectedDateFormatter = DateFormatter()
+        webServiceExpectedDateFormatter.timeZone = TimeZone.current
+        webServiceExpectedDateFormatter.dateFormat = "yyyyMMddHHmmss"
         imeiSelectionManagerListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionManagerListener)
     }
     
@@ -25,7 +33,7 @@ class DeviceActionsInfoStore {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         guard !fetchInProgress.contains(device.imei) else { return }
         
-        updateDevicePackets(for: device)
+        updateTodayActionInfo(for: device)
     }
     
     func imeiSelectionManagerListener() {
@@ -33,36 +41,7 @@ class DeviceActionsInfoStore {
         guard !alreadyFetched.contains(device.imei) else { return }
         guard !fetchInProgress.contains(device.imei) else { return }
         
-        updateDevicePackets(for: device)
-    }
-    
-    func updateDevicePackets(for device: Device) {
-        let currentDate = Date()
-        let calendar = DataPacketDateFormatter.calendar
-        var currentDateComponents = calendar.dateComponents(DataPacketDateFormatter.calendarComponents, from: currentDate)
-        
-        let timeStamp = device.actionsInfo.timeStamp
-        let timeStampComponents = calendar.dateComponents(DataPacketDateFormatter.calendarComponents, from: timeStamp)
-        
-        let componentsToUse: DateComponents
-        
-        if timeStampComponents.year == 1  && timeStampComponents.month == 1 && timeStampComponents.day == 1 && timeStampComponents.hour == 0 && timeStampComponents.minute == 0 && timeStampComponents.second == 0 {
-            // Fetch data from today with time as 00:00:00
-            componentsToUse = setComponents(components: currentDateComponents, hour: 0, minute: 0, second: 0)
-        } else {
-            if timeStampComponents.year == currentDateComponents.year && timeStampComponents.month == currentDateComponents.month && timeStampComponents.day == currentDateComponents.day {
-                // We have the packet update date as today so we need packets after that time stamp now
-                componentsToUse = timeStampComponents
-            } else {
-                //We have packets from days before today, so we need to load data from time 00:00:00 today
-                componentsToUse = setComponents(components: currentDateComponents, hour: 0, minute: 0, second: 0)
-            }
-        }
-        
-        let dateToUse = calendar.date(from: componentsToUse)!
-        let timeStampToUse = DataPacketDateFormatter.dateFormatter.string(from: dateToUse).components(separatedBy: "-").joined().components(separatedBy: ":").joined()
-        fetchInProgress.insert(device.imei)
-        getDeviceDataPackets(device: device, timeStampString: timeStampToUse)
+        updateTodayActionInfo(for: device)
     }
     
     func setComponents(components: DateComponents, hour: Int, minute: Int, second: Int) -> DateComponents {
@@ -78,6 +57,135 @@ class DeviceActionsInfoStore {
     }
 }
 
+extension DeviceActionsInfoStore {
+    func updateTodayActionInfo(for device: Device) {
+        guard let actionInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
+        
+        let calendar = DataPacketDateFormatter.calendar
+        let yearMonthDay: Set<Calendar.Component> = [.year, .month, .day]
+        
+        let today = Date()
+        let todayDateComponents = calendar.dateComponents(yearMonthDay, from: today)
+        
+        let actionInfoTimeStamp = actionInfo.timeStamp
+        let actionInfoTimeStampDateComponents = calendar.dateComponents(yearMonthDay, from: actionInfoTimeStamp)
+        
+        if todayDateComponents == actionInfoTimeStampDateComponents {
+            // actionInfo of the device was updated today
+            // So we check if complete is true or not
+            // If its is true we dont call the webservice as there are no more packets.
+            // If it is false we call the webservice with the timeStamp of the actionInfo
+            if actionInfo.complete == false {
+                // Call Webservice with actionInfo timeStamp
+                let timeStampString = webServiceExpectedDateFormatter.string(from: actionInfo.timeStamp)
+                getDeviceDataPackets(device: device, timeStampString: timeStampString)
+            } else {
+                alreadyFetched.insert(device.imei)
+            }
+        } else {
+            // actionInfo was last updated previous to today, so we want to fetch it for today now
+            // Call Webservice with timestamp as today and time as 00:00:00
+            var dateComponents = todayDateComponents
+            dateComponents.hour = 0
+            dateComponents.minute = 0
+            dateComponents.second = 0
+            let date = calendar.date(from: dateComponents)!
+            let timeStampString = webServiceExpectedDateFormatter.string(from: date)
+            getDeviceDataPackets(device: device, timeStampString: timeStampString)
+        }
+    }
+}
+
+extension DeviceActionsInfoStore {
+    func getPackets(for device: Device, for forDate: Date, fetchMorePacketsFromServerIfRequired: Bool = true, completionHandler: GetDataPacketCompletionHandler? = nil) {
+        let yearMonthDayHourMinSecComp: Set<Calendar.Component> = [.year, .month, .day]
+        let forDateComponents = DataPacketDateFormatter.calendar.dateComponents(yearMonthDayHourMinSecComp, from: forDate)
+        
+        var startOfDayDateComponents = forDateComponents
+        startOfDayDateComponents.hour = 0
+        startOfDayDateComponents.minute = 0
+        startOfDayDateComponents.second = 0
+        
+        var endOfDayDateComponents = forDateComponents
+        endOfDayDateComponents.hour = 24
+        endOfDayDateComponents.minute = 0
+        endOfDayDateComponents.second = 0
+        
+        let startOfDayDate = DataPacketDateFormatter.calendar.date(from: startOfDayDateComponents)!
+        let endOfDayDate = DataPacketDateFormatter.calendar.date(from: endOfDayDateComponents)!
+        
+        let packets = DataPacket.fetch(in: context) { fetchRequest in
+            //NSPredicate(format: "(date >= %@) AND (date <= %@)", startDate, endDate)
+            fetchRequest.predicate = NSPredicate(format: "(timeStamp >= %@) AND (timeStamp <= %@) AND imei = \(device.imei)", startOfDayDate as NSDate, endOfDayDate as NSDate)
+            fetchRequest.returnsObjectsAsFaults = false
+            fetchRequest.sortDescriptors = DataPacket.defaultSortDescriptors
+        }
+        
+//        completionHandler(device, packets)
+        
+        if fetchMorePacketsFromServerIfRequired {
+            completionHandler?((device, packets, true))
+            
+            let timeStampToUse: Date
+            if packets.count == 0 {
+                timeStampToUse = startOfDayDate
+            } else {
+                let dataPacket = packets.last!
+                timeStampToUse = dataPacket.timeStamp
+            }
+            
+            let timeStampString = webServiceExpectedDateFormatter.string(from: timeStampToUse)
+            
+            let minutesFromGMT = DataPacketDateFormatter.dateFormatter.timeZone.secondsFromGMT() / 60
+            let zone = minutesFromGMT >= 0 ? "+\(minutesFromGMT)" : "-\(minutesFromGMT)"
+            
+            
+            var urlComp = URLComponents()
+            urlComp.scheme = "http"
+            urlComp.host = "13.233.18.64"
+            urlComp.port = 1166
+            urlComp.path = "/api/DeviceData/GetData"
+            urlComp.queryItems = [URLQueryItem(name: "IMEI", value: String(device.imei)),
+                                  URLQueryItem(name: "time_stamp", value: timeStampString),
+                                  URLQueryItem(name: "zone", value: zone)]
+            
+            let url = urlComp.url!
+            var httpRequest = URLRequest(url: url)
+            httpRequest.httpMethod = "POST"
+            
+            URLSession.shared.dataTask(with: httpRequest) { (data, response, error) in
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        completionHandler?((device, [], false))
+                    }
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let jsonResponse = try decoder.decode(GetDataPacketsServiceResponse.self, from: data)
+                    
+                    var responsePackets = [DataPacket]()
+                    jsonResponse.deviceDataViewinfo.forEach { (packet) in
+                        let dataPacket = DataPacket.insert(into: self.context, packet: packet, imei: device.imei)
+                        dataPacket.device = device
+                        responsePackets.append(dataPacket)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        completionHandler?((device, responsePackets, false))
+                    }
+                } catch let jsonParsingError {
+                    fatalError(jsonParsingError.localizedDescription)
+                }
+            }
+            
+        } else {
+            completionHandler?((device, packets, false))
+        }
+    }
+
+}
+
 extension DeviceActionsInfoStore: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
         if let wrapper = operation as? GetDataPacketsServiceResponseWrapper {
@@ -86,7 +194,7 @@ extension DeviceActionsInfoStore: CommunicationResultListener {
             alreadyFetched.insert(wrapper.imei)
             context.performChanges {
                 wrapper.response.deviceDataViewinfo.forEach { (packet) in
-                    let dataPacket = DataPacket.insert(into: self.context, packet: packet)
+                    let dataPacket = DataPacket.insert(into: self.context, packet: packet, imei: device.imei)
                     dataPacket.device = device
                 }
                 
@@ -100,3 +208,6 @@ extension DeviceActionsInfoStore: CommunicationResultListener {
         print(error)
     }
 }
+
+
+

@@ -46,9 +46,11 @@ class GetDataPacketsService: CommunicationEndPoint {
     var hearders: HTTPHeaders = [:]
     
     var parameters: Parameters? {
+        let minutesFromGMT = DataPacketDateFormatter.dateFormatter.timeZone.secondsFromGMT() / 60
+        let zone = minutesFromGMT >= 0 ? "+\(minutesFromGMT)" : "-\(minutesFromGMT)"
         return ["IMEI": String(imei),
                 "time_stamp": timeStamp,
-                "zone": "+\(DataPacketDateFormatter.dateFormatter.timeZone.secondsFromGMT())"/*"+330"*/]
+                "zone": zone]
     }
     
     var operationId: Int = 0

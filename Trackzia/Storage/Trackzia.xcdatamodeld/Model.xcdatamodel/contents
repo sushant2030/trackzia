@@ -23,6 +23,7 @@
         <attribute name="accuracy" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="battery" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="charging" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imei" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lat" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="long" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="panic" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -92,7 +93,7 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="225"/>
         <element name="ActiveProfile" positionX="-54" positionY="117" width="128" height="90"/>
-        <element name="DataPacket" positionX="-36" positionY="144" width="128" height="180"/>
+        <element name="DataPacket" positionX="-36" positionY="144" width="128" height="195"/>
         <element name="Device" positionX="-36" positionY="126" width="128" height="255"/>
         <element name="DeviceActionsInfo" positionX="-36" positionY="135" width="128" height="225"/>
         <element name="GeoFence" positionX="-45" positionY="135" width="128" height="210"/>
