@@ -78,19 +78,4 @@ class UserDataStore {
             self.account?.state = userAccountData.stateName
         }
     }
-    
-    func insertDevices(in context: NSManagedObjectContext, for imeiList: [IMEI]) {
-        context.performChanges {
-            self.account?.devices?.forEach{ context.delete($0) }
-            self.account?.devices = []
-            for (index, imei) in imeiList.enumerated() {
-                let device = Device.insert(into: context, imei: imei)
-                device.order = Int16(index)
-                self.account?.devices?.insert(device)
-                
-                let actionsInfo = DeviceActionsInfo.insert(into: context)
-                actionsInfo.device = device
-            }
-        }
-    }
 }

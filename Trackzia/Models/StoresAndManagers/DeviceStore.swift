@@ -34,38 +34,45 @@ class DeviceStore {
     }
     
     func imeiSelectionManagerListener() {
-        if let device = IMEISelectionManager.shared.selectedDevice {
-            if device.activationDate == nil {
-                guard !detailsFetchingInProgress.contains(device.imei) else { return }
-                detailsFetchingInProgress.insert(device.imei)
-                getDeviceDetails(imei: device.imei)
-            }
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        if device.activationDate == nil {
+            guard !detailsFetchingInProgress.contains(device.imei) else { return }
+            detailsFetchingInProgress.insert(device.imei)
+            getDeviceDetails(imei: device.imei)
         }
     }
     
-//    func getDeviceDataPackets(device: Device) {
-//        guard let activationDate = device.activationDate else { return } //"2018-12-08T09:54:54"
-//        let charSet = CharacterSet(charactersIn: "-T:")
-//        let components = activationDate.components(separatedBy: charSet)
-//        let processedDateString = components.joined(separator: "")
-//        let date = DataPacketDateFormatter.dateFormatter.date(from: "2019-01-1700:00:00")!
-//        let stringDate = DataPacketDateFormatter.dateFormatter.string(from: date).components(separatedBy: "-").joined().components(separatedBy: ":").joined()
-//        CommunicationManager.getCommunicator().performOpertaion(with: GetDataPacketsService(imei: device.imei, timeStamp: stringDate, listener: self))
-//    }
+    func getAccntWiseIMEI(accntId: String) {
+        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
+    }
     
-//    func updateDeviceDataPackets(imei: IMEI) {
-//        if let device = IMEISelectionManager.shared.selectedDevice {
-//            if device.imei == imei {
-//                guard !dataPacketsFetchingInProgress.contains(device.imei) else { return }
-//                dataPacketsFetchingInProgress.insert(device.imei)
-//                getDeviceDataPackets(device: device)
-//            }
-//        }
-//    }
+    func insertDevices(in context: NSManagedObjectContext, for imeiList: [IMEI]) {
+        context.performChanges {
+            UserDataStore.shared.account?.devices?.forEach{ context.delete($0) }
+            UserDataStore.shared.account?.devices = []
+            for (index, imei) in imeiList.enumerated() {
+                let device = Device.insert(into: context, imei: imei)
+                device.order = Int16(index)
+                UserDataStore.shared.account?.devices?.insert(device)
+            }
+        }
+    }
 }
 
 extension DeviceStore: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        if let result = operation as? GetAccountWiseIMEIServiceResult, result.success {
+            if let data = result.data {
+                let imeiList = data.keys.sorted().map{ Int64(data[$0]!)! }
+                insertDevices(in: context, for: imeiList)
+                
+                DispatchQueue.main.async {
+                    DeviceStore.shared.refreshDeviceList(from: self.context)
+                    PostLoginRouter.showHomeView()
+                }
+            }
+        }
+        
         if let wrapper = operation as? GetDeviceDetailsServiceResultWrapper {
             if wrapper.result.success {
                 detailsFetchingInProgress.remove(wrapper.imei)
@@ -74,23 +81,12 @@ extension DeviceStore: CommunicationResultListener {
                     device.simcard = wrapper.result.data.simNumber
                     device.simOperator = wrapper.result.data.simOperator
                     device.activationDate = wrapper.result.data.activationDate
-                    device.actionsInfo.timeStamp = DataPacketDateFormatter.dateFormatter.date(from: wrapper.result.data.activationDate.split(separator: "T").joined())!
                 }
             }
         }
+    
         
-        if let wrapper = operation as? GetDataPacketsServiceResponseWrapper {
-            guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
-            context.performChanges {
-                wrapper.response.deviceDataViewinfo.forEach { (packet) in
-                    let dataPacket = DataPacket.insert(into: self.context, packet: packet, imei: device.imei)
-                    dataPacket.device = device
-                }
-                
-                device.actionsInfo.update(info: wrapper.response.deviceDataRestExploreRuninfo)
-
-            }
-        }
+        
     }
     
     func onFailure(operationId: Int, error: Error, data: Data?) {

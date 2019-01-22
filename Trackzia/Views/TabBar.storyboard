@@ -286,7 +286,7 @@
         <!--Activity-->
         <scene sceneID="WC1-tU-KCm">
             <objects>
-                <viewController id="wQs-BJ-fGQ" sceneMemberID="viewController">
+                <viewController id="wQs-BJ-fGQ" customClass="ActivityVC" customModule="Trackzia" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EaS-fj-LFI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -352,7 +352,7 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilepic" translatesAutoresizingMaskIntoConstraints="NO" id="03I-Nj-rGp">
-                                <rect key="frame" x="112.5" y="180" width="150" height="150"/>
+                                <rect key="frame" x="112.5" y="245" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="4J5-UA-ciA"/>
                                     <constraint firstAttribute="width" constant="150" id="hVB-ud-33t"/>
@@ -365,7 +365,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iji-if-8oz">
-                                <rect key="frame" x="0.0" y="350" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="415" width="375" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TH-bh-DuY">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="80"/>
@@ -427,6 +427,18 @@
                                     <constraint firstAttribute="height" constant="80" id="SyV-EL-wJH"/>
                                 </constraints>
                             </stackView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XI6-nV-lAQ">
+                                <rect key="frame" x="0.0" y="80" width="375" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ZLa-yb-yzC"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="569691735.66890395">
+                                    <!--2019-01-20 15:42:15 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="wQs-BJ-fGQ" eventType="valueChanged" id="un8-UJ-0mm"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -438,17 +450,29 @@
                             <constraint firstItem="k3E-dQ-VGL" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="GcJ-63-XOa"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="I9Y-zC-bL2"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" id="KBk-DA-wIJ"/>
+                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="KFr-KK-Npj"/>
                             <constraint firstAttribute="trailing" secondItem="iji-if-8oz" secondAttribute="trailing" id="Nul-Dp-iJp"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="bottom" secondItem="Amb-Qb-7yi" secondAttribute="bottom" id="Yda-Kf-5pz"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="aHQ-UX-DEE"/>
-                            <constraint firstItem="03I-Nj-rGp" firstAttribute="top" secondItem="k3E-dQ-VGL" secondAttribute="bottom" constant="20" id="fsS-Uq-heA"/>
+                            <constraint firstItem="03I-Nj-rGp" firstAttribute="top" secondItem="k3E-dQ-VGL" secondAttribute="bottom" constant="85" id="fsS-Uq-heA"/>
                             <constraint firstItem="pwQ-te-QaK" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="gv4-mD-bdq"/>
                             <constraint firstItem="pwQ-te-QaK" firstAttribute="top" secondItem="Amb-Qb-7yi" secondAttribute="top" id="gyV-VC-2Wa"/>
+                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="iDm-Rt-BX4"/>
+                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" id="iNG-7x-5JB"/>
                             <constraint firstItem="k3E-dQ-VGL" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="luA-CQ-tgo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Amb-Qb-7yi"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="bell_icon" id="5qL-C0-D1b"/>
+                    <connections>
+                        <outlet property="datePicker" destination="XI6-nV-lAQ" id="Joj-qd-sZD"/>
+                        <outlet property="lblCurrentLocation" destination="oMs-cR-1du" id="3B4-BG-7BL"/>
+                        <outlet property="lblExploring" destination="KJQ-Kr-rIl" id="aGt-24-Z8l"/>
+                        <outlet property="lblJustNow" destination="kKg-JB-bVG" id="iCe-8Q-Uex"/>
+                        <outlet property="lblPlayinHours" destination="gT6-8e-rEu" id="9Mu-H2-2Ge"/>
+                        <outlet property="lblProfileName" destination="QP2-CI-gHM" id="NNG-aT-BdZ"/>
+                        <outlet property="lblRestingHours" destination="Szs-UF-bDz" id="27u-8e-Ewx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZr-l2-AhY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

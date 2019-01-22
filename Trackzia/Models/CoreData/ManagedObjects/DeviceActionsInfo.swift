@@ -25,61 +25,71 @@ import CoreData
  */
 
 class DeviceActionsInfo: NSManagedObject {
+    @NSManaged var imei: Int64
+    
     @NSManaged var accuracy: Float
     @NSManaged var battery: Float
     @NSManaged var charging: Bool
     @NSManaged var complete: Bool
-    @NSManaged var exploring: String
+    
     @NSManaged var lat: Double
     @NSManaged var long: Double
-    @NSManaged var resting: String
-    @NSManaged var running: String
+    
     @NSManaged var speed: Double
     @NSManaged var timeStamp: Date
     
-    @NSManaged var device: Device
+    @NSManaged var resting: Int
+    @NSManaged var running: Int
+    @NSManaged var exploring: Int
     
-    static func insert(into context: NSManagedObjectContext) -> DeviceActionsInfo {
+    @NSManaged var year: Int
+    @NSManaged var month: Int
+    @NSManaged var day: Int
+    @NSManaged var secondsFromGMT: Int
+    
+    static func insert(into context: NSManagedObjectContext, imei: Int64, year: Int, month: Int, day: Int, secondsFromGMT: Int) -> DeviceActionsInfo {
         let actionsInfo:DeviceActionsInfo = context.insertObject()
         actionsInfo.accuracy = 0
         actionsInfo.battery = 0
         actionsInfo.charging = false
         actionsInfo.complete = false
-        actionsInfo.exploring = "00:00:00"
+        actionsInfo.exploring = 0
         actionsInfo.lat = 0.0
         actionsInfo.long = 0.0
-        actionsInfo.resting = "00:00:00"
-        actionsInfo.running = "00:00:00"
+        actionsInfo.resting = 0
+        actionsInfo.running = 0
         actionsInfo.speed = 0.0
         
-        let calendar = DataPacketDateFormatter.calendar
+        actionsInfo.year = year
+        actionsInfo.month = month
+        actionsInfo.day = day
+        actionsInfo.secondsFromGMT = secondsFromGMT
+        
         var components = DateComponents()
-        //"0001-01-01T00:00:00"
-        components.year = 1
-        components.month = 1
-        components.day = 1
-        components.hour = 00
-        components.minute = 00
-        components.second = 00
-        actionsInfo.timeStamp = calendar.date(from: components)!
+        components.year = year
+        components.month = month
+        components.day = day
+        actionsInfo.timeStamp = DataPacketDateFormatter.calendar.date(from: components)!
+        
+        actionsInfo.imei = imei
         return actionsInfo
     }
     
-    static func insert(into context: NSManagedObjectContext, info: DeviceDataRestExploreRuninfo) -> DeviceActionsInfo {
-        let actionsInfo:DeviceActionsInfo = context.insertObject()
-        actionsInfo.accuracy = Float(info.accuracy)
-        actionsInfo.battery = info.battery
-        actionsInfo.charging = info.charging
-        actionsInfo.complete = info.complete
-        actionsInfo.exploring = info.exploring
-        actionsInfo.lat = info.lat
-        actionsInfo.long = info.long
-        actionsInfo.resting = info.resting
-        actionsInfo.running = info.running
-        actionsInfo.speed = info.speed
-        actionsInfo.timeStamp = DataPacketDateFormatter.dateFormatter.date(from: info.timeStamp.split(separator: "T").joined())!
-        return actionsInfo
-    }
+//    static func insert(into context: NSManagedObjectContext, info: DeviceDataRestExploreRuninfo) -> DeviceActionsInfo {
+//        let actionsInfo:DeviceActionsInfo = context.insertObject()
+//        actionsInfo.accuracy = Float(info.accuracy)
+//        actionsInfo.battery = info.battery
+//        actionsInfo.charging = info.charging
+//        actionsInfo.complete = info.complete
+//        actionsInfo.exploring = info.exploring
+//        actionsInfo.lat = info.lat
+//        actionsInfo.long = info.long
+//        actionsInfo.resting = info.resting
+//        actionsInfo.running = info.running
+//        actionsInfo.speed = info.speed
+//        actionsInfo.timeStamp = DataPacketDateFormatter.dateFormatter.date(from: info.timeStamp.split(separator: "T").joined())!
+//        return actionsInfo
+//    }
     
     func update(info: DeviceDataRestExploreRuninfo) {
         accuracy = Float(info.accuracy)
@@ -91,36 +101,31 @@ class DeviceActionsInfo: NSManagedObject {
         long = info.long
         
         speed = info.speed
-        if info.timeStamp != "0001-01-01T00:00:00" {
-            let infoTimeStampString = info.timeStamp.components(separatedBy: "T").joined()
-            //infoTimeStampString is in zone of the DataPacketDateFormatter.dateFormatter
-            let infoTimeStampDate = DataPacketDateFormatter.dateFormatter.date(from: infoTimeStampString)!
-            
-            let yearMonthDay: Set<Calendar.Component> = [.year, .month, .day]
-            let infoTimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(yearMonthDay, from: infoTimeStampDate)
-            let storedtimeStampDateComponents = DataPacketDateFormatter.calendar.dateComponents(yearMonthDay, from: timeStamp)
-            
-            if infoTimeStampDateComponents == storedtimeStampDateComponents {
-                //Add to existing time for exploring, resting and running
-                let formatter = DateFormatter()
-                formatter.timeZone = DataPacketDateFormatter.dateFormatter.timeZone
-                formatter.calendar = DataPacketDateFormatter.calendar
-                formatter.dateFormat = "HH:mm:ss"
-                
-                
-                let storedDatecomponents = storedtimeStampDateComponents
-                exploring = hourMinsSecs(baseTimeString: exploring, timeStringToAdd: info.exploring, formatter: formatter, baseDateComponents: storedDatecomponents)
-                resting = hourMinsSecs(baseTimeString: resting, timeStringToAdd: info.resting, formatter: formatter, baseDateComponents: storedDatecomponents)
-                running = hourMinsSecs(baseTimeString: running, timeStringToAdd: info.running, formatter: formatter, baseDateComponents: storedDatecomponents)
-            } else {
-                //The previous values were not for the same day, so we insert the new values here
-                exploring = info.exploring
-                resting = info.resting
-                running = info.running
-            }
-            
-            timeStamp = DataPacketDateFormatter.dateFormatter.date(from: info.timeStamp.split(separator: "T").joined())!
-        }
+        timeStamp = DataPacketDateFormatter.dateFormatter.date(from: info.timeStamp.split(separator: "T").joined())!
+        
+        resting += resting + hrminsecStringToSeconds(info.resting)
+        running += running + hrminsecStringToSeconds(info.running)
+        exploring += exploring + hrminsecStringToSeconds(info.exploring)
+    }
+    
+    func hrminsecStringToSeconds(_ time: String) -> Int {
+        let components = time.split(separator: ":")
+        let seconds = Int(components[0])! * 60 * 60 + Int(components[1])! * 60 + Int(components[2])!
+        return seconds
+    }
+    
+    func secondsToHrminsecString(_ seconds: Int) -> String {
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        
+        let date = DataPacketDateFormatter.calendar.date(from: components)!
+        let newDate = Date(timeInterval: TimeInterval(exactly: seconds)!, since: date)
+        let dateFormatter = DateFormatter()//DataPacketDateFormatter.dateFormatter
+        dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.timeZone = DataPacketDateFormatter.timezone
+        return dateFormatter.string(from: newDate)
     }
     
     func hourMinsSecs(baseTimeString: String, timeStringToAdd: String,formatter: DateFormatter, baseDateComponents: DateComponents) -> String {
@@ -142,5 +147,7 @@ class DeviceActionsInfo: NSManagedObject {
 }
 
 extension DeviceActionsInfo: Managed {
-    
+    static var defaultSortDescriptors:[NSSortDescriptor] {
+        return [NSSortDescriptor(key: #keyPath(timeStamp), ascending: true)]
+    }
 }

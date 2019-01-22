@@ -22,8 +22,6 @@ class Device: NSManagedObject {
     @NSManaged var profiles: Set<Profile>?
     @NSManaged var activeProfile: ActiveProfile?
     @NSManaged var geoFences: Set<GeoFence>?
-    @NSManaged var dataPackets: Set<DataPacket>?
-    @NSManaged var actionsInfo: DeviceActionsInfo
     
     static func insert(into context: NSManagedObjectContext, imei: IMEI) -> Device {
         let device: Device = context.insertObject()

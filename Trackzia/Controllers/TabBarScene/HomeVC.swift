@@ -39,6 +39,7 @@ class HomeVC: UIViewController {
     
     var imeiChangeListenerToken: IMEISelectionManagerListenerToken!
     var profileChangeListenerToken: ProfileSectionListenerToken!
+    var actionInfoStoreChangeListener: DeviceActionsInfoStoreChangeToken!
     
     var deviceInfoObjectObserver: ManagedObjectObserver?
     
@@ -53,7 +54,7 @@ class HomeVC: UIViewController {
         if let geofenceListenerToken = geofenceListenerToken {
             GeofenceStore.shared.removeListener(geofenceListenerToken)
         }
-        
+        DeviceActionsInfoStore.shared.removeListener(token: actionInfoStoreChangeListener)
         updatedAtUpdatedTimer.invalidate()
     }
     
@@ -64,8 +65,17 @@ class HomeVC: UIViewController {
         updateDeviceInfoFields()
         imeiSelectionChangeListener()
         profileChangeListener()
-        imeiChangeListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionChangeListener)
-        profileChangeListenerToken = IMEISelectionManager.shared.addListener(profileChangeListener)
+        imeiChangeListenerToken = IMEISelectionManager.shared.addListener({ [weak self] in
+            self?.imeiSelectionChangeListener()
+        })
+        
+        profileChangeListenerToken = IMEISelectionManager.shared.addListener({ [weak self] in
+            self?.profileChangeListener()
+        })
+        
+        actionInfoStoreChangeListener = DeviceActionsInfoStore.shared.addListener { [weak self] (change) in
+            self?.actionsInfoStoreChange(change)
+        }
         
         if let device = IMEISelectionManager.shared.selectedDevice {
             geofenceListenerToken = GeofenceStore.shared.addListener(for: device.imei, listener: { [weak self] (imei) in
@@ -79,8 +89,24 @@ class HomeVC: UIViewController {
         
         updatedAtUpdatedTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (_) in
             print("Got trigger")
-            guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
-            self?.updateUpdatedAtLabels(for: actionsInfo.timeStamp)
+            self?.updateDeviceInfoFields()
+        }
+    }
+    
+    func actionsInfoStoreChange(_ change: DeviceActionsInfoStoreChange) {
+        switch change {
+        case .addedForToday(let imei, let actionInfo):
+            guard imei == IMEISelectionManager.shared.selectedDevice?.imei else { return }
+            updateActionInfoDataLabels(actionInfo)
+        case .updated(let imei, let dateComponents, let actionInfo):
+            guard imei == IMEISelectionManager.shared.selectedDevice?.imei else { return }
+            let todayDateComponents = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
+            if todayDateComponents == dateComponents {
+                updateActionInfoDataLabels(actionInfo)
+            }
+            
+        default: break
+            
         }
     }
     
@@ -114,7 +140,7 @@ class HomeVC: UIViewController {
     }
     
     func startObserving(device: Device) {
-        deviceInfoObjectObserver = ManagedObjectObserver(object: device.actionsInfo, changeHandler: objectChangeObserver(changeType:))
+//        deviceInfoObjectObserver = ManagedObjectObserver(object: device.actionsInfo, changeHandler: objectChangeObserver(changeType:))
     }
     
     func objectChangeObserver(changeType: ManagedObjectObserver.ChangeType) {
@@ -124,7 +150,12 @@ class HomeVC: UIViewController {
     }
     
     func updateDeviceInfoFields() {
-        guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
+        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        guard let actionInfo = DeviceActionsInfoStore.shared.todaysActionInfo(for: device) else { return }
+        updateActionInfoDataLabels(actionInfo)
+    }
+    
+    func updateActionInfoDataLabels(_ actionsInfo: DeviceActionsInfo) {
         let location = CLLocation(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
         geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
             var placeMark: CLPlacemark!
@@ -167,14 +198,14 @@ class HomeVC: UIViewController {
             
             self?.lblCurrentLocation.text = address
         }
-        
-        updateUpdatedAtLabels(for: actionsInfo.timeStamp)
-        
+
         batteryLabel.text = String(format: "%.0f", actionsInfo.battery) + "%"
         
-        lblPlayinHours.text = "Playing" + "\n\(actionsInfo.running)"
-        lblExploring.text = "Exploring" + "\n\(actionsInfo.exploring)"
-        lblRestingHours.text = "Resting" + "\n\(actionsInfo.resting)"
+        lblPlayinHours.text = "Playing" + "\n\(actionsInfo.secondsToHrminsecString(actionsInfo.running))"
+        lblExploring.text = "Exploring" + "\n\(actionsInfo.secondsToHrminsecString(actionsInfo.exploring))"
+        lblRestingHours.text = "Resting" + "\n\(actionsInfo.secondsToHrminsecString(actionsInfo.resting))"
+        
+        updateUpdatedAtLabels(for: actionsInfo.timeStamp)
     }
     
     func updateUpdatedAtLabels(for timeStamp: Date) {
@@ -226,59 +257,6 @@ class HomeVC: UIViewController {
         
     }
     
-    func splitHrsMinsString(_ hrsMinsString: String) -> String? {
-        let components = hrsMinsString.split(separator: ":")
-        if components.count == 3 {
-            let hrs = Int(components[0])!
-            let minutes = Int(components[1])!
-            let seconds = Int(components[2])!
-            let hrsString: String
-            let minString: String
-            let secString: String
-            if hrs == 0 {
-                if minutes > 0 {
-                    hrsString = "0 hrs"
-                } else {
-                    hrsString = ""
-                }
-            } else {
-                if hrs == 1 {
-                    hrsString = "1 hr"
-                } else {
-                    hrsString = "\(hrs) hrs"
-                }
-            }
-            
-            if minutes == 0 {
-                if seconds > 0 {
-                    minString = "0 mins"
-                } else {
-                    minString = ""
-                }
-            } else {
-                if minutes == 1 {
-                    minString = "1 min"
-                } else {
-                    minString = "\(minutes) mins"
-                }
-            }
-            
-            if seconds == 0 {
-                secString = ""
-            } else {
-                if seconds == 1 {
-                    secString = "1 sec"
-                } else {
-                    secString = "\(seconds) secs"
-                }
-            }
-            
-            let finalString = hrsString + minString + secString == "" ? "0 mins" : hrsString + minString + secString
-            
-            return finalString
-        }
-        return nil
-    }
 }
 
 class HomeVCPlaceHolder: UIViewController {

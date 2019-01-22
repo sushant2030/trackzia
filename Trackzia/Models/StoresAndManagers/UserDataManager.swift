@@ -78,9 +78,9 @@ class UserDataManager {
         CommunicationManager.getCommunicator().performOpertaion(with: UpdateAccountDetailsService(userAccntData: userAccntData, listener: self))
     }
     
-    func getAccntWiseIMEI(accntId: String) {
-        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
-    }
+//    func getAccntWiseIMEI(accntId: String) {
+//        CommunicationManager.getCommunicator().performOpertaion(with: GetAccountWiseIMEIService(accountId: accntId, listener: self))
+//    }
     
     func getIMEIWiseProfiles(imeiNumber: IMEI) {
         volatileIMEINumber = imeiNumber
@@ -156,23 +156,9 @@ extension UserDataManager: CommunicationResultListener {
             
             DispatchQueue.main.async {
                 self.volatileLoginAccountData = nil
-                self.getAccntWiseIMEI(accntId: UserDataStore.shared.accntId!)
+                DeviceStore.shared.getAccntWiseIMEI(accntId: UserDataStore.shared.accntId!)
             }
         }
-        
-        
-        if let result = operation as? GetAccountWiseIMEIServiceResult, result.success {
-            if let data = result.data {
-                let imeiList = data.keys.sorted().map{ Int64(data[$0]!)! }
-                UserDataStore.shared.insertDevices(in: context, for: imeiList)
-                
-                DispatchQueue.main.async {
-                    DeviceStore.shared.refreshDeviceList(from: self.context)
-                    PostLoginRouter.showHomeView()
-                }
-            }
-        }
-        
 
         if let wrapper = operation as? GetIMEIWiseProfilesResultWrapper {
             imeiWiseProfileFetchInProgress.remove(wrapper.imeiNumber)

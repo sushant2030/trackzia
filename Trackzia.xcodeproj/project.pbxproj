@@ -55,6 +55,7 @@
 		54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */; };
 		54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */; };
 		54B58BDC21E90DF00036E47C /* DeviceActionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B58BDB21E90DF00036E47C /* DeviceActionsInfo.swift */; };
+		54B9A32421F4CC2A006A8085 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B9A32321F4CC2A006A8085 /* ActivityVC.swift */; };
 		54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */; };
 		54BF988D21C8182F005F66AF /* UserAccountData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF988C21C8182F005F66AF /* UserAccountData.swift */; };
 		54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3025021C950740050D377 /* RBOptionItemListViewController.swift */; };
@@ -154,6 +155,7 @@
 		54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllAlertSettingsService.swift; sourceTree = "<group>"; };
 		54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertSettingValueService.swift; sourceTree = "<group>"; };
 		54B58BDB21E90DF00036E47C /* DeviceActionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActionsInfo.swift; sourceTree = "<group>"; };
+		54B9A32321F4CC2A006A8085 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
 		54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAccountDetailsService.swift; sourceTree = "<group>"; };
 		54BF988C21C8182F005F66AF /* UserAccountData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountData.swift; sourceTree = "<group>"; };
 		54D3025021C950740050D377 /* RBOptionItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBOptionItemListViewController.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 			children = (
 				7959E98121BCD65C00EEB963 /* HomeVC.swift */,
 				547A7E1121CFFE4B00040FB6 /* CurrentLocationVC.swift */,
+				54B9A32321F4CC2A006A8085 /* ActivityVC.swift */,
 			);
 			path = TabBarScene;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				54BF988B21C80088005F66AF /* UpdateAccountDetailsService.swift in Sources */,
 				542DD4E521F3762F00F06EF5 /* GeofenceStore.swift in Sources */,
 				54F66B3A21BBDAE700B47295 /* GeofenceViewController.swift in Sources */,
+				54B9A32421F4CC2A006A8085 /* ActivityVC.swift in Sources */,
 				546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */,
 				54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,

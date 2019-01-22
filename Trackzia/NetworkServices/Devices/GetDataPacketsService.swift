@@ -59,10 +59,14 @@ class GetDataPacketsService: CommunicationEndPoint {
     
     let imei: IMEI
     let timeStamp: String
+    let yearMonthDay: DateComponents
+    let deviceActionsInfo: DeviceActionsInfo
     
-    init(imei: IMEI, timeStamp: String, listener: CommunicationResultListener) {
+    init(imei: IMEI, timeStamp: String, yearMonthDay: DateComponents, deviceActionsInfo: DeviceActionsInfo, listener: CommunicationResultListener) {
         self.imei = imei
         self.timeStamp = timeStamp
+        self.yearMonthDay = yearMonthDay
+        self.deviceActionsInfo = deviceActionsInfo
         self.listener = listener
     }
     
@@ -74,7 +78,7 @@ class GetDataPacketsService: CommunicationEndPoint {
         do {
             let decoder = JSONDecoder()
             let response = try decoder.decode(GetDataPacketsServiceResponse.self, from: data)
-            let wrapper = GetDataPacketsServiceResponseWrapper(imei: imei, response: response)
+            let wrapper = GetDataPacketsServiceResponseWrapper(imei: imei, timeStamp: timeStamp, yearMonthDay: yearMonthDay, deviceActionsInfo: deviceActionsInfo, response: response)
             return wrapper
         } catch let jsonParsingError {
             fatalError(jsonParsingError.localizedDescription)
@@ -84,6 +88,9 @@ class GetDataPacketsService: CommunicationEndPoint {
 
 struct GetDataPacketsServiceResponseWrapper: CommunicationOperationResult {
     let imei: IMEI
+    let timeStamp: String
+    let yearMonthDay: DateComponents
+    let deviceActionsInfo: DeviceActionsInfo
     let response: GetDataPacketsServiceResponse
 }
 

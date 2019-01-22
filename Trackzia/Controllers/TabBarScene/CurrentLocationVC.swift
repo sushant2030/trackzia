@@ -52,8 +52,8 @@ class CurrentLocationVC: UIViewController {
         super.viewWillAppear(animated)
         updatedAtUpdatedTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] (_) in
             print("Got trigger")
-            guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
-            self?.updateUpdatedAtLabels(for: actionsInfo.timeStamp)
+//            guard let actionsInfo = IMEISelectionManager.shared.selectedDevice?.actionsInfo else { return }
+//            self?.updateUpdatedAtLabels(for: actionsInfo.timeStamp)
         }
         
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
@@ -99,9 +99,9 @@ class CurrentLocationVC: UIViewController {
     }
     
     func startObserving(device: Device) {
-        deviceInfoObjectObserver = ManagedObjectObserver(object: device.actionsInfo, changeHandler: { [weak self](changeType) in
-            self?.objectChangeObserver(changeType: changeType)
-        })
+//        deviceInfoObjectObserver = ManagedObjectObserver(object: device.actionsInfo, changeHandler: { [weak self](changeType) in
+//            self?.objectChangeObserver(changeType: changeType)
+//        })
     }
     
     func objectChangeObserver(changeType: ManagedObjectObserver.ChangeType) {
@@ -111,53 +111,53 @@ class CurrentLocationVC: UIViewController {
     }
     
     func updateDeviceInfoFields() {
-        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
-        let actionsInfo = device.actionsInfo
-        let location = CLLocation(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
-        geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            
-            // Address dictionary
-            //print(placeMark.addressDictionary ?? "")
-            
-            // Location name
-            var address = ""
-            if let locationName = placeMark.name {
-                //print(locationName)
-                address += locationName
-                
-            }
-            
-            // Street address
-            if let street = placeMark.thoroughfare {
-                //print(street)
-                address += ", \(street)"
-            }
-            
-            // City
-            if let city = placeMark.locality {
-                //print(city)
-                address += ", \(city)"
-            }
-            
-            // Zip code
-            if let zip = placeMark.postalCode {
-                //print(zip)
-                address += "-\(zip)"
-            }
-            
-            // Country
-            if let country = placeMark.country {
-                //print(country)
-                address += ", \(country)"
-            }
-            
-            self?.lblCurrentLocation.text = address
-        }
-        
-        updateUpdatedAtLabels(for: actionsInfo.timeStamp)
-        updateMapView(for: device)
+//        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+//        let actionsInfo = device.actionsInfo
+//        let location = CLLocation(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
+//        geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
+//            var placeMark: CLPlacemark!
+//            placeMark = placemarks?[0]
+//
+//            // Address dictionary
+//            //print(placeMark.addressDictionary ?? "")
+//
+//            // Location name
+//            var address = ""
+//            if let locationName = placeMark.name {
+//                //print(locationName)
+//                address += locationName
+//
+//            }
+//
+//            // Street address
+//            if let street = placeMark.thoroughfare {
+//                //print(street)
+//                address += ", \(street)"
+//            }
+//
+//            // City
+//            if let city = placeMark.locality {
+//                //print(city)
+//                address += ", \(city)"
+//            }
+//
+//            // Zip code
+//            if let zip = placeMark.postalCode {
+//                //print(zip)
+//                address += "-\(zip)"
+//            }
+//
+//            // Country
+//            if let country = placeMark.country {
+//                //print(country)
+//                address += ", \(country)"
+//            }
+//
+//            self?.lblCurrentLocation.text = address
+//        }
+//
+//        updateUpdatedAtLabels(for: actionsInfo.timeStamp)
+//        updateMapView(for: device)
     }
     
     func profileChangeListener() {
@@ -212,24 +212,24 @@ class CurrentLocationVC: UIViewController {
     }
     
     func updateMapView(for device: Device) {
-        let actionsInfo = device.actionsInfo
+//        let actionsInfo = device.actionsInfo
        
         
-        let coordinate2D = CLLocationCoordinate2D(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
-        let region = MKCoordinateRegion(center: coordinate2D, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        mapView.setRegion(region, animated: true)
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate2D
-        annotation.title = "\(coordinate2D.latitude, coordinate2D.longitude)"
-        mapView.addAnnotation(annotation)
+//        let coordinate2D = CLLocationCoordinate2D(latitude: actionsInfo.lat as CLLocationDegrees, longitude: actionsInfo.long as CLLocationDegrees)
+//        let region = MKCoordinateRegion(center: coordinate2D, latitudinalMeters: 10000, longitudinalMeters: 10000)
+//        mapView.setRegion(region, animated: true)
+//        
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = coordinate2D
+//        annotation.title = "\(coordinate2D.latitude, coordinate2D.longitude)"
+//        mapView.addAnnotation(annotation)
     }
     
     @IBAction func liveButtonTapped(_ sender: UIButton) {
         sender.isHidden = true
         liveUpdatesTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true, block: { _ in
             print("Updating packets now")
-            DeviceActionsInfoStore.shared.forceUpdateIfAlreadyFetched()
+//            DeviceActionsInfoStore.shared.forceUpdateIfAlreadyFetched()
         })
     }
 }
