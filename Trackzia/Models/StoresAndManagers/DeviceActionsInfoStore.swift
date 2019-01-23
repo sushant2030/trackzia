@@ -27,6 +27,7 @@ class DeviceActionsInfoStore {
     
     var fetchInProgress: [DateComponents: Set<IMEI>] = [:]
     var changeListeners: [String: (DeviceActionsInfoStoreChange) -> ()] = [:]
+    var alreadFetched: Set<IMEI> = []
     
     private init() {
         webserviceDateFormatter = DateFormatter()//DataPacketDateFormatter.dateFormatter
@@ -46,10 +47,23 @@ class DeviceActionsInfoStore {
     
     func imeiSelectionManagerListener() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
+        update(forDevice: device)
+        
+        
+        
+    }
+    
+    func update(forDevice device: Device, forceUpdate: Bool = false) {
         let yearMonthDay = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
         
         if let fetchInProgressForImeiList = fetchInProgress[yearMonthDay], fetchInProgressForImeiList.contains(device.imei) {
             return
+        }
+        
+        if !forceUpdate {
+            if alreadFetched.contains(device.imei) {
+                return
+            }
         }
         
         let result = todaysActionInfo(for: device)
@@ -71,7 +85,6 @@ class DeviceActionsInfoStore {
                 }
             }
         }
-        
     }
     
     func getDeviceActionInfo(imei: IMEI, timeStamp: String, yearMonthDay: DateComponents, actionsInfo: DeviceActionsInfo) {
@@ -99,6 +112,7 @@ extension DeviceActionsInfoStore: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
         if let wrapper = operation as? GetDataPacketsServiceResponseWrapper {
             fetchInProgress[wrapper.yearMonthDay]?.remove(wrapper.imei)
+            alreadFetched.insert(wrapper.imei)
             context.performChanges {
                 wrapper.deviceActionsInfo.update(info: wrapper.response.deviceDataRestExploreRuninfo)
                 wrapper.response.deviceDataViewinfo.forEach({
