@@ -36,25 +36,38 @@ class PetProfileViewController: UITableViewController, PopoverPresenter {
     @IBOutlet var colorTextField: UITextField!
     @IBOutlet var breedTextField: UITextField!
     @IBOutlet var doctorsInfoTextField: UITextField!
-    
+    var btnEdit : UIButton!
     @IBOutlet var submitButton: UIButton!
-    
+    var userInteraction : Bool!
     var imeiWiseProfileListenerToken:IMEIWiseProfileListenerToken!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userInteraction = false
         customizeAppearance()
         updateFields()
         imeiWiseProfileListenerToken = UserDataManager.shared.addListener(imeiWiseProfileChangesListener)
+        btnEdit = UIButton.init(type: .system)
+        btnEdit .addTarget(self, action: #selector(action(_:)), for: .touchUpInside)
+        btnEdit .setTitle("Edit", for: .normal)
+        btnEdit .setTitle("X", for: .selected)
+        btnEdit.isHighlighted = false
+        let barButton = UIBarButtonItem.init(customView: btnEdit)
+        self.navigationItem.rightBarButtonItem  = barButton
+        submitButton.isHidden = true
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setInteractionForViews(isInteraction: userInteraction)
+    }
+
     
     func customizeAppearance() {
         let bgImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 320, height:624))
         bgImage.image = UIImage(named: "screenbackground")
         tableView.backgroundColor = .clear
         tableView.backgroundView = bgImage
-        
         petImageView.layer.cornerRadius = 50.0
         petImageView.layer.masksToBounds = true
         
@@ -66,13 +79,30 @@ class PetProfileViewController: UITableViewController, PopoverPresenter {
     @IBAction func genderDropDownTouched(_ sender: UIButton) {
         presentOptionsPopover(withOptionItems: genderOptionItems(), from: genderTextField)
     }
+    
+    @objc func action(_ sender:UIButton){
+        btnEdit.isSelected = !btnEdit.isSelected
+        submitButton.isHidden = !btnEdit.isSelected
+        userInteraction = btnEdit.isSelected
+        setInteractionForViews(isInteraction: true)
+    }
+    @IBAction func submitAction(_ sender: UIButton) {
+        
+    }
+    
+    func setInteractionForViews(isInteraction:Bool)  {
+        for view in self.view.subviews{
+            if !view.isKind(of: UIButton.self){
+                view.isUserInteractionEnabled = isInteraction
+            }
+        }
+    }
 }
 
 extension PetProfileViewController: IMEIWiseProfileListenerChangeListener {
     func updateFields() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
         let petProfile = IMEIWiseProfilesStore.shared.profileTypePetFrom(imeiNumber: device.imei)
-        
         imeiNumberTextField.text = String(device.imei)
         nameTextField.text = petProfile.name
         birthDateTextField.text = petProfile.birthDate

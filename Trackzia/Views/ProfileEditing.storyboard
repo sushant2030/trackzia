@@ -1061,6 +1061,9 @@
                                                     <state key="normal" title="Submit">
                                                         <color key="titleColor" red="0.6588235294117647" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="submitAction:" destination="rv8-qh-UR4" eventType="touchUpInside" id="QTA-QG-Rej"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1547,7 +1550,7 @@
                                         <rect key="frame" x="0.0" y="679" width="375" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k2o-lm-AIY" id="odJ-c3-riB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QD-0N-94e">
@@ -1560,6 +1563,9 @@
                                                     <state key="normal" title="Submit">
                                                         <color key="titleColor" red="0.6588235294" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="actionSubmit:" destination="ot7-vM-sRs" eventType="touchUpInside" id="ATw-YY-fi6"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2045,7 +2051,7 @@
                                         <rect key="frame" x="0.0" y="679" width="375" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PPQ-cC-qUE" id="uF5-EU-lXe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKG-Fs-ekX">
@@ -2058,6 +2064,9 @@
                                                     <state key="normal" title="Submit">
                                                         <color key="titleColor" red="0.6588235294" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="actionSubmit:" destination="1u1-Hx-scW" eventType="touchUpInside" id="0kL-sf-Ezx"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2470,6 +2479,9 @@
                                                     <state key="normal" title="Submit">
                                                         <color key="titleColor" red="0.6588235294" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="actionSubmit:" destination="m0E-aP-9cW" eventType="touchUpInside" id="kop-3H-7YX"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2694,6 +2706,9 @@
                                                     <state key="normal" title="Submit">
                                                         <color key="titleColor" red="0.6588235294" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="actionSubmit:" destination="peM-lX-bt6" eventType="touchUpInside" id="Nxo-FQ-LaP"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2727,13 +2742,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="city_icon" width="340" height="453"/>
-        <image name="country_icon" width="427" height="402"/>
-        <image name="date_of_birth_icon" width="345" height="440"/>
+        <image name="city_icon" width="81.599998474121094" height="108.72000122070312"/>
+        <image name="country_icon" width="102.48000335693359" height="96.480003356933594"/>
+        <image name="date_of_birth_icon" width="82.800003051757812" height="105.59999847412109"/>
         <image name="down_arrow" width="900" height="520"/>
-        <image name="gender_icon" width="297" height="231"/>
-        <image name="name_icon" width="229" height="188"/>
+        <image name="gender_icon" width="71.279998779296875" height="55.439998626708984"/>
+        <image name="name_icon" width="55" height="45.119998931884766"/>
         <image name="profilepic" width="340" height="340"/>
-        <image name="state_icon" width="374" height="375"/>
+        <image name="state_icon" width="89.760002136230469" height="90"/>
     </resources>
 </document>

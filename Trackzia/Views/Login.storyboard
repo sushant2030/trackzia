@@ -1205,10 +1205,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calender_icon" width="267" height="326"/>
+        <image name="calender_icon" width="64.080001831054688" height="78.239997863769531"/>
         <image name="down_arrow" width="900" height="520"/>
-        <image name="logo" width="764" height="714"/>
+        <image name="logo" width="183.36000061035156" height="171.36000061035156"/>
         <image name="qrcode" width="250" height="250"/>
-        <image name="screenbackground" width="976" height="1651"/>
+        <image name="screenbackground" width="234.24000549316406" height="396.239990234375"/>
     </resources>
 </document>
