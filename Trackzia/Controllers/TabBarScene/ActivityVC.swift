@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Charts
 
 class ActivityVC: UIViewController {
     @IBOutlet var lblProfileName: UILabel!
