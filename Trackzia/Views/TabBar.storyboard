@@ -283,7 +283,7 @@
             </objects>
             <point key="canvasLocation" x="1324" y="-914"/>
         </scene>
-        <!--Activity-->
+        <!--Delegate-->
         <scene sceneID="WC1-tU-KCm">
             <objects>
                 <viewController id="wQs-BJ-fGQ" customClass="ActivityVC" customModule="Trackzia" customModuleProvider="target" sceneMemberID="viewController">
@@ -427,18 +427,31 @@
                                     <constraint firstAttribute="height" constant="80" id="SyV-EL-wJH"/>
                                 </constraints>
                             </stackView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XI6-nV-lAQ">
-                                <rect key="frame" x="0.0" y="80" width="375" height="150"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bb-91-2iz" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="510" width="375" height="93"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dlO-ow-t1y">
+                                <rect key="frame" x="0.0" y="603" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.090196078431372548" green="0.78823529411764703" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="ZLa-yb-yzC"/>
+                                    <constraint firstAttribute="height" constant="1" id="rua-ZD-yMd"/>
                                 </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="569691735.66890395">
-                                    <!--2019-01-20 15:42:15 +0000-->
-                                </date>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1M-3V-mox" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="80" width="375" height="240"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="ec0-sh-1W6"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsSelection" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="datePickerValueChanged:" destination="wQs-BJ-fGQ" eventType="valueChanged" id="un8-UJ-0mm"/>
+                                    <outlet property="delegate" destination="wQs-BJ-fGQ" id="CZZ-Vq-Qtp"/>
                                 </connections>
-                            </datePicker>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -447,25 +460,33 @@
                             <constraint firstItem="k3E-dQ-VGL" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" constant="10" id="8K0-VW-zsl"/>
                             <constraint firstItem="03I-Nj-rGp" firstAttribute="centerX" secondItem="EaS-fj-LFI" secondAttribute="centerX" id="8yF-6Z-JI4"/>
                             <constraint firstItem="iji-if-8oz" firstAttribute="leading" secondItem="EaS-fj-LFI" secondAttribute="leading" id="9ws-8U-dqb"/>
+                            <constraint firstItem="9bb-91-2iz" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="D5B-3H-40q"/>
                             <constraint firstItem="k3E-dQ-VGL" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="GcJ-63-XOa"/>
+                            <constraint firstItem="9bb-91-2iz" firstAttribute="top" secondItem="iji-if-8oz" secondAttribute="bottom" constant="15" id="Gfu-tv-wpT"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="I9Y-zC-bL2"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" id="KBk-DA-wIJ"/>
-                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="KFr-KK-Npj"/>
+                            <constraint firstItem="Amb-Qb-7yi" firstAttribute="bottom" secondItem="9bb-91-2iz" secondAttribute="bottom" constant="15" id="KZl-70-IJu"/>
                             <constraint firstAttribute="trailing" secondItem="iji-if-8oz" secondAttribute="trailing" id="Nul-Dp-iJp"/>
+                            <constraint firstItem="dlO-ow-t1y" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="TiE-M0-W8f"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="bottom" secondItem="Amb-Qb-7yi" secondAttribute="bottom" id="Yda-Kf-5pz"/>
+                            <constraint firstItem="h1M-3V-mox" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="Zm9-4P-43D"/>
                             <constraint firstItem="i4N-aG-AkX" firstAttribute="leading" secondItem="Amb-Qb-7yi" secondAttribute="leading" id="aHQ-UX-DEE"/>
+                            <constraint firstItem="dlO-ow-t1y" firstAttribute="top" secondItem="9bb-91-2iz" secondAttribute="bottom" id="ahW-HR-NgU"/>
+                            <constraint firstItem="Amb-Qb-7yi" firstAttribute="trailing" secondItem="h1M-3V-mox" secondAttribute="trailing" id="euC-v9-cjP"/>
                             <constraint firstItem="03I-Nj-rGp" firstAttribute="top" secondItem="k3E-dQ-VGL" secondAttribute="bottom" constant="85" id="fsS-Uq-heA"/>
                             <constraint firstItem="pwQ-te-QaK" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="gv4-mD-bdq"/>
                             <constraint firstItem="pwQ-te-QaK" firstAttribute="top" secondItem="Amb-Qb-7yi" secondAttribute="top" id="gyV-VC-2Wa"/>
-                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="iDm-Rt-BX4"/>
-                            <constraint firstItem="XI6-nV-lAQ" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" id="iNG-7x-5JB"/>
+                            <constraint firstItem="dlO-ow-t1y" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="kpA-Y1-LkJ"/>
                             <constraint firstItem="k3E-dQ-VGL" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="luA-CQ-tgo"/>
+                            <constraint firstItem="9bb-91-2iz" firstAttribute="trailing" secondItem="Amb-Qb-7yi" secondAttribute="trailing" id="ot9-dD-e9H"/>
+                            <constraint firstItem="h1M-3V-mox" firstAttribute="top" secondItem="pwQ-te-QaK" secondAttribute="bottom" id="vr0-0c-8JL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Amb-Qb-7yi"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="bell_icon" id="5qL-C0-D1b"/>
                     <connections>
-                        <outlet property="datePicker" destination="XI6-nV-lAQ" id="Joj-qd-sZD"/>
+                        <outlet property="barChart" destination="9bb-91-2iz" id="Se7-QR-hhu"/>
+                        <outlet property="calendarView" destination="h1M-3V-mox" id="DQw-IH-0sD"/>
                         <outlet property="lblCurrentLocation" destination="oMs-cR-1du" id="3B4-BG-7BL"/>
                         <outlet property="lblExploring" destination="KJQ-Kr-rIl" id="aGt-24-Z8l"/>
                         <outlet property="lblJustNow" destination="kKg-JB-bVG" id="iCe-8Q-Uex"/>

@@ -7,5 +7,6 @@ target 'Trackzia' do
 
   # Pods for Trackzia
   pod 'Charts'
+  pod 'FSCalendar'
 
 end
