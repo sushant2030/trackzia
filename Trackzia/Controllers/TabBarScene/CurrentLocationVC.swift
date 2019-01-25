@@ -278,11 +278,11 @@ class CurrentLocationVC: UIViewController {
     @IBAction func liveButtonTapped(_ sender: UIButton) {
         sender.isHidden = true
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
-        DeviceActionsInfoStore.shared.update(forDevice: device, forceUpdate: true)
+        DeviceActionsInfoStore.shared.updateTodaysActionInfo(forDevice: device, forceUpdate: true)
         liveUpdatesTimer = Timer.scheduledTimer(withTimeInterval: liveUpdateInterval, repeats: true, block: { _ in
             guard let device = IMEISelectionManager.shared.selectedDevice else { return }
             print("Updating packets")
-            DeviceActionsInfoStore.shared.update(forDevice: device, forceUpdate: true)
+            DeviceActionsInfoStore.shared.updateTodaysActionInfo(forDevice: device, forceUpdate: true)
         })
     }
     

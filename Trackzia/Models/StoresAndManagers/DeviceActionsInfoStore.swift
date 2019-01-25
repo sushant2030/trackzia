@@ -38,53 +38,56 @@ class DeviceActionsInfoStore {
     
     func todaysActionInfo(for device: Device) -> DeviceActionsInfo? {
         let yearMonthDay = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
+        return actionInfo(forDevice: device, year: yearMonthDay.year!, month: yearMonthDay.month!, day: yearMonthDay.day!)
+    }
+    
+    func actionInfo(forDevice device: Device, year: Int, month: Int, day: Int) -> DeviceActionsInfo? {
         let results = DeviceActionsInfo.fetch(in: context) { (fetchRequest) in
             fetchRequest.sortDescriptors = DeviceActionsInfo.defaultSortDescriptors
-            fetchRequest.predicate = NSPredicate(format: "year == \(yearMonthDay.year!) AND month == \(yearMonthDay.month!) AND day == \(yearMonthDay.day!) AND imei = \(device.imei)")
+            fetchRequest.predicate = NSPredicate(format: "year == \(year) AND month == \(month) AND day == \(day) AND imei = \(device.imei)")
         }
         return results.first
     }
     
     func imeiSelectionManagerListener() {
         guard let device = IMEISelectionManager.shared.selectedDevice else { return }
-        update(forDevice: device)
-        
-        
-        
+        updateTodaysActionInfo(forDevice: device)
     }
     
-    func update(forDevice device: Device, forceUpdate: Bool = false) {
-        let yearMonthDay = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
-        
+    func updateActionInfo(forDevice device: Device, forDateComponents dateComponents: DateComponents) {
+        let yearMonthDay = dateComponents
         if let fetchInProgressForImeiList = fetchInProgress[yearMonthDay], fetchInProgressForImeiList.contains(device.imei) {
             return
         }
         
+        let result = actionInfo(forDevice: device, year: yearMonthDay.year!, month: yearMonthDay.month!, day: yearMonthDay.day!)
+        
+        if let deviceActionInfo = result {
+            let timeStamp = deviceActionInfo.timeStamp
+            let timeStampString = webserviceDateFormatter.string(from: timeStamp)
+            getDeviceActionInfo(imei: device.imei, timeStamp: timeStampString, yearMonthDay: yearMonthDay, actionsInfo: deviceActionInfo)
+        } else {
+            context.performChanges {
+                let deviceActionInfo = DeviceActionsInfo.insert(into: self.context, imei: device.imei, year: yearMonthDay.year!, month: yearMonthDay.month!, day: yearMonthDay.day!, secondsFromGMT: DataPacketDateFormatter.secondsFromGMT)
+                
+                DispatchQueue.main.async {
+                    self.informAllListners(change: .addedForToday(device.imei, deviceActionInfo))
+                    let timeStamp = deviceActionInfo.timeStamp
+                    let timeStampString = self.webserviceDateFormatter.string(from: timeStamp)
+                    self.getDeviceActionInfo(imei: device.imei, timeStamp: timeStampString, yearMonthDay: yearMonthDay, actionsInfo: deviceActionInfo)
+                }
+            }
+        }
+    }
+    
+    func updateTodaysActionInfo(forDevice device: Device, forceUpdate: Bool = false) {
         if !forceUpdate {
             if alreadFetched.contains(device.imei) {
                 return
             }
         }
-        
-        let result = todaysActionInfo(for: device)
-        
-        if let deviceActionInfoForToday = result {
-            // Get action infos timeStamp
-            let timeStamp = deviceActionInfoForToday.timeStamp
-            let timeStampString = webserviceDateFormatter.string(from: timeStamp)
-            getDeviceActionInfo(imei: device.imei, timeStamp: timeStampString, yearMonthDay: yearMonthDay, actionsInfo: deviceActionInfoForToday)
-        } else {
-            context.performChanges {
-                let deviceActionInfoForToday = DeviceActionsInfo.insert(into: self.context, imei: device.imei, year: yearMonthDay.year!, month: yearMonthDay.month!, day: yearMonthDay.day!, secondsFromGMT: DataPacketDateFormatter.secondsFromGMT)
-                
-                DispatchQueue.main.async {
-                    self.informAllListners(change: .addedForToday(device.imei, deviceActionInfoForToday))
-                    let timeStamp = deviceActionInfoForToday.timeStamp
-                    let timeStampString = self.webserviceDateFormatter.string(from: timeStamp)
-                    self.getDeviceActionInfo(imei: device.imei, timeStamp: timeStampString, yearMonthDay: yearMonthDay, actionsInfo: deviceActionInfoForToday)
-                }
-            }
-        }
+        let yearMonthDay = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
+        updateActionInfo(forDevice: device, forDateComponents: yearMonthDay)
     }
     
     func getDeviceActionInfo(imei: IMEI, timeStamp: String, yearMonthDay: DateComponents, actionsInfo: DeviceActionsInfo) {
@@ -106,6 +109,54 @@ class DeviceActionsInfoStore {
     func informAllListners(change: DeviceActionsInfoStoreChange) {
         changeListeners.forEach({ $1(change) })
     }
+    
+    func maxSpeedValuesForEachHourOfDay(forDevice device: Device,represntedByDateComponents dateComponents: DateComponents, secondsFromGMT: Int) -> [Double] {
+        var speedValues: [Double] = []
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)!
+        for hour in 0...23 {
+            var modifiedDateComponents = dateComponents
+            modifiedDateComponents.hour = hour
+            let fromDate = calendar.date(from: modifiedDateComponents)!
+            modifiedDateComponents.hour = hour + 1
+            let toDate = calendar.date(from: modifiedDateComponents)!
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: DataPacket.entityName)
+            
+            fetchRequest.sortDescriptors = DataPacket.defaultSortDescriptors
+            fetchRequest.resultType = .dictionaryResultType
+            let predicate = NSPredicate(format: "(timeStamp >= %@) AND (timeStamp <= %@) AND imei = \(device.imei)", fromDate as NSDate, toDate as NSDate)
+            fetchRequest.predicate = predicate
+            
+            let expDescription = NSExpressionDescription()
+            expDescription.expressionResultType = .doubleAttributeType
+            expDescription.expression = NSExpression(forFunction: "max:", arguments: [NSExpression(forKeyPath: "speed")])
+            expDescription.name = "maxSpeed"
+            
+            fetchRequest.propertiesToFetch = [expDescription]
+            
+            let maxSpeedForHour: Double
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if let result = results.first as? [String: Double] {
+                    if let maxSpeed = result["maxSpeed"] {
+                        maxSpeedForHour = maxSpeed
+                    } else {
+                        maxSpeedForHour = 0
+                    }
+                    
+                } else {
+                    maxSpeedForHour = 0
+                }
+            } catch {
+                maxSpeedForHour = 0
+            }
+            speedValues.append(maxSpeedForHour)
+        }
+        return speedValues
+    }
+    
 }
 
 extension DeviceActionsInfoStore: CommunicationResultListener {

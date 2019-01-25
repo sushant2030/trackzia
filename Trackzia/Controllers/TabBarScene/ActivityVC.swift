@@ -20,6 +20,16 @@ class ActivityVC: UIViewController {
     
     @IBOutlet var datePicker: UIDatePicker!
     
+    var displayingDataForDate: Date! {
+        didSet {
+            if oldValue != displayingDataForDate {
+                selectedDateChanged()
+            }
+        }
+    }
+    
+    var device: Device!
+    
     var packets: [DataPacket] = [] {
         didSet {
             
@@ -38,8 +48,11 @@ class ActivityVC: UIViewController {
         super.viewDidLoad()
         updateProfileName()
         
+        device = IMEISelectionManager.shared.selectedDevice!
+        
         datePicker.calendar = DataPacketDateFormatter.calendar
         datePicker.date = Date()
+        displayingDataForDate = datePicker.date
     }
     
     
@@ -50,6 +63,7 @@ class ActivityVC: UIViewController {
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
+        displayingDataForDate = datePicker.date
 //        guard let device = IMEISelectionManager.shared.selectedDevice else { return }
 //        let pickerDate = datePicker.date
 //        var components = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: pickerDate)
@@ -76,4 +90,24 @@ class ActivityVC: UIViewController {
 //            
 //        }
     }
+}
+
+extension ActivityVC {
+    func selectedDateChanged() {
+        let dateComponents = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: displayingDataForDate)
+        
+        if let actionInfo = DeviceActionsInfoStore.shared.actionInfo(forDevice: device, year: dateComponents.year!, month: dateComponents.month!, day: dateComponents.day!) {
+            updateView(forActionInfo: actionInfo)
+        } else {
+            DeviceActionsInfoStore.shared.updateActionInfo(forDevice: device, forDateComponents: dateComponents)
+        }
+    }
+    
+    func updateView(forActionInfo actionInfo: DeviceActionsInfo) {
+        let dateComponents = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: actionInfo.timeStamp)
+        let maxSpeedValuesForEachHour: [Double] = DeviceActionsInfoStore.shared.maxSpeedValuesForEachHourOfDay(forDevice: device, represntedByDateComponents: dateComponents, secondsFromGMT: DataPacketDateFormatter.secondsFromGMT)
+        
+        print(maxSpeedValuesForEachHour)
+    }
+    
 }
