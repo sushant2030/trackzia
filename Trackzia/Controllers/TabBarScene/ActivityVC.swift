@@ -77,17 +77,17 @@ class ActivityVC: UIViewController {
         addActionInfoStoreChangeListener()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        var calendarWeekdayViewFrame = calendarView.calendarWeekdayView.frame
-        var collectionViewFrame = calendarView.collectionView.frame
-        
-        collectionViewFrame.origin.y = calendarWeekdayViewFrame.origin.y
-        calendarWeekdayViewFrame.origin.y = collectionViewFrame.maxY
-        
-        calendarView.calendarWeekdayView.frame = calendarWeekdayViewFrame
-        calendarView.collectionView.frame = collectionViewFrame
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        var calendarWeekdayViewFrame = calendarView.calendarWeekdayView.frame
+//        var collectionViewFrame = calendarView.collectionView.frame
+//
+//        collectionViewFrame.origin.y = calendarWeekdayViewFrame.origin.y
+//        calendarWeekdayViewFrame.origin.y = collectionViewFrame.maxY
+//
+//        calendarView.calendarWeekdayView.frame = calendarWeekdayViewFrame
+//        calendarView.collectionView.frame = collectionViewFrame
+//    }
     
     func configureCalendarView() {
         calendarView.select(Date())
@@ -173,6 +173,7 @@ extension ActivityVC {
             updateView(forActionInfo: actionInfo)
         } else {
             updateBarChart(withSpeedValues: Array<Double>(repeating: 0, count: 24))
+            updateRunningExploringResting(actionInfo: nil)
             DeviceActionsInfoStore.shared.updateActionInfo(forDevice: device, forDateComponents: dateComponentsOfDatePicked)
         }
     }
@@ -181,6 +182,10 @@ extension ActivityVC {
         let dateComponents = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: actionInfo.timeStamp)
         let maxSpeedValuesForEachHour: [Double] = DeviceActionsInfoStore.shared.maxSpeedValuesForEachHourOfDay(forDevice: device, represntedByDateComponents: dateComponents, secondsFromGMT: DataPacketDateFormatter.secondsFromGMT)
         updateBarChart(withSpeedValues: maxSpeedValuesForEachHour)
+        let location = CLLocation(latitude: actionInfo.lat as CLLocationDegrees, longitude: actionInfo.long as CLLocationDegrees)
+        updateAddressField(forLocation: location)
+        updateRunningExploringResting(actionInfo: actionInfo)
+        updateJustnowAndUpdatedAtLabels(for: actionInfo.timeStamp)
     }
     
     func updateBarChart(withSpeedValues speedValues: [Double]) {
@@ -197,5 +202,108 @@ extension ActivityVC {
         barChart.chartDescription?.text = "Max speed every hour of the day"
         barChart.notifyDataSetChanged()
         
+    }
+    
+    func updateRunningExploringResting(actionInfo: DeviceActionsInfo?) {
+        if let actionInfo = actionInfo {
+            lblPlayinHours.text = "Playing" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.running))"
+            lblExploring.text = "Exploring" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.exploring))"
+            lblRestingHours.text = "Resting" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.resting))"
+        } else {
+            lblPlayinHours.text = "Playing" + "\n00:00:00)"
+            lblExploring.text = "Exploring" + "\n00:00:00)"
+            lblRestingHours.text = "Resting" + "\n00:00:00))"
+        }
+        
+    }
+}
+
+extension ActivityVC {
+    func updateAddressField(forLocation location: CLLocation) {
+        geoCoder.reverseGeocodeLocation(location) { [weak self](placemarks, error) in
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Address dictionary
+            //print(placeMark.addressDictionary ?? "")
+            
+            // Location name
+            var address = ""
+            if let locationName = placeMark.name {
+                //print(locationName)
+                address += locationName
+                
+            }
+            
+            // Street address
+            if let street = placeMark.thoroughfare {
+                //print(street)
+                address += ", \(street)"
+            }
+            
+            // City
+            if let city = placeMark.locality {
+                //print(city)
+                address += ", \(city)"
+            }
+            
+            // Zip code
+            if let zip = placeMark.postalCode {
+                //print(zip)
+                address += "-\(zip)"
+            }
+            
+            // Country
+            if let country = placeMark.country {
+                //print(country)
+                address += ", \(country)"
+            }
+            
+            self?.lblCurrentLocation.text = address
+        }
+    }
+    
+    func updateJustnowAndUpdatedAtLabels(for timeStamp: Date) {
+        let timeStampYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: timeStamp)
+        
+        let currentDate = Date()
+        let currentDateYearMonthDay = DataPacketDateFormatter.calendar.dateComponents([.year, .month, .day], from: currentDate)
+        
+        let text: String
+        
+        if timeStampYearMonthDay == currentDateYearMonthDay {
+            let timeStampHourMinuteSecond = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: timeStamp)
+            let currentDateHourMinuteSecond = DataPacketDateFormatter.calendar.dateComponents([.hour, .minute, .second], from: currentDate)
+            
+            let timeStampSeconds = timeStampHourMinuteSecond.hour! * 60 * 60 + timeStampHourMinuteSecond.minute! * 60 + timeStampHourMinuteSecond.second!
+            let currentDateSeconds = currentDateHourMinuteSecond.hour! * 60 * 60 + currentDateHourMinuteSecond.minute! * 60 + currentDateHourMinuteSecond.second!
+            
+            if currentDateSeconds - timeStampSeconds <= 60 {
+                text = "Just Now"
+            } else if currentDateSeconds - timeStampSeconds <= 180 {
+                text = "A moment ago"
+            } else  {
+                dateFormatter.dateFormat = "hh:mm a"
+                text = "Updated today at \(dateFormatter.string(from: timeStamp))"
+            }
+            
+        } else if timeStampYearMonthDay.year == currentDateYearMonthDay.year &&
+            timeStampYearMonthDay.month == currentDateYearMonthDay.month {
+            if currentDateYearMonthDay.day! - timeStampYearMonthDay.day! == 1 {
+                dateFormatter.dateFormat = "hh:mm a"
+                text = "Updated yesterday at \(dateFormatter.string(from: timeStamp))"
+            } else {
+                dateFormatter.dateFormat = "dd MMM hh:mm a"
+                text = "Updated on \(dateFormatter.string(from: timeStamp))"
+            }
+        } else if timeStampYearMonthDay.year == currentDateYearMonthDay.year {
+            dateFormatter.dateFormat = "dd MMM hh:mm a"
+            text = "Updated on \(dateFormatter.string(from: timeStamp))"
+        } else {
+            dateFormatter.dateFormat = "dd MMM hh:mm a"
+            text = "Updated on \(dateFormatter.string(from: timeStamp))"
+        }
+        
+        lblJustNow.text = text
     }
 }
