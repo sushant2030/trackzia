@@ -10,7 +10,7 @@ import ApiManager
 
 class GetDeviceDetailsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Device/GetDetails"
+        return "\(baseURLAbsoluteString)/api/Device/GetDetails"
     }
     
     var httpMethod = HTTPMethod.post

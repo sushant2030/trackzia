@@ -10,7 +10,7 @@ import ApiManager
 
 class GetIMEIWiseProfiles: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Profiles/GetProfiles"
+        return "\(baseURLAbsoluteString)/api/Profiles/GetProfiles"
     }
     
     var httpMethod = HTTPMethod.post

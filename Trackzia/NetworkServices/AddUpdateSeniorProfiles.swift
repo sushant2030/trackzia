@@ -11,7 +11,7 @@ import ApiManager
 
 class AddUpdateSeniorProfiles : CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Profiles/UpdateSeniorCitizen"
+        return "\(baseURLAbsoluteString)/api/Profiles/UpdateSeniorCitizen"
     }
     
     var httpMethod: HTTPMethod {

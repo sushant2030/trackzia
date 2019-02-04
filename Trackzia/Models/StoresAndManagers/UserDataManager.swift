@@ -61,7 +61,7 @@ class UserDataManager {
     var imeiWiseProfileChangesListeners: [String: (IMEI) -> Void] = [:]
     
     var volatileLoginAccountData: LoginServiceResult.LoginAccountData? = nil
-    var geoFenceDetailsCompletionHandler: ((IMEI) -> Void)?
+    
     
     // MARK: Service usage
     func login(mobileNumber: String, password: String) {
@@ -85,11 +85,6 @@ class UserDataManager {
     func getIMEIWiseProfiles(imeiNumber: IMEI) {
         volatileIMEINumber = imeiNumber
         CommunicationManager.getCommunicator().performOpertaion(with: GetIMEIWiseProfiles(imeiNumber: imeiNumber, listener: self))
-    }
-    
-    func getGeoFenceDetails(imei: IMEI, completionHandlder: @escaping (IMEI) -> Void) {
-        geoFenceDetailsCompletionHandler = completionHandlder
-        CommunicationManager.getCommunicator().performOpertaion(with: GetGeoFenceDetailsService(imei: imei, listener: self))
     }
     
     func getDataPackets(imei: IMEI, completionHandler: @escaping (IMEI) -> Void) {
@@ -177,23 +172,7 @@ extension UserDataManager: CommunicationResultListener {
             }
         }
         
-        if let wrapper = operation as? GetGeoFenceDetailsServiceResultWrapper {
-            if wrapper.result.success {
-                guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
-                context.performChanges {
-                    device.geoFences?.forEach({ self.context.delete($0) })
-                    device.geoFences = []
-                    for geoFenceData in wrapper.result.data {
-                        let geoFence = GeoFence.insert(into: self.context, geoFenceData: geoFenceData)
-                        device.geoFences?.insert(geoFence)
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    self.geoFenceDetailsCompletionHandler?(device.imei)
-                }
-            }
-        }
+        
     }
     
     func onFailure(operationId: Int, error: Error, data: Data?) {

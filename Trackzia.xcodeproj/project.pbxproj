@@ -16,6 +16,10 @@
 		540683DA21F24F6B009AC78B /* DeviceActionsInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */; };
 		540E5EF121E79F1200855BF6 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */; };
 		540E5EF321E7A05800855BF6 /* NSManagedObjectContext+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */; };
+		5418FD372206D00C006E0F68 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5418FD362206D00C006E0F68 /* API.swift */; };
+		5418FD392206DAA0006E0F68 /* CreateUpdateGeofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5418FD382206DAA0006E0F68 /* CreateUpdateGeofence.swift */; };
+		5418FD3B2208A611006E0F68 /* TextFieldTimePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5418FD3A2208A611006E0F68 /* TextFieldTimePicker.xib */; };
+		5418FD3E2208A683006E0F68 /* TextFieldTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5418FD3D2208A683006E0F68 /* TextFieldTimePicker.swift */; };
 		542DD4E521F3762F00F06EF5 /* GeofenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD4E421F3762F00F06EF5 /* GeofenceStore.swift */; };
 		54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54365A1921B98FB4008E650B /* PostLogin.storyboard */; };
 		54365A1D21B9A372008E650B /* DashboardProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */; };
@@ -118,6 +122,10 @@
 		540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActionsInfoStore.swift; sourceTree = "<group>"; };
 		540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observers.swift"; sourceTree = "<group>"; };
+		5418FD362206D00C006E0F68 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		5418FD382206DAA0006E0F68 /* CreateUpdateGeofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUpdateGeofence.swift; sourceTree = "<group>"; };
+		5418FD3A2208A611006E0F68 /* TextFieldTimePicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldTimePicker.xib; sourceTree = "<group>"; };
+		5418FD3D2208A683006E0F68 /* TextFieldTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTimePicker.swift; sourceTree = "<group>"; };
 		542DD4E421F3762F00F06EF5 /* GeofenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceStore.swift; sourceTree = "<group>"; };
 		54365A1921B98FB4008E650B /* PostLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostLogin.storyboard; sourceTree = "<group>"; };
 		54365A1C21B9A372008E650B /* DashboardProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardProfileViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +255,15 @@
 			path = Trackzia;
 			sourceTree = "<group>";
 		};
+		5418FD3C2208A665006E0F68 /* TimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				5418FD3A2208A611006E0F68 /* TextFieldTimePicker.xib */,
+				5418FD3D2208A683006E0F68 /* TextFieldTimePicker.swift */,
+			);
+			path = TimePicker;
+			sourceTree = "<group>";
+		};
 		542DD4E621F3763E00F06EF5 /* StoresAndManagers */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +282,7 @@
 		54365A1821B98F6D008E650B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5418FD3C2208A665006E0F68 /* TimePicker */,
 				54D3024F21C9505D0050D377 /* RBOptionsPopover */,
 				79C4A56721BBA1AD00B72377 /* Login.storyboard */,
 				54365A1921B98FB4008E650B /* PostLogin.storyboard */,
@@ -290,6 +308,7 @@
 		54665BC321C1728E00251267 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
+				5418FD362206D00C006E0F68 /* API.swift */,
 				54FD835521DD2478000996E5 /* User */,
 				54FD835621DD248F000996E5 /* Devices */,
 				791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */,
@@ -298,7 +317,6 @@
 				79D6B4EC21C2F25300AA8A68 /* AddOtherProfileService.swift */,
 				54B05DC721C6678E00597A42 /* GetAllAlertSettingsService.swift */,
 				54B05DC921C67B3E00597A42 /* SetAlertSettingValueService.swift */,
-				546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -474,6 +492,8 @@
 				54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */,
 				54B05DC321C63DA400597A42 /* GetIMEIWiseProfiles.swift */,
 				54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */,
+				5418FD382206DAA0006E0F68 /* CreateUpdateGeofence.swift */,
+				546AB08F21D9239E001E4F99 /* GetGeoFenceDetailsService.swift */,
 			);
 			path = Devices;
 			sourceTree = "<group>";
@@ -594,6 +614,7 @@
 				54A3682021BCE55B000C7379 /* ProfileEditing.storyboard in Resources */,
 				79C4A56821BBA1AD00B72377 /* Login.storyboard in Resources */,
 				7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */,
+				5418FD3B2208A611006E0F68 /* TextFieldTimePicker.xib in Resources */,
 				54365A1A21B98FB4008E650B /* PostLogin.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,8 +681,10 @@
 				54D3025521C950750050D377 /* UITableViewCellOptionItemUtility.swift in Sources */,
 				540683DA21F24F6B009AC78B /* DeviceActionsInfoStore.swift in Sources */,
 				54F75FC021BEE4FE007875E6 /* KidProfileViewController.swift in Sources */,
+				5418FD3E2208A683006E0F68 /* TextFieldTimePicker.swift in Sources */,
 				544FE26D21BD866F00479FBA /* PetProfileViewController.swift in Sources */,
 				540E5EF121E79F1200855BF6 /* ManagedObjectObserver.swift in Sources */,
+				5418FD372206D00C006E0F68 /* API.swift in Sources */,
 				79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */,
 				546AB08A21D918ED001E4F99 /* IMEIWiseProfilesStore.swift in Sources */,
 				54BF988D21C8182F005F66AF /* UserAccountData.swift in Sources */,
@@ -715,6 +738,7 @@
 				546AB08B21D918ED001E4F99 /* UserDataStore.swift in Sources */,
 				54D3025321C950750050D377 /* RBOptionItemListViewController.swift in Sources */,
 				7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */,
+				5418FD392206DAA0006E0F68 /* CreateUpdateGeofence.swift in Sources */,
 				79D7D49D21D7B1BF00E39C3C /* LocationDetailModel.swift in Sources */,
 				546AB08221D918C3001E4F99 /* Device.swift in Sources */,
 				79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */,

@@ -68,6 +68,11 @@ class DataPacketDateFormatter {
         return calendar.dateComponents([.year, .month, .day], from: today)
     }
     
+    static func hourMinuteSecondsForNow() -> DateComponents {
+        let today = Date()
+        return calendar.dateComponents([.hour, .minute, .second], from: today)
+    }
+    
     static var timezone = TimeZone.current
     
     static var secondsFromGMT = timezone.secondsFromGMT()

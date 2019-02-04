@@ -11,7 +11,7 @@ import ApiManager
 
 class AddOtherProfileService : CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Profiles/UpdateOther"
+        return "\(baseURLAbsoluteString)/api/Profiles/UpdateOther"
     }
     
     var httpMethod: HTTPMethod {

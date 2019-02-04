@@ -11,7 +11,7 @@ import ApiManager
 
 class ChangePasswordService : CommunicationEndPoint {
     var urlPath: String{
-        return "http://13.233.18.64:1166/api/Account/ResetPassword"
+        return "\(baseURLAbsoluteString)/api/Account/ResetPassword"
     }
     
     var httpMethod: HTTPMethod {

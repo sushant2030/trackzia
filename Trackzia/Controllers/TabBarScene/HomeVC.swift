@@ -165,6 +165,7 @@ extension HomeVC {
         updateAddressField(forLocation: location)
         updateBatteryField(value: actionInfo.battery)
         updateRunningExploringResting(actionInfo: actionInfo)
+        updateGeoFenceData(actionInfo: actionInfo)
     }
     
     func updateJustnowAndUpdatedAtLabels(for timeStamp: Date) {
@@ -264,6 +265,55 @@ extension HomeVC {
         lblPlayinHours.text = "Playing" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.running))"
         lblExploring.text = "Exploring" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.exploring))"
         lblRestingHours.text = "Resting" + "\n\(actionInfo.secondsToHrminsecString(actionInfo.resting))"
+    }
+}
+
+extension HomeVC {
+    func updateGeoFenceData(actionInfo: DeviceActionsInfo) {
+        guard let device = IMEISelectionManager.shared.selectedDevice, device.imei == actionInfo.imei else { return }
+        guard let geofence = device.geoFences?.filter({ !$0.name.isEmpty }).first else {
+            lblDetail.text = nil
+            return
+        }
+        
+        if geofence.type == "GeoLock" {
+            
+        } else {
+            let components = DataPacketDateFormatter.hourMinuteSecondsForNow()
+            let startHour = Int(geofence.startTime!.split(separator: ":").first!)!
+            let startMinutes = Int(geofence.startTime!.split(separator: ":").last!)!
+            let startSeconds = startHour * 60 * 60 + startMinutes * 60
+            
+            let endHour = Int(geofence.endTime!.split(separator: ":").first!)!
+            let endMinutes = Int(geofence.endTime!.split(separator: ":").last!)!
+            let endSeconds = endHour * 60 * 60 + endMinutes * 60
+            
+            let nowSeconds = components.hour! * 60 * 60 + components.minute! * 60
+            let name = geofence.name
+            
+            if nowSeconds >= startSeconds && nowSeconds <= endSeconds {
+                let actlong = CLLocationDegrees(actionInfo.long)
+                let actlat = CLLocationDegrees(actionInfo.lat)
+                let actLocation = CLLocation(latitude: actlong, longitude: actlat)
+                
+                
+                let latitude = CLLocationDegrees(geofence.lat)!
+                let longitude = CLLocationDegrees(geofence.long)!
+                let geoFenceCenterLocation = CLLocation(latitude: latitude, longitude: longitude)
+                
+                let distanceFromGeoFenceCenter = geoFenceCenterLocation.distance(from: actLocation)
+                if distanceFromGeoFenceCenter <= CLLocationDistance(geofence.radius)! {
+                    lblDetail.text = "I am inside \(name)"
+                } else {
+                    lblDetail.text = "I am outside \(name)"
+                }
+                
+                let lengthmeasurementInKM = Measurement(value: distanceFromGeoFenceCenter, unit: UnitLength.meters).converted(to: .kilometers)
+                lblCurrentDistance.text = "Current Location Distance \(lengthmeasurementInKM.value)"
+            } else {
+                lblDetail.text = nil
+            }
+        }
     }
 }
 

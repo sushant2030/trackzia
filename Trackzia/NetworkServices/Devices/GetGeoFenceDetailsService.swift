@@ -10,7 +10,7 @@ import ApiManager
 
 class GetGeoFenceDetailsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Geofence/GetDetails"
+        return "\(baseURLAbsoluteString)/api/Geofence/GetDetails"
     }
     
     var httpMethod = HTTPMethod.post

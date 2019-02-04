@@ -20,6 +20,11 @@ class GeofenceStore {
     var listeners: [String: (IMEI) -> Void] = [:]
     var context: NSManagedObjectContext!
     
+    var geoFenceDetailsCompletionHandler: ((IMEI) -> Void)?
+    
+    typealias UpdateGeoFenceCompletionHandler = ((IMEI, String, Error?) -> Void)
+    var updateGeoFenceCompletionHandler: UpdateGeoFenceCompletionHandler?
+    
     private init() {
         imeiSelectionManagerListenerToken = IMEISelectionManager.shared.addListener(imeiSelectionManagerListener)
     }
@@ -31,12 +36,13 @@ class GeofenceStore {
             return
         }
         guard !fetchInProgress.contains(device.imei) else { return }
+        fetchInProgress.insert(device.imei)
         getGeofence(for: device)
     }
     
     func getGeofence(for device: Device) {
-        fetchInProgress.insert(device.imei)
-        UserDataManager.shared.getGeoFenceDetails(imei: device.imei) { (imei) in
+        
+        getGeoFenceDetails(imei: device.imei) { (imei) in
             self.fetchInProgress.remove(imei)
             self.alreadyFetched.insert(imei)
             self.listeners.forEach({ $1(imei) })
@@ -55,8 +61,46 @@ class GeofenceStore {
     func removeListener(_ token: GeofenceStoreListenerToken) {
         listeners[token.uuidString] = nil
     }
+    
+    func getGeoFenceDetails(imei: IMEI, completionHandlder: @escaping (IMEI) -> Void) {
+        geoFenceDetailsCompletionHandler = completionHandlder
+        CommunicationManager.getCommunicator().performOpertaion(with: GetGeoFenceDetailsService(imei: imei, listener: self))
+    }
+    
+    func updateGeoFence(_ geoFenceCreateUpdateModel: GeoFenceCreateUpdateModel, completionHandler: @escaping UpdateGeoFenceCompletionHandler) {
+        updateGeoFenceCompletionHandler = completionHandler
+        CommunicationManager.getCommunicator().performOpertaion(with: CreateUpdateGeofence(createUpdateModel: geoFenceCreateUpdateModel, listener: self))
+    }
 }
 
 class GeofenceStoreListenerToken {
     let uuidString = UUID().uuidString
+}
+
+extension GeofenceStore: CommunicationResultListener {
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        if let wrapper = operation as? GetGeoFenceDetailsServiceResultWrapper {
+            if wrapper.result.success {
+                guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
+                context.performChanges {
+                    device.geoFences?.forEach({ self.context.delete($0) })
+                    device.geoFences = []
+                    for geoFenceData in wrapper.result.data {
+                        let geoFence = GeoFence.insert(into: self.context, geoFenceData: geoFenceData)
+                        device.geoFences?.insert(geoFence)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.geoFenceDetailsCompletionHandler?(device.imei)
+                    self.geoFenceDetailsCompletionHandler = nil
+                }
+            }
+        }
+    }
+    
+    func onFailure(operationId: Int, error: Error, data: Data?) {
+        print(error)
+    }
+    
 }

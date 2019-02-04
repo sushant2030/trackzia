@@ -10,7 +10,7 @@ import ApiManager
 
 class GetAccountDetailsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Account/GetDetails"
+        return "\(baseURLAbsoluteString)/api/Account/GetDetails"
     }
     
     var httpMethod = HTTPMethod.post

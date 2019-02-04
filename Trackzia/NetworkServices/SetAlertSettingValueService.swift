@@ -10,7 +10,7 @@ import ApiManager
 
 class SetAlertSettingValueService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/AlertSetting/Onoff?IMEI=1234&AlertName=Panic&Onoff=false"
+        return "\(baseURLAbsoluteString)/api/AlertSetting/Onoff?IMEI=1234&AlertName=Panic&Onoff=false"
     }
     
     var httpMethod = HTTPMethod.post

@@ -10,7 +10,7 @@ import ApiManager
 
 class GetAllAlertSettingsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/AlertSetting/GetDetails?IMEI=1234"
+        return "\(baseURLAbsoluteString)/api/AlertSetting/GetDetails?IMEI=1234"
     }
     
     var httpMethod = HTTPMethod.post

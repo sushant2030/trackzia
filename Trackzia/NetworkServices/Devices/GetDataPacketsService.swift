@@ -38,7 +38,7 @@ import ApiManager
  */
 class GetDataPacketsService: CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/DeviceData/GetData"
+        return "\(baseURLAbsoluteString)/api/DeviceData/GetData"
     }
     
     var httpMethod = HTTPMethod.post

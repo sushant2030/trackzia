@@ -12,7 +12,7 @@ import ApiManager
 
 class AddUpdateVehicle : CommunicationEndPoint {
     var urlPath: String {
-        return "http://13.233.18.64:1166/api/Profiles/UpdateVehicle"
+        return "\(baseURLAbsoluteString)/api/Profiles/UpdateVehicle"
     }
     
     var httpMethod: HTTPMethod {
