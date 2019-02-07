@@ -43,6 +43,20 @@ class GeoFence: NSManagedObject {
         geoFence.updatedAt = Date()
         return geoFence
     }
+    
+    static func insert(into context: NSManagedObjectContext, createUpdateModel: GeoFenceCreateUpdateModel) -> GeoFence {
+        let geoFence: GeoFence = context.insertObject()
+        geoFence.lat = String(createUpdateModel.lat)
+        geoFence.long = String(createUpdateModel.long)
+        geoFence.type = createUpdateModel.type
+        geoFence.name = createUpdateModel.name
+        geoFence.radius = String(createUpdateModel.radius)
+        geoFence.startTime = createUpdateModel.startTime
+        geoFence.endTime = createUpdateModel.endTime
+        
+        geoFence.updatedAt = Date()
+        return geoFence
+    }
 }
 
 extension GeoFence: Managed {

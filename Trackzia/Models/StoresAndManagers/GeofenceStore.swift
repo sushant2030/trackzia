@@ -80,8 +80,10 @@ class GeofenceStoreListenerToken {
 extension GeofenceStore: CommunicationResultListener {
     func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
         if let wrapper = operation as? GetGeoFenceDetailsServiceResultWrapper {
+            fetchInProgress.remove(wrapper.imei)
             if wrapper.result.success {
                 guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.imei }).first else { return }
+                self.alreadyFetched.insert(device.imei)
                 context.performChanges {
                     device.geoFences?.forEach({ self.context.delete($0) })
                     device.geoFences = []
@@ -94,6 +96,34 @@ extension GeofenceStore: CommunicationResultListener {
                 DispatchQueue.main.async {
                     self.geoFenceDetailsCompletionHandler?(device.imei)
                     self.geoFenceDetailsCompletionHandler = nil
+                }
+            }
+        }
+        
+        if let wrapper = operation as? CreateUpdateGeofenceResponseWrapper {
+            if wrapper.response.success {
+                guard let device = UserDataStore.shared.account?.devices?.filter({ $0.imei == wrapper.createUpdateModel.imei }).first else { return }
+                if let geoFence = device.geoFences?.filter({ $0.type == wrapper.createUpdateModel.type }).first {
+                    context.performChanges {
+                        geoFence.name = wrapper.createUpdateModel.name
+                        geoFence.lat = String(wrapper.createUpdateModel.lat)
+                        geoFence.long = String(wrapper.createUpdateModel.long)
+                        geoFence.radius = String(wrapper.createUpdateModel.radius)
+                        geoFence.startTime = wrapper.createUpdateModel.startTime
+                        geoFence.endTime = wrapper.createUpdateModel.endTime
+                    }
+                } else {
+                    if device.geoFences == nil {
+                        device.geoFences = []
+                    }
+                    context.performChanges {
+                        let geofence = GeoFence.insert(into: self.context, createUpdateModel: wrapper.createUpdateModel)
+                        device.geoFences?.insert(geofence)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.updateGeoFenceCompletionHandler?(device.imei, wrapper.createUpdateModel.type, nil)
+                    self.updateGeoFenceCompletionHandler = nil
                 }
             }
         }

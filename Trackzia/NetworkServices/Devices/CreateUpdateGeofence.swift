@@ -8,6 +8,7 @@
 
 import Foundation
 import ApiManager
+import CoreLocation
 //http://13.233.18.64:1166/api/Geofence/CreateUpdate
 
 class CreateUpdateGeofence: CommunicationEndPoint {
@@ -55,13 +56,13 @@ struct GeoFenceCreateUpdateModel {
     let name: String
     let startTime: String
     let endTime: String
-    let lat: String
-    let long: String
-    let radius: String
+    let lat: CLLocationDegrees
+    let long: CLLocationDegrees
+    let radius: Int
     let type: String
     let geoEndTime: String
     
-    init(imei: IMEI, name: String, startTime: String, endTime: String, lat: String, long: String, radius: String, type: String, geoEndTime: String) {
+    init(imei: IMEI, name: String, startTime: String, endTime: String, lat: CLLocationDegrees, long: CLLocationDegrees, radius: Int, type: String, geoEndTime: String) {
         self.imei = imei
         self.name = name
         self.startTime = startTime
@@ -73,18 +74,21 @@ struct GeoFenceCreateUpdateModel {
         self.geoEndTime = geoEndTime
     }
     
-    init(geoLockWithName name: String, imei: IMEI, lat: String, long: String, radius: String, geoEndTime: String) {
-        self.init(imei: imei, name: name, startTime: "", endTime: "", lat: lat, long: long, radius: radius, type: "GeoLock", geoEndTime: geoEndTime)
+    init(geoLockWithName name: String, imei: IMEI, lat: CLLocationDegrees, long: CLLocationDegrees, radius: Int, geoEndTime: String) {
+        self.init(imei: imei, name: name, startTime: "00", endTime: "", lat: lat, long: long, radius: radius, type: "GeoLock", geoEndTime: geoEndTime)
     }
     
-    init(geoFenceWithName name: String, imei: IMEI, lat: String, long: String, radius: String, startTime: String, endTime: String, type: String) {
+    init(geoFenceWithName name: String, imei: IMEI, lat: CLLocationDegrees, long: CLLocationDegrees, radius: Int, startTime: String, endTime: String, type: String) {
         self.init(imei: imei, name: name, startTime: startTime, endTime: endTime, lat: lat, long: long, radius: radius, type: type, geoEndTime: "")
     }
     
     func parameters() ->Parameters {
-        var params: Parameters = ["IMEI": String(imei),"Name": name, "Lat": lat, "Lng": long, "Radius": radius]
+        var params: Parameters = ["IMEI": imei,"Name": name, "Lat": lat, "Lng": long, "Radius": radius, "GeofenceType": type]
         if type == "GeoLock" {
-            params["GeoEndTime"] = geoEndTime
+            params["StartTime"] = startTime
+            let components = geoEndTime.split(separator: ":")
+            let minutes = Int(components[0])! * 60 + Int(components[1])!
+            params["GeoEndTime"] = String(minutes)
         } else {
             params["StartTime"] = startTime
             params["EndTime"] = endTime
