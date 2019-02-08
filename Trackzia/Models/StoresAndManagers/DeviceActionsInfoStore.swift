@@ -71,7 +71,14 @@ class DeviceActionsInfoStore {
                 let deviceActionInfo = DeviceActionsInfo.insert(into: self.context, imei: device.imei, year: yearMonthDay.year!, month: yearMonthDay.month!, day: yearMonthDay.day!, secondsFromGMT: DataPacketDateFormatter.secondsFromGMT)
                 
                 DispatchQueue.main.async {
-                    self.informAllListners(change: .addedForToday(device.imei, deviceActionInfo))
+                    let yearMonthDayForNow = DataPacketDateFormatter.yearMonthDayDateComponentsForNow()
+                    if yearMonthDay == yearMonthDayForNow {
+                        self.informAllListners(change: .addedForToday(device.imei, deviceActionInfo))
+                    } else {
+                        self.informAllListners(change: .addedForPastDays(device.imei, yearMonthDay, deviceActionInfo))
+                    }
+                    
+                   
                     let timeStamp = deviceActionInfo.timeStamp
                     let timeStampString = self.webserviceDateFormatter.string(from: timeStamp)
                     self.getDeviceActionInfo(imei: device.imei, timeStamp: timeStampString, yearMonthDay: yearMonthDay, actionsInfo: deviceActionInfo)

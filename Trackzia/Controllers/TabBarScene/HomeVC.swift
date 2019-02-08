@@ -269,52 +269,167 @@ extension HomeVC {
 }
 
 extension HomeVC {
+    
     func updateGeoFenceData(actionInfo: DeviceActionsInfo) {
         guard let device = IMEISelectionManager.shared.selectedDevice, device.imei == actionInfo.imei else { return }
-        guard let geofence = device.geoFences?.filter({ !$0.name.isEmpty }).first else {
+        guard let geofences = device.geoFences?.filter({ !$0.name.isEmpty && $0.name != "0" && $0.name.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 }) else {
             lblDetail.text = nil
             return
         }
         
-        if geofence.type == "GeoLock" {
-            
-        } else {
-            let components = DataPacketDateFormatter.hourMinuteSecondsForNow()
-            let startHour = Int(geofence.startTime!.split(separator: ":").first!)!
-            let startMinutes = Int(geofence.startTime!.split(separator: ":").last!)!
-            let startSeconds = startHour * 60 * 60 + startMinutes * 60
-            
-            let endHour = Int(geofence.endTime!.split(separator: ":").first!)!
-            let endMinutes = Int(geofence.endTime!.split(separator: ":").last!)!
-            let endSeconds = endHour * 60 * 60 + endMinutes * 60
-            
-            let nowSeconds = components.hour! * 60 * 60 + components.minute! * 60
-            let name = geofence.name
-            
-            if nowSeconds >= startSeconds && nowSeconds <= endSeconds {
-                let actlong = CLLocationDegrees(actionInfo.long)
-                let actlat = CLLocationDegrees(actionInfo.lat)
-                let actLocation = CLLocation(latitude: actlong, longitude: actlat)
-                
-                
-                let latitude = CLLocationDegrees(geofence.lat)!
-                let longitude = CLLocationDegrees(geofence.long)!
-                let geoFenceCenterLocation = CLLocation(latitude: latitude, longitude: longitude)
-                
-                let distanceFromGeoFenceCenter = geoFenceCenterLocation.distance(from: actLocation)
-                if distanceFromGeoFenceCenter <= CLLocationDistance(geofence.radius)! {
-                    lblDetail.text = "I am inside \(name)"
-                } else {
-                    lblDetail.text = "I am outside \(name)"
+        let hourMinSecComponents = DataPacketDateFormatter.hourMinuteSecondsForNow()
+        let secondsNow = hourMinSecComponents.hour! * 60 * 60 + hourMinSecComponents.minute! * 60
+        
+        let actlong = CLLocationDegrees(actionInfo.long)
+        let actlat = CLLocationDegrees(actionInfo.lat)
+        let actLocation = CLLocation(latitude: actlat, longitude: actlong)
+        
+        // Get geofences whose time range includes secondsNow
+        var timeValidGeofences = geofences.filter {
+            if $0.type != GeoFenceType.lock.rawValue {
+                if let startHourMin = $0.startTime?.split(separator: ":"), let endHourMin = $0.endTime?.split(separator: ":") {
+                    if startHourMin.count == 2 && endHourMin.count == 2 {
+                        if let startHour = Int(startHourMin[0]), let startMin = Int(startHourMin[1]), let endHour = Int(endHourMin[0]), let endMin = Int(endHourMin[1]) {
+                            let startSeconds = startHour * 60 * 60 + startMin * 60
+                            let endSeconds = endHour * 60 * 60 + endMin * 60
+                            if startSeconds <= secondsNow && endSeconds >= secondsNow {
+                                return true
+                            }
+                        }
+                    }
                 }
-                
-                let lengthmeasurementInKM = Measurement(value: distanceFromGeoFenceCenter, unit: UnitLength.meters).converted(to: .kilometers)
-                lblCurrentDistance.text = "Current Location Distance \(lengthmeasurementInKM.value)"
-            } else {
-                lblDetail.text = nil
             }
+            return false
         }
+        
+        if timeValidGeofences.count == 0 {
+            lblDetail.text = "No geofences for now"
+            lblCurrentDistance.text = nil
+            lblUpdatedAt.text = nil
+            return
+        }
+        
+        // Get distances
+        let distanceRadiusGeoFences:[(distance: CLLocationDistance, radius: CLLocationDistance, geoFence:GeoFence)] = timeValidGeofences.map {
+            let latitude = CLLocationDegrees($0.lat)!
+            let longitude = CLLocationDegrees($0.long)!
+            let geoFenceCenterLocation = CLLocation(latitude: latitude, longitude: longitude)
+            let distanceFromGeoFenceCenter = geoFenceCenterLocation.distance(from: actLocation)
+            return (distanceFromGeoFenceCenter, CLLocationDistance($0.radius)!, $0)
+        }
+        
+        // Get geofences who we are inside
+        let inside = distanceRadiusGeoFences.filter {
+            $0.distance <= $0.radius
+        }
+        
+        // If we are inside then show
+        if inside.count > 0 {
+            let min = inside.reduce(inside[0]) { $1.distance < $0.distance ? $1 : $0 }
+            lblDetail.text = "I am inside \(min.geoFence.name)"
+            lblUpdatedAt.text = "Just now"
+            
+            let lengthmeasurementInKM = Measurement(value: min.distance, unit: UnitLength.meters).converted(to: .kilometers)
+            lblCurrentDistance.text = String(format: "Current Location Distance %.2f Km", lengthmeasurementInKM.value)
+
+            return
+        } else {
+            // We are not, show the closest geofence
+            let min = distanceRadiusGeoFences.reduce(inside[0]) { $1.distance < $0.distance ? $1 : $0 }
+            lblDetail.text = "I am outside \(min.geoFence.name)"
+            
+            lblUpdatedAt.text = "Just now"
+            
+            let lengthmeasurementInKM = Measurement(value: min.distance, unit: UnitLength.meters).converted(to: .kilometers)
+            lblCurrentDistance.text = String(format: "Current Location Distance %.2f Km", lengthmeasurementInKM.value)
+        }
+        
+        
+//        if geofence.type == "GeoLock" {
+//
+//        } else {
+//            let components = DataPacketDateFormatter.hourMinuteSecondsForNow()
+//            let startHour = Int(geofence.startTime!.split(separator: ":").first!)!
+//            let startMinutes = Int(geofence.startTime!.split(separator: ":").last!)!
+//            let startSeconds = startHour * 60 * 60 + startMinutes * 60
+//
+//            let endHour = Int(geofence.endTime!.split(separator: ":").first!)!
+//            let endMinutes = Int(geofence.endTime!.split(separator: ":").last!)!
+//            let endSeconds = endHour * 60 * 60 + endMinutes * 60
+//
+//            let nowSeconds = components.hour! * 60 * 60 + components.minute! * 60
+//            let name = geofence.name
+//
+//            if nowSeconds >= startSeconds && nowSeconds <= endSeconds {
+//                let actlong = CLLocationDegrees(actionInfo.long)
+//                let actlat = CLLocationDegrees(actionInfo.lat)
+//                let actLocation = CLLocation(latitude: actlong, longitude: actlat)
+//
+//
+//                let latitude = CLLocationDegrees(geofence.lat)!
+//                let longitude = CLLocationDegrees(geofence.long)!
+//                let geoFenceCenterLocation = CLLocation(latitude: latitude, longitude: longitude)
+//
+//                let distanceFromGeoFenceCenter = geoFenceCenterLocation.distance(from: actLocation)
+//                if distanceFromGeoFenceCenter <= CLLocationDistance(geofence.radius)! {
+//                    lblDetail.text = "I am inside \(name)"
+//                } else {
+//                    lblDetail.text = "I am outside \(name)"
+//                }
+//
+//                let lengthmeasurementInKM = Measurement(value: distanceFromGeoFenceCenter, unit: UnitLength.meters).converted(to: .kilometers)
+//                lblCurrentDistance.text = "Current Location Distance \(lengthmeasurementInKM.value)"
+//            } else {
+//                lblDetail.text = nil
+//            }
+//        }
     }
+//    func updateGeoFenceData(actionInfo: DeviceActionsInfo) {
+//        guard let device = IMEISelectionManager.shared.selectedDevice, device.imei == actionInfo.imei else { return }
+//        guard let geofence = device.geoFences?.filter({ !$0.name.isEmpty }).first else {
+//            lblDetail.text = nil
+//            return
+//        }
+//
+//        if geofence.type == "GeoLock" {
+//
+//        } else {
+//            let components = DataPacketDateFormatter.hourMinuteSecondsForNow()
+//            let startHour = Int(geofence.startTime!.split(separator: ":").first!)!
+//            let startMinutes = Int(geofence.startTime!.split(separator: ":").last!)!
+//            let startSeconds = startHour * 60 * 60 + startMinutes * 60
+//
+//            let endHour = Int(geofence.endTime!.split(separator: ":").first!)!
+//            let endMinutes = Int(geofence.endTime!.split(separator: ":").last!)!
+//            let endSeconds = endHour * 60 * 60 + endMinutes * 60
+//
+//            let nowSeconds = components.hour! * 60 * 60 + components.minute! * 60
+//            let name = geofence.name
+//
+//            if nowSeconds >= startSeconds && nowSeconds <= endSeconds {
+//                let actlong = CLLocationDegrees(actionInfo.long)
+//                let actlat = CLLocationDegrees(actionInfo.lat)
+//                let actLocation = CLLocation(latitude: actlong, longitude: actlat)
+//
+//
+//                let latitude = CLLocationDegrees(geofence.lat)!
+//                let longitude = CLLocationDegrees(geofence.long)!
+//                let geoFenceCenterLocation = CLLocation(latitude: latitude, longitude: longitude)
+//
+//                let distanceFromGeoFenceCenter = geoFenceCenterLocation.distance(from: actLocation)
+//                if distanceFromGeoFenceCenter <= CLLocationDistance(geofence.radius)! {
+//                    lblDetail.text = "I am inside \(name)"
+//                } else {
+//                    lblDetail.text = "I am outside \(name)"
+//                }
+//
+//                let lengthmeasurementInKM = Measurement(value: distanceFromGeoFenceCenter, unit: UnitLength.meters).converted(to: .kilometers)
+//                lblCurrentDistance.text = "Current Location Distance \(lengthmeasurementInKM.value)"
+//            } else {
+//                lblDetail.text = nil
+//            }
+//        }
+//    }
 }
 
 extension HomeVC {
