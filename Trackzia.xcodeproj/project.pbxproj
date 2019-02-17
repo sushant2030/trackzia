@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C2A88C56FE7C00611C64B52 /* Pods_Trackzia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B178639A9718CC3C8FA26663 /* Pods_Trackzia.framework */; };
 		1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E314721B6F78500169421 /* AppDelegate.swift */; };
 		1C8E314A21B6F78500169421 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E314921B6F78500169421 /* ViewController.swift */; };
 		1C8E314D21B6F78500169421 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E314B21B6F78500169421 /* Main.storyboard */; };
@@ -81,6 +80,8 @@
 		54FD835421DB5F13000996E5 /* GetDataPacketsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */; };
 		54FD835821DD2FFA000996E5 /* GetDeviceDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */; };
 		791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */; };
+		79464401221865D7002AE634 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79464400221865D7002AE634 /* RegisterService.swift */; };
+		7946440322195F6D002AE634 /* OTPRegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7946440222195F6D002AE634 /* OTPRegisterService.swift */; };
 		7959E97F21BC57F100EEB963 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7959E97E21BC57F100EEB963 /* TabBar.storyboard */; };
 		7959E98221BCD65C00EEB963 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959E98121BCD65C00EEB963 /* HomeVC.swift */; };
 		7986225D21C03ADE00510240 /* TZCreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */; };
@@ -94,6 +95,7 @@
 		79D7D49D21D7B1BF00E39C3C /* LocationDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D7D49C21D7B1BF00E39C3C /* LocationDetailModel.swift */; };
 		79DCF33821BEF93D00460F17 /* TZVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */; };
 		79DCF33A21BF059200460F17 /* TZAssignVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DCF33921BF059200460F17 /* TZAssignVC.swift */; };
+		CF205FB24C6F56ACEA76ECAB /* Pods_Trackzia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C20F489E8B64547CF1D213E /* Pods_Trackzia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,6 +113,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C20F489E8B64547CF1D213E /* Pods_Trackzia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trackzia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8E314421B6F78500169421 /* Trackzia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trackzia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8E314721B6F78500169421 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C8E314921B6F78500169421 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +121,6 @@
 		1C8E314E21B6F79500169421 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C8E315121B6F79600169421 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C8E315321B6F79600169421 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A1E6A1408F867D589773545 /* Pods-Trackzia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trackzia.release.xcconfig"; path = "Target Support Files/Pods-Trackzia/Pods-Trackzia.release.xcconfig"; sourceTree = "<group>"; };
 		540683D921F24F6B009AC78B /* DeviceActionsInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActionsInfoStore.swift; sourceTree = "<group>"; };
 		540E5EF021E79F1200855BF6 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		540E5EF221E7A05800855BF6 /* NSManagedObjectContext+Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observers.swift"; sourceTree = "<group>"; };
@@ -186,6 +188,8 @@
 		54FD835321DB5F13000996E5 /* GetDataPacketsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataPacketsService.swift; sourceTree = "<group>"; };
 		54FD835721DD2FFA000996E5 /* GetDeviceDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeviceDetailsService.swift; sourceTree = "<group>"; };
 		791AE89321C19E8C00BB8C28 /* ChangePasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordService.swift; sourceTree = "<group>"; };
+		79464400221865D7002AE634 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
+		7946440222195F6D002AE634 /* OTPRegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPRegisterService.swift; sourceTree = "<group>"; };
 		7959E97E21BC57F100EEB963 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		7959E98121BCD65C00EEB963 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		7986225C21C03ADE00510240 /* TZCreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZCreateProfileVC.swift; sourceTree = "<group>"; };
@@ -200,8 +204,8 @@
 		79D7D49C21D7B1BF00E39C3C /* LocationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailModel.swift; sourceTree = "<group>"; };
 		79DCF33721BEF93D00460F17 /* TZVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVerifyVC.swift; sourceTree = "<group>"; };
 		79DCF33921BF059200460F17 /* TZAssignVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssignVC.swift; sourceTree = "<group>"; };
-		B178639A9718CC3C8FA26663 /* Pods_Trackzia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trackzia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC313713B2FFC753C36337D0 /* Pods-Trackzia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trackzia.debug.xcconfig"; path = "Target Support Files/Pods-Trackzia/Pods-Trackzia.debug.xcconfig"; sourceTree = "<group>"; };
+		C078DC8A11FE83F9213D93C5 /* Pods-Trackzia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trackzia.debug.xcconfig"; path = "Target Support Files/Pods-Trackzia/Pods-Trackzia.debug.xcconfig"; sourceTree = "<group>"; };
+		D2F009F63BF5251D9A954EB5 /* Pods-Trackzia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trackzia.release.xcconfig"; path = "Target Support Files/Pods-Trackzia/Pods-Trackzia.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +213,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C2A88C56FE7C00611C64B52 /* Pods_Trackzia.framework in Frameworks */,
 				5488FA2E220CB56800352ADC /* ApiManager.framework in Frameworks */,
+				CF205FB24C6F56ACEA76ECAB /* Pods_Trackzia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +228,8 @@
 				546AB07021D91882001E4F99 /* Storage */,
 				1C8E314621B6F78500169421 /* Trackzia */,
 				1C8E314521B6F78500169421 /* Products */,
-				9B614083A3A7E9762FF65E8C /* Pods */,
 				6718CF73DEB5ED283C8E7003 /* Frameworks */,
+				F9AAE1EA2251AD04F05ED05C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -481,6 +485,8 @@
 				54BF988A21C80088005F66AF /* UpdateAccountDetailsService.swift */,
 				54665BC421C1728E00251267 /* LoginService.swift */,
 				54665BC621C1870500251267 /* GetAccountDetailsService.swift */,
+				79464400221865D7002AE634 /* RegisterService.swift */,
+				7946440222195F6D002AE634 /* OTPRegisterService.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -501,7 +507,7 @@
 		6718CF73DEB5ED283C8E7003 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B178639A9718CC3C8FA26663 /* Pods_Trackzia.framework */,
+				1C20F489E8B64547CF1D213E /* Pods_Trackzia.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -538,11 +544,11 @@
 			path = LocationDetailModel;
 			sourceTree = "<group>";
 		};
-		9B614083A3A7E9762FF65E8C /* Pods */ = {
+		F9AAE1EA2251AD04F05ED05C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FC313713B2FFC753C36337D0 /* Pods-Trackzia.debug.xcconfig */,
-				3A1E6A1408F867D589773545 /* Pods-Trackzia.release.xcconfig */,
+				C078DC8A11FE83F9213D93C5 /* Pods-Trackzia.debug.xcconfig */,
+				D2F009F63BF5251D9A954EB5 /* Pods-Trackzia.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -554,12 +560,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C8E315621B6F79600169421 /* Build configuration list for PBXNativeTarget "Trackzia" */;
 			buildPhases = (
-				DBB461BC2342B6D1C374DAD0 /* [CP] Check Pods Manifest.lock */,
+				A407E027B6D1ADCAA34BF49D /* [CP] Check Pods Manifest.lock */,
 				1C8E314021B6F78400169421 /* Sources */,
 				1C8E314121B6F78400169421 /* Frameworks */,
 				1C8E314221B6F78400169421 /* Resources */,
-				3273BB2BA6E94E3D246CEB13 /* [CP] Embed Pods Frameworks */,
 				5488FA30220CB56800352ADC /* Embed Frameworks */,
+				BB08BAC3A12E48D1EB490516 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -622,7 +628,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3273BB2BA6E94E3D246CEB13 /* [CP] Embed Pods Frameworks */ = {
+		A407E027B6D1ADCAA34BF49D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Trackzia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB08BAC3A12E48D1EB490516 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -644,28 +672,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trackzia/Pods-Trackzia-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DBB461BC2342B6D1C374DAD0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Trackzia-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -701,20 +707,22 @@
 				791AE89421C19E8C00BB8C28 /* ChangePasswordService.swift in Sources */,
 				54F75FC221BEEB9B007875E6 /* OtherProfileViewController.swift in Sources */,
 				1C8E314A21B6F78500169421 /* ViewController.swift in Sources */,
+				7946440322195F6D002AE634 /* OTPRegisterService.swift in Sources */,
 				79D6B4E921C2DFF900AA8A68 /* AddUpdateSeniorProfiles.swift in Sources */,
 				548FC21121C4293000A64213 /* GetAccountWiseIMEIService.swift in Sources */,
 				546AB08C21D918ED001E4F99 /* DeviceStore.swift in Sources */,
 				1C8E314821B6F78500169421 /* AppDelegate.swift in Sources */,
 				54F66B3321BB90DC00B47295 /* DashboardOptionsListViewController.swift in Sources */,
-				540E5EF321E7A05800855BF6 /* NSManagedObjectContext+Observers.swift in Sources */,
-				54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */,
 				54FD835221DB5C3D000996E5 /* DataPacket.swift in Sources */,
+				54B05DC821C6678E00597A42 /* GetAllAlertSettingsService.swift in Sources */,
+				540E5EF321E7A05800855BF6 /* NSManagedObjectContext+Observers.swift in Sources */,
 				54B05DCA21C67B3E00597A42 /* SetAlertSettingValueService.swift in Sources */,
 				79D6B4ED21C2F25300AA8A68 /* AddOtherProfileService.swift in Sources */,
 				546AB08421D918C3001E4F99 /* Managed.swift in Sources */,
 				54665BC721C1870500251267 /* GetAccountDetailsService.swift in Sources */,
 				546AB08021D918C3001E4F99 /* ActiveProfile.swift in Sources */,
 				54665BC521C1728E00251267 /* LoginService.swift in Sources */,
+				79464401221865D7002AE634 /* RegisterService.swift in Sources */,
 				79C4A56D21BBA1C400B72377 /* TZLoginVC.swift in Sources */,
 				546AB07321D91883001E4F99 /* Trackzia.xcdatamodeld in Sources */,
 				546AB08E21D91A75001E4F99 /* GeoFence.swift in Sources */,
@@ -894,7 +902,7 @@
 		};
 		1C8E315721B6F79600169421 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC313713B2FFC753C36337D0 /* Pods-Trackzia.debug.xcconfig */;
+			baseConfigurationReference = C078DC8A11FE83F9213D93C5 /* Pods-Trackzia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -917,7 +925,7 @@
 		};
 		1C8E315821B6F79600169421 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A1E6A1408F867D589773545 /* Pods-Trackzia.release.xcconfig */;
+			baseConfigurationReference = D2F009F63BF5251D9A954EB5 /* Pods-Trackzia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

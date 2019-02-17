@@ -10,6 +10,7 @@ import UIKit
 
 class TZVerifyVC: UIViewController {
 
+    @IBOutlet var txtVerification: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +18,9 @@ class TZVerifyVC: UIViewController {
     }
     
 
+    @IBAction func actionVefiryOtp(_ sender: UIButton) {
+        
+    }
     /*
     // MARK: - Navigation
 

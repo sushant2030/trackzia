@@ -40,12 +40,18 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
     @IBOutlet var stateTextField: UITextField!
     @IBOutlet var cityTextField: UITextField!
     @IBOutlet var emailIdTextField: UITextField!
-    
+    var userInteraction:Bool!
+    var btnEdit:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeAppearance()
         updateFields()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setInteractionForViews(isInteraction: userInteraction)
     }
     
     func customizeAppearance() {
@@ -56,6 +62,15 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
         
         userProfileImageView.layer.cornerRadius = 50.0
         userProfileImageView.layer.masksToBounds = true
+        
+        btnEdit = UIButton.init(type: .system)
+        btnEdit .addTarget(self, action: #selector(action(_:)), for: .touchUpInside)
+        btnEdit .setTitle("Edit", for: .normal)
+        btnEdit .setTitle("X", for: .selected)
+        let barButton = UIBarButtonItem.init(customView: btnEdit)
+        self.navigationItem.rightBarButtonItem  = barButton
+//        submitButton.isHidden = true
+        userInteraction = false
     }
     
     func updateFields() {
@@ -69,8 +84,21 @@ class UserProfileViewController: UITableViewController, PopoverPresenter {
         emailIdTextField.text = account?.emailId
     }
     
+    func setInteractionForViews(isInteraction:Bool)  {
+        for view in self.view.subviews{
+            if !view.isKind(of: UIButton.self){
+                view.isUserInteractionEnabled = isInteraction
+            }
+        }
+    }
     
     
+    @objc func action(_ sender:UIButton){
+        btnEdit.isSelected = !btnEdit.isSelected
+//        submitButton.isHidden = !btnEdit.isSelected
+        userInteraction = btnEdit.isSelected
+        setInteractionForViews(isInteraction: true)
+    }
     
     @IBAction func genderDropDownTouched(_ sender: UIButton) {
         presentOptionsPopover(withOptionItems: genderOptionItems(), from: genderTextField)

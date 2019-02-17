@@ -79,6 +79,7 @@ struct UpdateAccountDetailsServiceResult: CommunicationOperationResult, Codable 
         case success = "Success"
         case data = "Data"
     }
+    
 }
 
 

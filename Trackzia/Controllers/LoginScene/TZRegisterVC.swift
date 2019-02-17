@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import ApiManager
 
 class TZRegisterVC: UIViewController {
 
     @IBOutlet var mobileTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        mobileTextField.delegate = self;
+        mobileTextField.delegate = self
         customizingViews()
         // Do any additional setup after loading the view.
     }
@@ -31,8 +32,9 @@ class TZRegisterVC: UIViewController {
         dismiss(animated: false, completion: nil)
     }
     @IBAction func sendVerificationAction(_ sender: UIButton) {
-        let verifyVC = UIStoryboard.init(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "TZVerifyVC")
-        self.present(verifyVC, animated: false, completion: nil)
+    CommunicationManager.getCommunicator().performOpertaion(with: OTPRegisterService.init(withAccName: "", mobile: mobileTextField.text ?? "", listener: self))
+        
+        
     }
 }
 
@@ -44,6 +46,23 @@ extension TZRegisterVC : UITextFieldDelegate {
     }
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         mobileTextField.resignFirstResponder()
+        
+    }
+}
+
+//MARK: Communication Service Delegate
+extension TZRegisterVC : CommunicationResultListener
+{
+    func onSuccess(operationId: Int, operation: CommunicationOperationResult) {
+        if let otpOperation = operation as? OTPRegisterModel{
+            if otpOperation.success {
+                let verifyVC : TZVerifyVC = UIStoryboard.init(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "TZVerifyVC") as! TZVerifyVC
+                //verifyVC.txtVerification.text = otpOperation.otp
+                self.present(verifyVC, animated: false, completion: nil)
+            }
+        }
+    }
+    func onFailure(operationId: Int, error: Error, data: Data?) {
         
     }
 }

@@ -83,7 +83,7 @@ struct GeoFenceCreateUpdateModel {
     }
     
     func parameters() ->Parameters {
-        var params: Parameters = ["IMEI": imei,"Name": name, "Lat": lat, "Lng": long, "Radius": radius, "GeofenceType": type]
+        var params: Parameters = ["IMEI": "imei","Name": name, "Lat": "\(lat)", "Lng": "\(long)", "Radius": "\(radius)", "GeofenceType": type]
         if type == "GeoLock" {
             params["StartTime"] = startTime
             let components = geoEndTime.split(separator: ":")
